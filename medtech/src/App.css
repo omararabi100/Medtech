@@ -551,7 +551,56 @@ button{
 /* Contact Us */
 
 .contact-us-container {
-    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.contact-us-container input, .contact-us-container textarea {
+    border: var(--maincolor) solid 2px;
+    padding: 20px;
+    border-radius: 12px;
+}
+.contact-us-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 550px;
+}
+.contact-us-container .email-input, .contact-us-container .txt-area-msg {
+    width: 90%;
+}
+.txt-area-msg {
+    resize: none;
+}
+.name-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.name-container input {
+    width: 40%;
+}
+.name-container input:nth-child(1) {
+    width: 40%;
+    margin-left: 9px;
+}
+
+.name-container input:nth-child(2) {
+    width: 40%;
+    margin-right: 9px;
+}
+.send-btn {
+    width: 98%;
+    margin-top: 20px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--darkblue);
+    color: white;
+    height: 50px;
+    font-size: 1.5rem;
 }
 
 /* Footer */
@@ -690,6 +739,9 @@ button{
     .details-div{
         /* display: none; */
     }
+    .contact-us-container .home-container-description-img{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 963px) {
@@ -715,5 +767,50 @@ button{
     }
     .footer-div > div{
         height: 170px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .contact-us-container form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 550px;
+    }
+    .contact-us-container .email-input, .contact-us-container .txt-area-msg {
+        width: 90%;
+    }
+    .txt-area-msg {
+        resize: none;
+    }
+    .name-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .name-container input {
+        width: 40%;
+    }
+    .name-container input:nth-child(1) {
+        width: 40%;
+        margin-left: 9px;
+    }
+    
+    .name-container input:nth-child(2) {
+        width: 40%;
+        margin-right: 9px;
+    }
+    .send-btn {
+        width: 98%;
+        margin-top: 20px;
+        border-radius: 12px;
+        border: none;
+        background-color: var(--darkblue);
+        color: white;
+        height: 50px;
+        font-size: 1.5rem;
     }
 }

@@ -9,6 +9,7 @@ import CallNow from './components/CallNow';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Score_predicted from './components/Score_predicted';
+import Footer from './components/Footer';
 function App() {
   const [count, setCount] = useState(0)
   // gfbgfmjh,j
@@ -26,6 +27,7 @@ function App() {
                 <Route path="score_predicted" element={<Score_predicted />} />
 
             </Routes>
+        <Footer />
     </div>
   )
 }
