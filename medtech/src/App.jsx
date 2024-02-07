@@ -11,7 +11,7 @@ import ContactUs from './components/ContactUs';
 import Score_predicted from './components/Score_predicted';
 function App() {
   const [count, setCount] = useState(0)
-
+  // gfbgfmjh,j
   return (
     <div className='main-container'>
         <Header />
