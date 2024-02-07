@@ -550,6 +550,19 @@ button{
 
 /* Contact Us */
 
+.contact-us-title {
+    font-weight: 100;
+    margin-bottom: 40px;
+    text-align: center;
+    margin-top: 40px;
+}
+.contact-us-title span {
+    text-decoration: underline 0.5px;
+    text-underline-offset: 7px;
+    text-decoration-color: var(--beige);
+    font-weight: 700;
+    color: #2B2F44;
+}
 .contact-us-container {
     display: flex;
     flex-direction: row;
@@ -584,13 +597,13 @@ button{
     width: 40%;
 }
 .name-container input:nth-child(1) {
-    width: 40%;
-    margin-left: 9px;
+    width: 39%;
+    margin-left: 6px;
 }
 
 .name-container input:nth-child(2) {
-    width: 40%;
-    margin-right: 9px;
+    width: 39%;
+    margin-right: 6px;
 }
 .send-btn {
     width: 98%;
@@ -601,6 +614,35 @@ button{
     color: white;
     height: 50px;
     font-size: 1.5rem;
+}
+.contact-us-container img {
+    margin-left: 5%;
+    width: 392px !important;
+    height: 433px !important;
+}
+
+/* Terms and Condition */
+
+.terms-and-conditions-container {
+    margin: 50px 10%;
+}
+.terms-and-conditions-container h1 span {
+    text-decoration: underline 0.5px;
+    text-underline-offset: 7px;
+    text-decoration-color: var(--beige);
+    font-weight: 700;
+    color: #2B2F44;
+}
+.terms-and-conditions-container h1 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.terms-and-conditions-container h2 {
+    margin-bottom: 10px;
+    font-size: large;
+}
+.terms-and-conditions-container p {
+    margin-bottom: 20px;
 }
 
 /* Footer */
@@ -770,15 +812,12 @@ button{
     }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 600px) {
     .contact-us-container form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 550px;
+        width: 350px;
     }
     .contact-us-container .email-input, .contact-us-container .txt-area-msg {
-        width: 90%;
+        width: 88%;
     }
     .txt-area-msg {
         resize: none;
@@ -788,20 +827,20 @@ button{
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
     .name-container input {
-        width: 40%;
+        width: 35%;
     }
     .name-container input:nth-child(1) {
-        width: 40%;
-        margin-left: 9px;
+        width: 35%;
+        margin-left: 0px;
     }
     
     .name-container input:nth-child(2) {
-        width: 40%;
-        margin-right: 9px;
+        width: 35%;
+        margin-right: -1px;
     }
     .send-btn {
         width: 98%;

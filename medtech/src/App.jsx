@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Score_predicted from './components/Score_predicted';
 import Footer from './components/Footer';
+import TermsAndConditions from './components/TermsAndConditions';
 function App() {
   const [count, setCount] = useState(0)
   // gfbgfmjh,j
@@ -25,6 +26,7 @@ function App() {
                 <Route path="about-us" element={<AboutUs />} />
                 <Route path="contact-us" element={<ContactUs />} />
                 <Route path="score_predicted" element={<Score_predicted />} />
+                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
 
             </Routes>
         <Footer />

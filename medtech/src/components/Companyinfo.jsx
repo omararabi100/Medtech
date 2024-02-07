@@ -7,7 +7,7 @@ const CompanyInfo = () => {
             <h4>Company Info</h4>
             <ul>
                 <li><Link to="/">About Us</Link></li>
-                <li><Link to="/">Terms and Conditions</Link></li>
+                <li><Link to="terms-and-conditions">Terms and Conditions</Link></li>
                 <li><Link to="/">Privacy</Link></li>
             </ul>
         </div>
