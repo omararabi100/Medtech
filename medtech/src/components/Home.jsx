@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { images } from "../../image";
-import { initSqlJs, initializeDatabase, createDatabase } from "./database"; // Import initSqlJs, initializeDatabase, and createDatabase from database.js
+// import { initSqlJs, initializeDatabase, createDatabase } from "./database"; // Import initSqlJs, initializeDatabase, and createDatabase from database.js
 import MedicalService from "./MedicalService";
 import ExpertDerm from "./ExpertDerm";
 import Footer from "./Footer";
@@ -24,12 +24,12 @@ const Home = () => {
             image: images.Julian4,
         }
     ]
-    useEffect(() => {
-        const initializeDB = async () => {
-            const db = await initializeDatabase(); // Call the function to initialize the database
-        };
-        initializeDB(); // Call the async function
-    }, []);
+    // useEffect(() => {
+    //     const initializeDB = async () => {
+    //         const db = await initializeDatabase(); // Call the function to initialize the database
+    //     };
+    //     initializeDB(); // Call the async function
+    // }, []);
 
     return (
         <div className="Main-Container">
@@ -107,7 +107,7 @@ const Home = () => {
                     ))}
                 </div>
             </div>
-            
+            <Footer />
         </div>
     )
 }

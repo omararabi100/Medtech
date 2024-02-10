@@ -1,72 +1,115 @@
-// Login.jsx
-import React from "react";
+import React, { useState } from "react";
 import $ from "jquery";
 
-const Login = ({ openSignup }) => { // Destructure props object to access openSignup function
-    
-    const [formdata, setformdata] = React.useState({
-        email:"" , 
-        password :"",
+const Login = ({ openSignup, onLogin, closePopups }) => {
+    const [formdata, setformdata] = useState({
+        email: "",
+        password: "",
+    });
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [allFieldsEmptyError, setAllFieldsEmptyError] = useState(false);
 
-    })
-
-    function handlechange(event) {
+    function handleChange(event) {
         const { name, value } = event.target;
-        setformdata((prevformdata) => ({
-            ...prevformdata,
+        setformdata(prevFormData => ({
+            ...prevFormData,
             [name]: value,
         }));
-        console.log(formdata)
-
+        
     }
-    
-    function handlesubmit(event){
-        if(email === 0){
-            alert("email is left blank ")
-        }
-        if(password === 0){
-            alert("password is left blank ")
-        }
-        else{
-            alert("all fields are empty")
-        }
+
+    function handleSubmit(event) {
         event.preventDefault();
-        const form = $(e.target);
+        const { email, password } = formdata;
+        // Reset errors
+        setEmailError(false);
+        setPasswordError(false);
+        setErrorMessage("");
+        
+        // Check if all fields are empty
+        if (email === "" && password ==="") {
+            setAllFieldsEmptyError(true);
+        } else {
+            setAllFieldsEmptyError(false);
+        }
+    
         $.ajax({
             type: "POST",
-            url: form.attr("action"),
-            data: form.serialize(),
+            url: "http://localhost:8000/server.php",
+            data: $(event.target).serialize(),
             success(data) {
-                setResult(data);
+                console.log("data" + data)
+                console.log("data error" + data.error)
+                if (data.error && !setAllFieldsEmptyError) {
+                    if (data.error === "Invalid email") {
+                        setEmailError(true);
+                        setErrorMessage("Email is incorrect.");
+                    } else if (data.error === "Invalid password") {
+                        setPasswordError(true);
+                        setErrorMessage("Password is incorrect.");
+                    }
+                } else {
+                    onLogin(data.name);
+                    closePopups();
+                }
+            },
+            error(err) {
+                console.error("Error:", err);
+                if (err.status === 401) {
+                    setPasswordError(true);
+                    setErrorMessage("Password is incorrect.");
+                } 
+                else if (err.status === 400) {
+                    setEmailError(true);
+                    setErrorMessage("Email is incorrect.");
+                } 
+                else {
+                    alert("An error occurred. Please try again later.");
+                }
             },
         });
     }
+    
     return (
         <div>
             <h1>Login</h1>
-            <form action="http://localhost:8000/server.php"
+            <form
+                action="http://localhost:8000/server.php"
                 method="post"
-                onSubmit={(event) => handleSubmit(event)}>
-                <input 
+                onSubmit={handleSubmit}
+            >
+                <input
                     type="email"
-                    placeholder="email"
+                    placeholder="Email"
                     name="email"
-                    onChange={handlechange}
+                    onChange={handleChange}
                     value={formdata.email}
-                    />                <input 
+                    style={{ borderColor: emailError ? "red" : "" }}
+                />
+                {allFieldsEmptyError? null:emailError && <div style={{ color: "red" }}>{errorMessage}</div>}
+                <input
                     type="password"
-                    placeholder="Password "
+                    placeholder="Password"
                     name="password"
-                    onChange={handlechange}
+                    onChange={handleChange}
                     value={formdata.password}
-                    />                
-                    <button>LogIn</button>
+                    style={{ borderColor: passwordError ? "red" : "" }}
+                />
+                {allFieldsEmptyError? null: passwordError && <div style={{ color: "red" }}>{errorMessage}</div>}
+                {allFieldsEmptyError && <div style={{ color: "red" }}>All fields are empty.</div>}
+                <button type="submit">Login</button>
             </form>
-            <p>Don't have an account?
+            <p>
+                Don't have an account?
                 <br />
-                <a href="#" onClick={openSignup}>Sign Up</a></p>
+                <a href="#" onClick={openSignup}>
+                    Sign Up
+                </a>
+            </p>
         </div>
     );
-}
+};
 
 export default Login;

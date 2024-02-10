@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -6,6 +6,7 @@ import Signup from "./Signup";
 const Header = () => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isSignupOpen, setIsSignupOpen] = useState(false);
+    const [user, setUser] = useState(null);
 
     const toggleLogin = () => {
         setIsLoginOpen(!isLoginOpen);
@@ -22,6 +23,24 @@ const Header = () => {
         setIsSignupOpen(false);
     };
 
+    const handleLogin = (username) => {
+        setUser(username);
+        localStorage.setItem("user", username);
+    };
+
+    const handleLogout = () => {
+        setUser(null);
+        localStorage.removeItem("user");
+    };
+
+    useEffect(() => {
+        // Check if user is already logged in on page load
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(storedUser);
+        }
+    }, []);
+
     return (
         <div className="Header-container">
             <div className="nav-bar">
@@ -35,10 +54,17 @@ const Header = () => {
                         <li><Link to="/about-us">About Us</Link></li>
                         <li><Link to="/contact-us">Contact</Link></li>
                     </ul>
-                    <div>
-                        <button className="login-btn" onClick={toggleLogin}>LogIn</button>
-                        <button className="signup-btn" onClick={toggleSignup}>SignUp</button>
-                    </div>
+                    {user ? (
+                        <div>
+                            <p>Hello, {user}!</p>
+                            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <div>
+                            <button className="login-btn" onClick={toggleLogin}>LogIn</button>
+                            <button className="signup-btn" onClick={toggleSignup}>SignUp</button>
+                        </div>
+                    )}
                 </div>
             </div>
             {(isLoginOpen || isSignupOpen) && (
@@ -47,12 +73,12 @@ const Header = () => {
                         <div className="popup-content">
                             {isLoginOpen && (
                                 <div key="login">
-                                    <Login openSignup={toggleSignup}/>
+                                    <Login openSignup={toggleSignup} onLogin={handleLogin} closePopups={closePopups}/>
                                 </div>
                             )}
                             {isSignupOpen && (
                                 <div key="signup">
-                                    <Signup openLogin={toggleLogin} />
+                                    <Signup openLogin={toggleLogin} closePopups={closePopups} />
                                 </div>
                             )}
                         </div>
