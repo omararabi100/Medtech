@@ -31,8 +31,18 @@ $admin_password = "admin";
 $hashed_admin_password = password_hash($admin_password, PASSWORD_DEFAULT);
 
 // Insert admin user
-$sql_insert_admin = "INSERT INTO users (full_name, email, password, phone_nb) VALUES ('Admin', 'admin@admin.com', '$hashed_admin_password', '78905441')";
-$conn->query($sql_insert_admin);
+$admin_full_name = "Admin";
+$admin_email = "admin@admin.com";
+$admin_phone_nb = "78905441";
+
+// Check if the admin user already exists
+$sql_check_admin = "SELECT 1 FROM users WHERE email = '$admin_email' LIMIT 1";
+$result_check_admin = $conn->query($sql_check_admin);
+
+if (!$result_check_admin || $result_check_admin->num_rows === 0) {
+    // Admin user doesn't exist, insert it
+    $sql_insert_admin = "INSERT INTO users (full_name, email, password, phone_nb) VALUES ('$admin_full_name', '$admin_email', '$hashed_admin_password', '$admin_phone_nb')";
+}
 
 // Close the connection
 $conn->close();
