@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import $ from "jquery";
 
-const Signup = ({ openLogin ,onSign, closePopups }) => {
+const Signup = ({ openLogin }) => {
     const [formdata, setFormdata] = useState({
         fullname: "",
         email: "",
@@ -65,15 +65,14 @@ const Signup = ({ openLogin ,onSign, closePopups }) => {
                         errorMessage: data.error,
                     });
                 } else {
-                    onSign(data.name);
-                    closePopups();
+                    console.log("Form submitted:", formdata);
                 }
             },
             error: function(xhr, status, error) {
                 console.error("Error:", error);
                 setErrors({
                     ...errors,
-                    errorMessage: "Email is already used",
+                    errorMessage: "Email already exists",
                 });
             },
         });
@@ -89,8 +88,6 @@ const Signup = ({ openLogin ,onSign, closePopups }) => {
                     name="fullname"
                     onChange={handleChange}
                     value={formdata.fullname}
-                    style={{ borderColor: errors.errorMessage ? "red" : "" }}
-
                 />
                 <input
                     type="email"
@@ -98,8 +95,6 @@ const Signup = ({ openLogin ,onSign, closePopups }) => {
                     name="email"
                     onChange={handleChange}
                     value={formdata.email}
-                    style={{ borderColor: errors.errorMessage ? "red" : "" }}
-
                 />
                 <input
                     type="password"
@@ -107,8 +102,6 @@ const Signup = ({ openLogin ,onSign, closePopups }) => {
                     name="password"
                     onChange={handleChange}
                     value={formdata.password}
-                    style={{ borderColor: errors.errorMessage ? "red" : "" }}
-
                 />
                 <input
                     type="tel"
@@ -116,8 +109,6 @@ const Signup = ({ openLogin ,onSign, closePopups }) => {
                     name="phone_nb"
                     onChange={handleChange}
                     value={formdata.phone_nb}
-                    style={{ borderColor: errors.errorMessage ? "red" : "" }}
-
                 />
                 {errors.errorMessage && <div style={{ color: "red" }}>{errors.errorMessage}</div>}
                 <button type="submit">Sign Up</button>

@@ -1,62 +1,43 @@
 <?php
 // Allow requests from localhost:5173
 header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json');
-
+header('Access-Control-Allow-Methods: POST'); // Allow only POST requests
+header('Access-Control-Allow-Headers: Content-Type'); // Allow Content-Type header
+header('Content-Type: application/json'); // Set response content type to JSON
 
 require("config.php");
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $fullname = $_POST["fullname"];
-    $phone_nb = $_POST["phone_nb"];
 
-    // Debugging: Log received data
-    error_log("Received data: email=$email, password=$password, fullname=$fullname, phone_nb=$phone_nb");
+    // Sanitize inputs to prevent SQL injection
+    $email = mysqli_real_escape_string($conn, $email);
 
-    // Check if the email already exists in the database
+    // Query to retrieve user data by email
     $sql = "SELECT * FROM users WHERE email = '$email'";
-    error_log("SQL query: $sql");
-    $result_email = $conn->query($sql);
-    error_log("SQL query result: " . print_r($result_email, true)); // Check the result of the query execution
+    $result = $conn->query($sql);
 
-    if ($result_email) {
-        if ($result_email->num_rows > 0) {
-            // Email already exists
-            http_response_code(400); // Bad Request
-            echo json_encode(["error" => "Email already exists"]);
+    if ($result->num_rows > 0) {
+        // User exists, verify password
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user["password"])) {
+            // Password is correct, return user's name
+            echo json_encode(["name" => $user["full_name"]]);
             exit;
         } else {
-            // Insert the new user into the database
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
-            $insert_sql = "INSERT INTO users (full_name, email, password, phone_nb) VALUES ('$fullname', '$email', '$hashed_password', '$phone_nb')";
-            error_log("Insert SQL query: $insert_sql");
-            if ($conn->query($insert_sql) === TRUE) {
-                // User successfully inserted
-                http_response_code(201); // Created
-                echo json_encode(["message" => "User created successfully"]);
-                exit;
-            } else {
-                // Error inserting user
-                http_response_code(500); // Internal Server Error
-                echo json_encode(["error" => "Error creating user: " . $conn->error]);
-                exit;
-            }
+            // Password is incorrect
+            http_response_code(401); // Unauthorized
+            echo json_encode(["error" => "Invalid password"]);
+            exit;
         }
     } else {
-        // Error executing the query
-        http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Error executing query: " . $conn->error]);
+        // Email not found in the database
+        http_response_code(400); // Bad Request
+        echo json_encode(["error" => "Invalid email"]);
         exit;
     }
 }
 
-// Invalid request method
-http_response_code(405); // Method Not Allowed
-echo json_encode(["error" => "Method Not Allowed"]);
 ?>

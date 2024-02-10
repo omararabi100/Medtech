@@ -78,7 +78,7 @@ const Header = () => {
                             )}
                             {isSignupOpen && (
                                 <div key="signup">
-                                    <Signup openLogin={toggleLogin} closePopups={closePopups} />
+                                    <Signup openLogin={toggleLogin} />
                                 </div>
                             )}
                         </div>
