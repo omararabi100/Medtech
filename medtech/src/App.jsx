@@ -9,11 +9,9 @@ import CallNow from './components/CallNow';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Score_predicted from './components/Score_predicted';
-import Footer from './components/Footer';
-import TermsAndConditions from './components/TermsAndConditions';
+import Admin from './components/Admin';
 function App() {
-  const [count, setCount] = useState(0)
-  // gfbgfmjh,j
+
   return (
     <div className='main-container'>
         <Header />
@@ -26,10 +24,9 @@ function App() {
                 <Route path="about-us" element={<AboutUs />} />
                 <Route path="contact-us" element={<ContactUs />} />
                 <Route path="score_predicted" element={<Score_predicted />} />
-                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="admin-page" element={<Admin />} />
 
             </Routes>
-        <Footer />
     </div>
   )
 }
