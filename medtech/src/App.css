@@ -16,6 +16,10 @@
 button{
     cursor: pointer;
 }
+input:focus {
+    outline: none;
+    border-color: var(--secondarycolor);
+}
 /*--- Nav Bar ---*/
 
 .nav-content {
@@ -643,6 +647,104 @@ button{
 }
 .terms-and-conditions-container p {
     margin-bottom: 20px;
+}
+
+/* admin */
+.admin-container {
+    display: flex;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.admin-container table {
+    flex: 1;
+    max-width: calc(50% - 20px);
+    border-radius: 10px;
+    overflow: hidden; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+    border-spacing: 0; 
+}
+
+.admin-container thead tr {
+    background-color: var(--maincolor); 
+}
+.admin-container thead tr th{
+    color:#ffffff ;
+}
+
+.admin-container th,
+.admin-container td {
+    padding: 12px 15px;
+}
+
+.admin-container tbody {
+    max-height: calc(100vh - 200px); 
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.admin-container tbody::-webkit-scrollbar {
+    width: 0;
+}
+
+.admin-container tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.admin-container tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.admin-container table button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border: 0px solid transparent;
+    background-color: rgba(100,77,237,0.08);
+    border-radius: 1.25em;
+    transition: all 0.2s linear;
+}
+.admin-container form {
+    flex: 1;
+    max-width: calc(50% - 20px); 
+    margin-left: 20px; 
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.admin-container form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.admin-container form input:focus {
+    outline: none;
+    border-color: var(--secondarycolor);
+}
+
+.admin-container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-container form button:hover {
+    background-color: var(--secondarycolor);
 }
 
 /* Footer */

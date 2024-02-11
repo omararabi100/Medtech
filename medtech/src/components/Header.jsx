@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -7,6 +7,7 @@ const Header = () => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isSignupOpen, setIsSignupOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const toggleLogin = () => {
         setIsLoginOpen(!isLoginOpen);
@@ -31,6 +32,7 @@ const Header = () => {
     const handleLogout = () => {
         setUser(null);
         localStorage.removeItem("user");
+        navigate("/"); // Navigate to the home page after logout
     };
 
     useEffect(() => {
@@ -53,6 +55,7 @@ const Header = () => {
                         <li><Link to="/call-now">Call Now</Link></li>
                         <li><Link to="/about-us">About Us</Link></li>
                         <li><Link to="/contact-us">Contact</Link></li>
+                        {user && user === "Admin" && <li><Link to="/admin-page">Admin Page</Link></li>}
                     </ul>
                     {user ? (
                         <div>

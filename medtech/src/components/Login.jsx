@@ -40,8 +40,6 @@ const Login = ({ openSignup, onLogin, closePopups }) => {
             url: "http://localhost:8000/server.php",
             data: $(event.target).serialize(),
             success(data) {
-                console.log("data" + data)
-                console.log("data error" + data.error)
                 if (data.error && !setAllFieldsEmptyError) {
                     if (data.error === "Invalid email") {
                         setEmailError(true);

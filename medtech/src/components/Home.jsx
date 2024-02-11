@@ -4,7 +4,6 @@ import { images } from "../../image";
 import MedicalService from "./MedicalService";
 import ExpertDerm from "./ExpertDerm";
 import Footer from "./Footer";
-import axios from 'axios'
 const Home = () => {
     const doctors = [
         {
