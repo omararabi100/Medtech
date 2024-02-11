@@ -13,11 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $fullname = $_POST["fullname"];
+    $fullname = $_POST["full_name"];
     $phone_nb = $_POST["phone_nb"];
 
     // Debugging: Log received data
-    error_log("Received data: email=$email, password=$password, fullname=$fullname, phone_nb=$phone_nb");
+    error_log("Received data: email=$email, password=$password, full_name=$full_name, phone_nb=$phone_nb");
 
     // Check if the email already exists in the database
     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -39,7 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($conn->query($insert_sql) === TRUE) {
                 // User successfully inserted
                 http_response_code(201); // Created
-                echo json_encode(["message" => "User created successfully"]);
+                echo json_encode(["message" => "User created successfully", "full_name" => $fullname]);
+
                 exit;
             } else {
                 // Error inserting user

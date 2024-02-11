@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import $ from "jquery";
 
-const Signup = ({ openLogin }) => {
+const Signup = ({ openLogin , onSign, closePopups  }) => {
     const [formdata, setFormdata] = useState({
-        fullname: "",
+        full_name: "",
         email: "",
         password: "",
         phone_nb: "",
@@ -27,10 +27,12 @@ const Signup = ({ openLogin }) => {
             [`${name}Error`]: false, // Reset error when input changes
         }));
     }
+    
+    
 
     function handleSubmit(event) {
         event.preventDefault();
-        const { fullname, email, password, phone_nb } = formdata;
+        const { full_name, email, password, phone_nb } = formdata;
 
         // Reset errors
         setErrors({
@@ -42,7 +44,7 @@ const Signup = ({ openLogin }) => {
         });
 
         // Check for empty fields
-        if (!fullname || !email || !password || !phone_nb) {
+        if (!full_name || !email || !password || !phone_nb) {
             setErrors({
                 ...errors,
                 errorMessage: "All fields are required",
@@ -54,10 +56,7 @@ const Signup = ({ openLogin }) => {
         $.ajax({
             type: "POST",
             url: "http://localhost:8000/signup.php",
-            data: $(event.target).serialize(),       
-            // data: JSON.stringify(formdata),
-            // dataType: "json",
-            // contentType: "application/json",
+            data: formdata, // Pass formdata directly
             success(data) {
                 if (data.error) {
                     setErrors({
@@ -65,10 +64,13 @@ const Signup = ({ openLogin }) => {
                         errorMessage: data.error,
                     });
                 } else {
-                    console.log("Form submitted:", formdata);
+                    console.log(data.full_name);
+                    console.log(data);
+                    onSign(data.full_name);
+                    closePopups();
                 }
             },
-            error: function(xhr, status, error) {
+            error: function(error) {
                 console.error("Error:", error);
                 setErrors({
                     ...errors,
@@ -76,18 +78,23 @@ const Signup = ({ openLogin }) => {
                 });
             },
         });
+        
+        
     }
 
     return (
         <div>
             <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
+            <form 
+                action="http://localhost:8000/signup.php"
+                method="post"
+                onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Full name"
-                    name="fullname"
+                    name="full_name"
                     onChange={handleChange}
-                    value={formdata.fullname}
+                    value={formdata.full_name}
                 />
                 <input
                     type="email"
