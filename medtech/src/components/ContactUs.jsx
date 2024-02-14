@@ -2,6 +2,7 @@ import React from "react";
 import { images } from "../../image";
 
 const ContactUs = () => {
+    const hello = "hello"
     return (
         <>
             <h1 className="contact-us-title"><span>Contact Us</span></h1>
