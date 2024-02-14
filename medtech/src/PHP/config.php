@@ -30,15 +30,33 @@ $adminPassword = password_hash("admin", PASSWORD_DEFAULT);
 // Insert the admin user into the database
 $sql_insert_admin = "INSERT INTO users (full_name, email, password, phone_nb) VALUES ('Admin', 'admin@admin.com', '$adminPassword', 78905441)";
 
-// Create doctors table
-$sql_doctors = "CREATE TABLE IF NOT EXISTS doctors (
+// Drop the first doctors table if it exists
+// $sql_drop_doctors = "DROP TABLE IF EXISTS doctors";
+
+// Create the second doctors table
+$sql_create_doctors = "CREATE TABLE IF NOT EXISTS doctors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
-    time_slot VARCHAR(100),
-    date_available DATE, 
-    phone_nb  CHAR(10) NOT NULL
+    starting_time VARCHAR(100),
+    ending_time VARCHAR(100),
+    date_available VARCHAR(50) NOT NULL,
+    phone_nb CHAR(10) NOT NULL,
+    starting_date DATE NOT NULL
+
 )";
+
+// Execute queries
+// $conn->query($sql_create_db);
+// $conn->query($sql_drop_doctors);
+
+// if ($conn->query($sql_create_doctors) === TRUE) {
+//     echo "Table 'doctors' created successfully";
+// } else {
+//     echo "Error creating table: " . $conn->error;
+// }
 
 // Close the connection
 // $conn->close();
+
+
 ?>

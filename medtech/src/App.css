@@ -669,13 +669,16 @@ input:focus {
 .admin-container thead tr {
     background-color: var(--maincolor); 
 }
-.admin-container thead tr th{
-    color:#ffffff ;
+
+.admin-container th {
+    padding: 12px 15px;
+    text-align: left;
+    color: #ffffff; /* Set text color to white */
 }
 
-.admin-container th,
 .admin-container td {
     padding: 12px 15px;
+    text-align: left;
 }
 
 .admin-container tbody {
@@ -696,44 +699,74 @@ input:focus {
 .admin-container tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
-.admin-container table button{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    border: 0px solid transparent;
-    background-color: rgba(100,77,237,0.08);
-    border-radius: 1.25em;
-    transition: all 0.2s linear;
+
+.admin-container table button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(100, 77, 237, 0.08);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #4a4a4a;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
 }
+
+.admin-container table button:hover {
+    background-color: rgba(100, 77, 237, 0.2);
+    color: #333333;
+}
+
 .admin-container form {
     flex: 1;
-    max-width: calc(50% - 20px); 
-    margin-left: 20px; 
+    /* max-width: calc(50% - 20px);  */
+    /* margin-left: 20px;  */
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.admin-container form input {
-    width: 100%;
+.admin-container .containers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+
+}
+.admin-container .containers>*{
+    flex: 1 1 200px;
+}
+
+.admin-container form div:nth-child(4){
+    display: flex;
+    justify-content: space-around;
+    flex-wrap:wrap ;
+    margin: 20px;
+}
+
+.admin-container form input[type="text"],
+.admin-container form input[type="date"],
+.admin-container form input[type="time"],
+.admin-container form input[type="tel"] {
+    /* width: 100%; */
     padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s ease;
 }
 
-.admin-container form input:focus {
-    outline: none;
-    border-color: var(--secondarycolor);
+.admin-container form .time-inputs {
+    display: flex;
+    justify-content: space-between;
 }
 
 .admin-container form button {
-    width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: var(--maincolor);
     color: #fff;
     border: none;
@@ -741,12 +774,26 @@ input:focus {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: fit-content;
+    margin: 20px auto;
 }
 
 .admin-container form button:hover {
     background-color: var(--secondarycolor);
 }
-
+.admin-container form label {
+    margin: 10px; 
+}
+.admin-container form input[type="checkbox"]{
+    width: 45px;
+}
+.admin-container form>label:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+}
+.admin-container form label input{
+    margin: 5px 0;
+}
 /* Footer */
 
 .footer {
