@@ -8,7 +8,7 @@ const CompanyInfo = () => {
             <ul>
                 <li><Link to="/">About Us</Link></li>
                 <li><Link to="terms-and-conditions">Terms and Conditions</Link></li>
-                <li><Link to="/">Privacy</Link></li>
+                <li><Link to="privacy-policy">Privacy</Link></li>
             </ul>
         </div>
     )

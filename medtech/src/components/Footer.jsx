@@ -15,8 +15,8 @@ const Footer = () => {
                 <h2>Med<span>Tech</span></h2>
             <div className="footer-div-container">
                 <div className="footer-div">
-                        <CompanyInfo />
-                        <Support />
+                    <CompanyInfo />
+                    <Support />
                 </div>
                 <div className="footer-div">
                     <Features />

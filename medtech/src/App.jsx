@@ -10,6 +10,10 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Score_predicted from './components/Score_predicted';
 import Admin from './components/Admin';
+import TermsAndConditions from './components/TermsAndConditions';
+import Footer from './components/Footer';
+import PrivacyPolicy from './components/PrivacyPolicy';
+
 function App() {
 
   return (
@@ -25,8 +29,11 @@ function App() {
                 <Route path="contact-us" element={<ContactUs />} />
                 <Route path="score_predicted" element={<Score_predicted />} />
                 <Route path="admin-page" element={<Admin />} />
+                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
 
             </Routes>
+            <Footer />
     </div>
   )
 }

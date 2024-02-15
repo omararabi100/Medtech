@@ -627,25 +627,28 @@ input:focus {
 
 /* Terms and Condition */
 
-.terms-and-conditions-container {
-    margin: 50px 10%;
+.terms-and-conditions-container, .privacy-policy-container {
+    margin: 50px 15%;
 }
-.terms-and-conditions-container h1 span {
+.terms-and-conditions-container h1 span, .privacy-policy-container h1 span {
     text-decoration: underline 0.5px;
     text-underline-offset: 7px;
     text-decoration-color: var(--beige);
     font-weight: 700;
     color: #2B2F44;
 }
-.terms-and-conditions-container h1 {
+.terms-and-conditions-container h1, .privacy-policy-container h1 {
     margin-bottom: 30px;
     text-align: center;
 }
-.terms-and-conditions-container h2 {
+.terms-and-conditions-container h2, .privacy-policy-container h2 {
     margin-bottom: 10px;
     font-size: large;
 }
-.terms-and-conditions-container p {
+.terms-and-conditions-container p, .privacy-policy-container p {
+    margin-bottom: 20px;
+}
+.privacy-policy-container ul {
     margin-bottom: 20px;
 }
 
@@ -1000,5 +1003,8 @@ input:focus {
         color: white;
         height: 50px;
         font-size: 1.5rem;
+    }
+    .terms-and-conditions-container, .privacy-policy-container {
+        margin: 50px 5%;
     }
 }
