@@ -15,11 +15,23 @@ import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import FAQs from './components/FAQs';
 import Article from './components/Article';
+import SideBar from './components/Sidebar';
 
 function App() {
+    const [translateXValue, setTranslateXValue] = useState(-100.5)
+    const showHide = () => {
+        if (translateXValue === 0) {
+            setTranslateXValue(-100.5)
+            setOverlay('none')
+          } else {
+            setTranslateXValue(0)
+            setOverlay('block')
+          }
+    }
     return (
         <div className='main-container'>
-            <Header />
+            <Header showHide={showHide}/>
+            <SideBar showHide={showHide} translateXValue={translateXValue}/>
             <Routes>
                 <Route path="" element={<Home />} />
                 <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />

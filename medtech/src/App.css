@@ -153,6 +153,30 @@ input:focus {
 
 }
 
+/* Side bar */
+.logo-list {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+}
+.logo-nav, .logo-side, .logo-about {
+    width: 45px;    
+    height: 45px;
+}
+.side-bar-container {
+    position: fixed;
+    z-index: 20;
+    background-color: white;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 25%;
+    min-width: 250px;
+    transform: translateX(0%);
+    overflow: hidden;
+}
+
+
 /*--- Home ---*/
 .Main-Container {
     display: flex;

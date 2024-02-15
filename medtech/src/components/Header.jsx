@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import Login from "./Login";
 import Signup from "./Signup";
 
-const Header = () => {
+const Header = ({showHide}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isSignupOpen, setIsSignupOpen] = useState(false);
     const [user, setUser] = useState(null);
@@ -46,6 +46,7 @@ const Header = () => {
     return (
         <div className="Header-container">
             <div className="nav-bar">
+                {/* <button onClick={showHide}>O</button> */}
                 <h2>Med<span>Tech</span></h2>
                 <div className="nav-content">
                     <ul>
