@@ -13,27 +13,27 @@ import Admin from './components/Admin';
 import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import FAQs from './components/FAQs';
 
 function App() {
 
   return (
     <div className='main-container'>
         <Header />
-            <Routes>
-                
-                <Route path="" element={<Home />} />
-                <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
-                <Route path="get-checked" element={<GetChecked />} />
-                <Route path="call-now" element={<CallNow />} />
-                <Route path="about-us" element={<AboutUs />} />
-                <Route path="contact-us" element={<ContactUs />} />
-                <Route path="score_predicted" element={<Score_predicted />} />
-                <Route path="admin-page" element={<Admin />} />
-                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-                <Route path="privacy-policy" element={<PrivacyPolicy />} />
-
-            </Routes>
-            <Footer />
+        <Routes>
+            <Route path="" element={<Home />} />
+            <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
+            <Route path="get-checked" element={<GetChecked />} />
+            <Route path="call-now" element={<CallNow />} />
+            <Route path="about-us" element={<AboutUs />} />
+            <Route path="contact-us" element={<ContactUs />} />
+            <Route path="score_predicted" element={<Score_predicted />} />
+            <Route path="admin-page" element={<Admin />} />
+            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="faqs" element={<FAQs />} />
+        </Routes>
+        <Footer />
     </div>
   )
 }

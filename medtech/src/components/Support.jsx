@@ -6,7 +6,7 @@ const Support = () => {
         <div>
             <h4>Support</h4>
             <ul>
-                <li><Link to="/">FAQ</Link></li>
+                <li><Link to="faqs">FAQ</Link></li>
                 <li><Link to="contact-us">Contact</Link></li>
             </ul>
         </div>
