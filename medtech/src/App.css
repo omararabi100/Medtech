@@ -625,27 +625,53 @@ input:focus {
     height: 433px !important;
 }
 
-/* Terms and Condition, Privacy Policy, FAQs */
+/* Terms and Condition, Privacy Policy, FAQs, Article */
 
-.terms-and-conditions-container, .privacy-policy-container, .faqs-container {
+.terms-and-conditions-container,
+.privacy-policy-container,
+.faqs-container,
+.article-container {
     margin: 50px 15%;
 }
-.terms-and-conditions-container h1 span, .privacy-policy-container h1 span, .faqs-container h1 span{
+.terms-and-conditions-container h1 span,
+.privacy-policy-container h1 span,
+.faqs-container h1 span,
+.article-container h1 span{
     text-decoration: underline 0.5px;
     text-underline-offset: 7px;
     text-decoration-color: var(--beige);
     font-weight: 700;
     color: #2B2F44;
 }
-.terms-and-conditions-container h1, .privacy-policy-container h1, .faqs-container h1 {
+.terms-and-conditions-container h1,
+.privacy-policy-container h1,
+.faqs-container h1,
+.article-container h1 {
     margin-bottom: 30px;
     text-align: center;
 }
-.terms-and-conditions-container h2, .privacy-policy-container h2, .faqs-container h2 {
+.terms-and-conditions-container h2,
+.privacy-policy-container h2,
+.faqs-container h2,
+.article-container h2 {
     margin-bottom: 10px;
     font-size: large;
 }
-.terms-and-conditions-container p, .privacy-policy-container p, .faqs-container p {
+.article-container h3 {
+    margin-bottom: 10px;
+    font-size: medium;
+}
+.article-container img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    margin-bottom: 20px;
+}
+.terms-and-conditions-container p,
+.privacy-policy-container p,
+.faqs-container p,
+.article-container p {
     margin-bottom: 20px;
 }
 .privacy-policy-container ul, .faqs-container ul {
@@ -917,7 +943,7 @@ input:focus {
 }
 
 
-@media screen and  (max-width: 1052px) {
+@media screen and (max-width: 1052px) {
     .nav-bar h2 {
         display:none;
     }
@@ -962,6 +988,9 @@ input:focus {
     .footer-div > div{
         height: 170px;
     }
+    .article-container img {
+        width: 450px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1004,7 +1033,15 @@ input:focus {
         height: 50px;
         font-size: 1.5rem;
     }
-    .terms-and-conditions-container, .privacy-policy-container {
+    .terms-and-conditions-container, .privacy-policy-container, .article-container {
         margin: 50px 5%;
+    }
+    .article-container img {
+        width: 400px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .article-container img {
+        width: 300px;
     }
 }

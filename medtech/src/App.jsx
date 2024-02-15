@@ -14,6 +14,7 @@ import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import FAQs from './components/FAQs';
+import Article from './components/Article';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="faqs" element={<FAQs />} />
+            <Route path="/article/:type" element={<Article />} />
         </Routes>
         <Footer />
     </div>

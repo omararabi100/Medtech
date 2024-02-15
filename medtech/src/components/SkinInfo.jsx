@@ -6,8 +6,8 @@ const Skininfo = () => {
         <div>
             <h4>Skin Information</h4>
             <ul>
-                <li><Link to="">Melanoma</Link></li>
-                <li><Link to="">Basal Cell</Link></li>
+                <li><Link to={`/article/${"melanoma"}`}>Melanoma</Link></li>
+                <li><Link to={`/article/${"basal"}`}>Basal Cell</Link></li>
                 <li><Link to="">Customers</Link></li>
                 <li><Link to="">API</Link></li>
             </ul>
