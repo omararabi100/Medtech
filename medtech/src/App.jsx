@@ -19,14 +19,15 @@ import SideBar from './components/Sidebar';
 
 function App() {
     const [translateXValue, setTranslateXValue] = useState(-100.5)
+    const [overlay, setOverlay] = useState('none')
     const showHide = () => {
         if (translateXValue === 0) {
             setTranslateXValue(-100.5)
             setOverlay('none')
-          } else {
+        } else {
             setTranslateXValue(0)
             setOverlay('block')
-          }
+        }
     }
     return (
         <div className='main-container'>
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/article/:type" element={<Article />} />
             </Routes>
             <Footer />
+            <div className="overlay" style={{display: overlay, transition: 'transform 0.5s ease'}} onClick={showHide}></div>
         </div>
     )
 }

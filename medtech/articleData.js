@@ -98,5 +98,70 @@ export const article = {
 
         Targeted therapy drugs for basal cell carcinoma block molecular signals that enable the cancers to continue growing. They might be considered after other treatments or when other treatments aren't possible. <br /> <br /></li>
         <li><b>Chemotherapy:</b> Chemotherapy uses powerful drugs to kill cancer cells. It might be an option when other treatments haven't helped.</li>
+    </ul>`,
+    actinicKeratosis: `<h1><span>Actinic Keratosis</span></h1>     
+    <img src="https://assets.mayoclinic.org/content/dam/media/global/images/2023/02/09/actinic-keratosis.jpg" alt="melanoma" />
+    <p>
+    An actinic keratosis is a rough, scaly patch on the skin that develops from years of sun exposure. It's often found on the face, lips, ears, forearms, scalp, neck or back of the hands. <br /> <br />
+
+    Also known as a solar keratosis, an actinic keratosis grows slowly and usually first appears in people over 40. You can reduce your risk of this skin condition by minimizing your sun exposure and protecting your skin from ultraviolet (UV) rays. <br /> <br />
+
+    Left untreated, the risk of actinic keratoses turning into a type of skin cancer called squamous cell carcinoma is about 5% to 10%. <br />
+    </p>
+    <h2>Symptoms</h2>
+    <p>
+    Actinic keratoses vary in appearance. Symptoms include:
+    </p>
+    <ul>
+        <li>Rough, dry or scaly patch of skin, usually less than 1 inch (2.5 centimeters) in diameter </li>
+        <li>Flat to slightly raised patch or bump on the top layer of skin </li>
+        <li>In some cases, a hard, wartlike surface </li>
+        <li>Color variations, including pink, red or brown </li>
+        <li>Itching, burning, bleeding or crusting </li>
+        <li>New patches or bumps on sun-exposed areas of the head, neck, hands and forearms </li> <br />
+    </ul>
+    <h2>Risk Factors</h2>
+    <p>
+    Anyone can develop actinic keratoses. But you're at increased risk if you:
+    </p>
+    <ul>
+        <li>Have red or blond hair and blue or light-colored eyes </li>
+        <li>Have a history of a lot of sun exposure or sunburn </li>
+        <li>Tend to freckle or burn when exposed to sunlight </li>
+        <li>Are older than 40 </li>
+        <li>Live in a sunny place </li>
+        <li>Work outdoors </li>
+        <li>Have a weakened immune system </li> <br />
+    </ul>
+    <h2>Prevention</h2>
+    <p>
+    Sun safety helps prevent actinic keratoses. Take these steps to protect your skin from the sun:
+    </p>
+    <ul>
+        <li> <b>Limit your time in the sun.</b> Especially avoid time in the sun between 10 a.m. and 2 p.m. And avoid staying in the sun so long that you get a sunburn or a suntan.</li> <br />
+        <li> <b>Use sunscreen.</b> Before spending time outdoors, apply a broad-spectrum water-resistant sunscreen with a sun protection factor (SPF) of at least 30, as the American Academy of Dermatology recommends. Do this even on cloudy days. <br />
+
+        Use sunscreen on all exposed skin. And use lip balm with sunscreen on your lips. Apply sunscreen at least 15 minutes before going outside and reapply it every two hours — or more often if you're swimming or sweating. <br /> 
+
+        Sunscreen is not recommended for babies under 6 months. Rather, keep them out of the sun if possible. Or protect them with shade, hats, and clothing that covers the arms and legs.</li> <br />
+        <li> <b>Cover up.</b> For extra protection from the sun, wear tightly woven clothing that covers your arms and legs. Also wear a broad-brimmed hat. This provides more protection than does a baseball cap or golf visor.</li> <br />
+        <li> <b>Avoid tanning beds.</b> The UV exposure from a tanning bed can cause just as much skin damage as a tan from the sun.</li> <br />
+        <li> <b>Check your skin regularly and report changes to your health care provider.</b> Examine your skin regularly, looking for the development of new skin growths or changes in existing moles, freckles, bumps and birthmarks. With the help of mirrors, check your face, neck, ears and scalp. Examine the tops and undersides of your arms and hands.</li> 
+    </ul> <br />
+    <h2>Treatment</h2>
+    <p>
+    An actinic keratosis sometimes disappears on its own but might return after more sun exposure. It's hard to tell which actinic keratoses will develop into skin cancer, so they're usually removed as a precaution.
+    </p>
+    <h3>Medicines</h3>
+    <p>
+    If you have several actinic keratoses, your health care provider might prescribe a medicated cream or gel to remove them, such as fluorouracil (Carac, Efudex others), imiquimod (Aldara, Zyclara) or diclofenac. These products might cause inflamed skin, scaling or a burning sensation for a few weeks.
+    </p>
+    <h3>Surgical and other procedures</h3>
+    <p>Many methods are used to remove actinic keratosis, including:</p>
+    <ul>
+        <li> <b>Freezing (cryotherapy).</b> Actinic keratoses can be removed by freezing them with liquid nitrogen. Your health care provider applies the substance to the affected skin, which causes blistering or peeling. As your skin heals, the damaged cells slough off, allowing new skin to appear. Cryotherapy is the most common treatment. It takes only a few minutes and can be done in your health care provider's office. Side effects may include blisters, scarring, changes to skin texture, infection and changes in skin color of the affected area.</li> <br />
+        <li> <b>Scraping (curettage).</b> In this procedure, your health care provider uses a device called a curet to scrape off damaged cells. Scraping may be followed by electrosurgery, in which a pencil-shaped instrument is used to cut and destroy the affected tissue with an electric current. This procedure requires local anesthesia. Side effects may include infection, scarring and changes in skin color of the affected area.</li> <br />
+        <li> <b>Laser therapy.</b> This technique is increasingly used to treat actinic keratosis. Your health care provider uses an ablative laser device to destroy the patch, allowing new skin to appear. Side effects may include scarring and discoloration of the affected skin.</li> <br />
+        <li> <b>Photodynamic therapy.</b> Your health care provider might apply a light-sensitive chemical solution to the affected skin and then expose it to a special light that will destroy the actinic keratosis. Side effects may include inflamed skin, swelling and a burning sensation during therapy.</li>
     </ul>`
 }

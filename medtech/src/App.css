@@ -158,10 +158,14 @@ input:focus {
     margin-right: 10px;
     width: 30px;
     height: 30px;
+    display: none;
+    position: relative;
 }
-.logo-nav, .logo-side, .logo-about {
-    width: 45px;    
-    height: 45px;
+
+.side-bar-container .logo-list {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: block;
 }
 .side-bar-container {
     position: fixed;
@@ -175,7 +179,32 @@ input:focus {
     transform: translateX(0%);
     overflow: hidden;
 }
+.link-container-side {
+    display: flex;
+    flex-direction: column;
+}
+.link-container-side a {
+    text-decoration: none;
+    color: var(--secondarycolor);
+    margin-top: 20px;
+    margin-left: 20px;
+    transition: 0.5s;
+}
+.link-container-side a:hover {
+    color: var(--maincolor);
+}
 
+/*--- Overlay ---*/
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(5px);
+    z-index: 15;
+    display: none;
+}
 
 /*--- Home ---*/
 .Main-Container {
@@ -1014,6 +1043,16 @@ input:focus {
     }
     .article-container img {
         width: 450px;
+    }
+    .nav-bar h2 {
+        display: block;
+        width: 85%;
+    }
+    .nav-content {
+        display: none;
+    }
+    .logo-list {
+        display: block;
     }
 }
 

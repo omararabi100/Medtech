@@ -19,6 +19,13 @@ const Article = () => {
             </div>
         )
     }
+    else if (type == "actinic-keratosis") {
+        return (
+            <div className="article-container" dangerouslySetInnerHTML={{ __html: article.actinicKeratosis}}>
+                
+            </div>
+        )
+    }
     else {
         return (
             <div className="article-container">

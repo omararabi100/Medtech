@@ -46,7 +46,7 @@ const Header = ({showHide}) => {
     return (
         <div className="Header-container">
             <div className="nav-bar">
-                {/* <button onClick={showHide}>O</button> */}
+                <img src="https://cdn-icons-png.flaticon.com/512/2099/2099192.png" className='logo-list' onClick={showHide} />
                 <h2>Med<span>Tech</span></h2>
                 <div className="nav-content">
                     <ul>
