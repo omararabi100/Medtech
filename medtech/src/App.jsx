@@ -16,6 +16,9 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import FAQs from './components/FAQs';
 import Article from './components/Article';
 import SideBar from './components/Sidebar';
+import Drpage from './components/Drpage';
+import MyProfile from './components/MyProfile';
+import Calendar from "./components/Calendar"
 
 function App() {
     const [translateXValue, setTranslateXValue] = useState(-100.5)
@@ -46,6 +49,9 @@ function App() {
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="faqs" element={<FAQs />} />
                 <Route path="/article/:type" element={<Article />} />
+                <Route path="dr-page" element={<Drpage />} />
+                <Route path="my-profile" element={<MyProfile />} />
+                <Route path="/call-now/calendar" element={<Calendar />} />
             </Routes>
             <Footer />
             <div className="overlay" style={{display: overlay, transition: 'transform 0.5s ease'}} onClick={showHide}></div>
