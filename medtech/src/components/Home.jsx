@@ -1,35 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { images } from "../../image";
 // import { initSqlJs, initializeDatabase, createDatabase } from "./database"; // Import initSqlJs, initializeDatabase, and createDatabase from database.js
 import MedicalService from "./MedicalService";
 import ExpertDerm from "./ExpertDerm";
 import Footer from "./Footer";
+import Homedetails from "./Homedetails";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
-    const doctors = [
-        {
-            name: "Julian Jameson",
-            image: images.Julian1,
-        },
-        {
-            name: "Jack Griffins",
-            image: images.Julian2,
-        },
-        {
-            name: "Amy Watterson",
-            image: images.Julian3,
-        },
-        {
-            name: "Walter White",
-            image: images.Julian4,
-        }
-    ]
+    const [doctors, setDoctors] = useState([]);
+    const [isappointmnet, setisappointmnet] = useState(null);
+    const navigate = useNavigate();
+
+    const navigateToCalendar = (doctorId) => {
+      navigate(`/calendar/${doctorId}`);
+    };
+    // Fetch doctors data from the backend API
+    useEffect(() => {
+        fetch("http://localhost:8000/getDoctors.php")
+            .then(response => response.json())
+            .then(data => setDoctors(data))
+            .catch(error => console.error("Error fetching doctors:", error));
+    }, []);
+    
+    const [statistics, setStatistics] = useState(null);
+
+    useEffect(() => {
+        fetch("http://localhost:8000/Home.php")
+            .then(response => response.json())
+            .then(data => setStatistics(data))
+            .catch(error => console.error("Error fetching statistics:", error));
+    }, []);
     // useEffect(() => {
     //     const initializeDB = async () => {
     //         const db = await initializeDatabase(); // Call the function to initialize the database
     //     };
     //     initializeDB(); // Call the async function
     // }, []);
-
+   
     return (
         <div className="Main-Container">
             <div className="home-container">
@@ -42,29 +50,13 @@ const Home = () => {
                     <button className="get-started-btn">Get Started</button>
                 </div>
                 <div>
+                    
                     <img className="home-container-description-img" src={images.Doctor} alt="" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="256" height="466" viewBox="0 0 256 466" fill="none">
                     <path d="M315.324 1.1023C315.324 1.1023 -188.629 86.2613 79.9026 214.582C348.434 342.903 41.3001 465.124 41.3001 465.124" stroke="#CBAF87" stroke-linecap="round" stroke-dasharray="29 29"/>
                 </svg>
 
-                <div className="details-div">
-                    <div>
-                        <h1>15K</h1>
-                        <p>Happy Customers</p>
-                    </div>
-                    <div>
-                        <h1>150K</h1>
-                        <p>Monthly Visitors</p>
-                    </div>
-                    <div>
-                        <h1>15</h1>
-                        <p>Number of Doctors</p>
-                    </div>
-                    <div>
-                        <h1>100+</h1>
-                        <p>Top Partners</p>
-                    </div>
-                </div>
+                <Homedetails statistics={statistics} />
                 </div>
 
             </div>
@@ -102,7 +94,16 @@ const Home = () => {
                 <h1>Our <span>Expert Dermatologists</span></h1>
                 <div className="Derms-container">
                     {doctors.map((doctor, index) => (
-                        <ExpertDerm key={index} name={doctor.name} image=   {doctor.image}/>
+                        <ExpertDerm key={index} name={doctor.full_name}
+                        isappointment={false} 
+                        doctor={doctor}
+                        navigateToCalendar={navigateToCalendar}                       
+                        image ={doctor.image.startsWith('./public') 
+                        ? doctor.image 
+                        : `data:image/${doctor.image.endsWith('.jpg') || doctor.image.endsWith('.jpeg') ? 'jpeg' : 'png'};base64,${doctor.image}`}
+                        
+                        // image={doctor.image}
+                        />
                     ))}
                 </div>
             </div>

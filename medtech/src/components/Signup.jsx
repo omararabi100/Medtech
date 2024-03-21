@@ -7,6 +7,8 @@ const Signup = ({ openLogin , onSign, closePopups  }) => {
         email: "",
         password: "",
         phone_nb: "",
+        gender:"",
+        dateofbirth: "",
     });
     const [errors, setErrors] = useState({
         fullnameError: false,
@@ -16,23 +18,50 @@ const Signup = ({ openLogin , onSign, closePopups  }) => {
         errorMessage: "",
     });
 
+    // function handleChange(event) {
+    //     const { name, value } = event.target;
+    //     setFormdata(prevFormData => ({
+    //         ...prevFormData,
+    //         [name]: value,
+    //     }));
+    //     setErrors(prevErrors => ({
+    //         ...prevErrors,
+    //         [`${name}Error`]: false, // Reset error when input changes
+    //     }));
+    // }
     function handleChange(event) {
-        const { name, value } = event.target;
+        const { name, value, type, checked } = event.target;
+        let newValue = type === "checkbox" ? checked : value;
+    
+        // Check if it's the date field and validate against current date
+        if (type === "date") {
+            const currentDate = new Date().toISOString().split("T")[0]; // Get current date in "YYYY-MM-DD" format
+            if (newValue > currentDate) {
+                // Prevent setting future dates
+                newValue = currentDate;
+            }
+        }
+    
         setFormdata(prevFormData => ({
             ...prevFormData,
-            [name]: value,
+            [name]: newValue,
         }));
         setErrors(prevErrors => ({
             ...prevErrors,
-            [`${name}Error`]: false, // Reset error when input changes
+            [`${name}Error`]: false,
         }));
     }
-    
-    
+    function handleGenderChange(event) {
+        const { name, value } = event.target;
+        setFormdata((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      }
 
     function handleSubmit(event) {
         event.preventDefault();
-        const { full_name, email, password, phone_nb } = formdata;
+        const { full_name, email, password, phone_nb, gender, dateofbirth } = formdata;
 
         // Reset errors
         setErrors({
@@ -40,11 +69,12 @@ const Signup = ({ openLogin , onSign, closePopups  }) => {
             emailError: false,
             passwordError: false,
             phoneError: false,
+            gender:false,
             errorMessage: "",
         });
 
         // Check for empty fields
-        if (!full_name || !email || !password || !phone_nb) {
+        if (!full_name || !email || !password || !phone_nb || !gender || !dateofbirth) {
             setErrors({
                 ...errors,
                 errorMessage: "All fields are required",
@@ -117,6 +147,30 @@ const Signup = ({ openLogin , onSign, closePopups  }) => {
                     onChange={handleChange}
                     value={formdata.phone_nb}
                 />
+                <input
+                type="radio"
+                name="gender"
+                value="female"
+                onChange={handleGenderChange}
+                checked={formdata.gender === "female"}
+                />
+                <label htmlFor="female">Female</label>
+
+                <input
+                type="radio"
+                name="gender"
+                value="male"
+                onChange={handleGenderChange}
+                checked={formdata.gender === "male"}
+                />
+                <label htmlFor="male">Male</label>
+                <input
+                    type="date"
+                    placeholder="Date of Birth"
+                    name="dateofbirth"
+                    onChange={handleChange}
+                    value={formdata.dateofbirth}
+                    />
                 {errors.errorMessage && <div style={{ color: "red" }}>{errors.errorMessage}</div>}
                 <button type="submit">Sign Up</button>
             </form>

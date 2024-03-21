@@ -731,16 +731,66 @@ input:focus {
     margin-bottom: 20px;
 }
 
+
 /* admin */
 .admin-container {
     display: flex;
     margin: 0 auto;
     padding: 20px;
 }
-
+.admin-container >div{
+    display: flex;
+    flex-direction: column;
+}
+.admin-container>div button{
+    width: fit-content;
+    float:right;
+}
+.admin-container .image-container , .admin-container .placeholder{
+    height: 100px;
+}
+.admin-container edit_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 2px;
+    height: 40px;
+    width: 85px;
+    border: none;
+    background: var(--secondarycolor);
+    border-radius: 20px;
+    cursor: pointer;
+}
+  
+  .admin-container .edit_btn:hover {
+    background: #e7e6e6;
+  }
+  
+  .admin-container .edit_btn:hover .svg-icon {
+    animation: lr 1s linear infinite;
+  }
+  
+  @keyframes lr {
+    0% {
+      transform: translateX(0);
+    }
+  
+    25% {
+      transform: translateX(-1px);
+    }
+  
+    75% {
+      transform: translateX(1px);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
 .admin-container table {
     flex: 1;
-    max-width: calc(50% - 20px);
+    /* max-width: calc(50% - 20px); */
     border-radius: 10px;
     overflow: hidden; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -761,6 +811,8 @@ input:focus {
 .admin-container td {
     padding: 12px 15px;
     text-align: left;
+    text-wrap: wrap;
+    width: 103px;
 }
 
 .admin-container tbody {
@@ -816,18 +868,20 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 20px;
+    /* margin: 20px; */
 
 }
 .admin-container .containers>*{
-    flex: 1 1 200px;
+    /* flex: 1 1 ; */
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 
 .admin-container form div:nth-child(4){
-    display: flex;
+    /* display: flex;
     justify-content: space-around;
     flex-wrap:wrap ;
-    margin: 20px;
+    margin: 20px; */
 }
 
 .admin-container form input[type="text"],
@@ -874,7 +928,130 @@ input:focus {
     flex-direction: column;
 }
 .admin-container form label input{
-    margin: 5px 0;
+    margin: 5px ;
+}
+/* --- Call Now --- */
+.call-now-main-container{
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.call-now-main-container h1{
+    color: var(--maincolor);
+}
+
+.call-now-main-container p{
+    color: var(--secondarycolor);
+}
+
+.call-now-second-container h2{
+    color: var(--maincolor);
+}
+
+
+.callnow-doctor-list{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: 'Inter', sans-serif;
+}
+
+.doctor-julian {
+    background-color: #eae4e4;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 240px;
+    height: 300px;
+}
+
+.doctor-julian-img{
+    width: 248px;
+    height: 300px;
+    margin-top: -68px;
+}
+
+.callnow-doctor-name{
+    background-color: white;
+    width: 280px;
+    height: 85px;
+    margin-left: -20px;
+    margin-top: -5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 5;
+    color: var(--maincolor);
+    font-weight: bold;
+}
+
+.callnow-appointment{
+    border: var(--maincolor);
+    background-color: var(--maincolor);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    width: 222px;
+    height: 46px;
+    border-radius: 10px;
+    margin-top: 20px;
+    /* margin-left: 30px;
+    margin-top: 20px; */
+    cursor: pointer;
+}
+.callnow-doctor-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+@media only screen and (min-width: 768px) {
+    .call-now-main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /*  */
+
+    .doctor-julian {
+        width: 240px;
+    }
+
+    .callnow-Doctor1,
+    .callnow-Doctor2,
+    .callnow-Doctor3,
+    .callnow-Doctor4 {
+        margin: 20px; 
+    }
+}
+/* add form */
+.Addform-div{
+    height: 60px;
+}
+.Addform-div button{
+    margin: 0 !important;
+}
+.Addform-div label{
+    font-size: 16px;
+    display: inline-block;
+}
+.time-slots-container div{
+    display: block;
+    margin: 0;
+}
+
+
+/* my profile */
+.My-Profile div{
+    display: flex;
 }
 /* Footer */
 
@@ -1106,5 +1283,138 @@ input:focus {
 @media screen and (max-width: 450px) {
     .article-container img {
         width: 300px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .admin-container table thead tr th:nth-child(1) , .admin-container table tbody tr td:nth-child(1)  {
+        display: none;
+    }
+    .call-now-main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* .callnow-doctor-list {
+        justify-content: center;
+        justify-content: space-between;
+    } */
+
+    .doctor-julian {
+        width: 240px;
+    }
+
+    .callnow-Doctor1,
+    .callnow-Doctor2,
+    .callnow-Doctor3,
+    .callnow-Doctor4 {
+        margin: 20px; 
+    }
+}
+@media screen and  (max-width: 1179px) {
+    .admin-container table thead tr th:nth-child(7) , .admin-container table tbody tr td:nth-child(7)  {
+        display: none;
+    }
+}
+
+@media screen and  (max-width: 1052px) {
+    /* .admin-container table thead tr th:nth-child(8) , .admin-container table tbody tr td:nth-child(8)  {
+        display: none;
+    } */
+    .nav-bar h2 {
+        display:none;
+    }
+    .nav-bar ul{
+        padding: 10px;
+    }
+    .nav-bar{
+        padding: 20px 0 20px 10px;
+    }
+    .signup-btn {
+        margin-right: 10px;
+    }
+    .details-div{
+        /* display: none; */
+    }
+    .contact-us-container .home-container-description-img{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 963px) {
+    .admin-container table thead tr th:nth-child(1) , .admin-container table tbody tr td:nth-child(1)  {
+        display: none;
+    }
+    .admin-container table thead tr th:nth-child(3) , .admin-container table tbody tr td:nth-child(3)  {
+        display: none;
+    }
+    .details-div{
+        display: none;
+    }
+    .home-container-description-img{
+        display: none;
+    }
+    .footer h2{
+        display: none;
+    }
+    .footer{
+        flex-direction: column;
+        height: fit-content;
+    }
+    .footer-div {
+        display: flex;
+        flex-direction: column;
+    }
+    .footer-div h4{
+        text-align: left;
+    }
+    .footer-div > div{
+        height: 170px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .contact-us-container form {
+        width: 350px;
+    }
+    .contact-us-container .email-input, .contact-us-container .txt-area-msg {
+        width: 88%;
+    }
+    .txt-area-msg {
+        resize: none;
+    }
+    .name-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .name-container input {
+        width: 35%;
+    }
+    .name-container input:nth-child(1) {
+        width: 35%;
+        margin-left: 0px;
+    }
+    
+    .name-container input:nth-child(2) {
+        width: 35%;
+        margin-right: -1px;
+    }
+    .send-btn {
+        width: 98%;
+        margin-top: 20px;
+        border-radius: 12px;
+        border: none;
+        background-color: var(--darkblue);
+        color: white;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    .terms-and-conditions-container, .privacy-policy-container {
+        margin: 50px 5%;
     }
 }

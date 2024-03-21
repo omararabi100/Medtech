@@ -15,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $fullname = $_POST["full_name"];
     $phone_nb = $_POST["phone_nb"];
+    $gender = $_POST["gender"];
+    $dateofbirth = $_POST["dateofbirth"];
 
     // Debugging: Log received data
     error_log("Received data: email=$email, password=$password, full_name=$full_name, phone_nb=$phone_nb");
@@ -34,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Insert the new user into the database
             $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
-            $insert_sql = "INSERT INTO users (full_name, email, password, phone_nb) VALUES ('$fullname', '$email', '$hashed_password', '$phone_nb')";
-            error_log("Insert SQL query: $insert_sql");
+            $insert_sql = "INSERT INTO users (full_name, email, password, phone_nb, gender, dateofbirth) 
+            VALUES ('$fullname', '$email', '$hashed_password', '$phone_nb', '$gender', '$dateofbirth')";            error_log("Insert SQL query: $insert_sql");
             if ($conn->query($insert_sql) === TRUE) {
                 // User successfully inserted
                 http_response_code(201); // Created

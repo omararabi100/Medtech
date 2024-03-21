@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user["password"])) {
             // Password is correct, return user's name
-            echo json_encode(["name" => $user["full_name"]]);
+            echo json_encode(["full_name" => $user["full_name"]]);
+
             exit;
         } else {
             // Password is incorrect
