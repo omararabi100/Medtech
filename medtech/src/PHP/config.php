@@ -194,10 +194,15 @@ $sql = "CREATE TABLE IF NOT EXISTS appointment (
     patient_id INT,
     dr_id INT,
     date DATE,
-    time TIME,
+    start_time TIME,
+    end_time TIME,
     FOREIGN KEY (patient_id) REFERENCES users(id),
     FOREIGN KEY (dr_id) REFERENCES doctors(id)    
 )";
+// $sql_drop_old_table = "DROP TABLE IF EXISTS appointment";
+// if ($conn->query($sql_drop_old_table) === FALSE) {
+//     echo "Error dropping old table: " . $conn->error;
+// }
 
 if ($conn->query($sql) === FALSE) {
     echo "Error creating table: " . $conn->error;

@@ -44,21 +44,22 @@ const Header = () => {
     
     };
 
-const handleLogin = (userData , type,email) => {
+const handleLogin = (userData , type,email,id) => {
     if (type === "Doctor") {
-      setUser("Doctor");
-      localStorage.setItem("user", "Doctor" , email);
+        setUser("Doctor");
+        localStorage.setItem("user", "Doctor" , email,id);
     } else if (type === "Admin") {
-      setUser("Admin");
-      localStorage.setItem("user", "Admin");
+        setUser("Admin");
+        localStorage.setItem("user", "Admin");
     } else {
-      setUser("User");
-      localStorage.setItem("user", "User",email );
+        setUser("User");
+        localStorage.setItem("user", "User",email );
     }
     // console.log(formdata.email);
     setName(userData);
     localStorage.setItem("userData", JSON.stringify(userData));
     localStorage.setItem("email", JSON.stringify(formdata.email));
+    localStorage.setItem("patient_id", JSON.stringify(formdata.id));
     console.log(localStorage);
     // console.log("userData");
     // console.log(userData);

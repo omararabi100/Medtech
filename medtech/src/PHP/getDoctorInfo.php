@@ -7,6 +7,12 @@ include_once("config.php");
 
 if (isset($_GET['id'])) {
     $doctorId = $_GET['id'];
+// Assuming $doctorInfo is your doctor information array
+$dateAvailable = $doctorInfo['date_available'];
+// Convert the date string to an array of days
+$daysArray = explode(",", $dateAvailable);
+// Format the starting date in ISO 8601 format
+$startingDate = date("Y-m-d", strtotime($doctorInfo['starting_date']));
 
     $sql = "SELECT * FROM doctors WHERE id = ?";
     $stmt = $conn->prepare($sql);

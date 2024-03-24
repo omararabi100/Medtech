@@ -78,18 +78,18 @@ const Login = ({ openSignup, onLogin, closePopups, isDrOpen, setIsDrOpen, formda
           }
         
         } else {
-           if (data.full_name === "Admin" ||data.full_name ==="Admin User") {
+            if (data.full_name === "Admin" ||data.full_name ==="Admin User") {
                 onLogin(data.full_name ,"Admin"  )
-               navigate(`/admin-page`);
+                navigate(`/admin-page`);
 
             } else if (data.type ==='Doctor') {
                 onLogin(data.data.full_name , "Doctor");
-               navigate(`/dr-page`);
+                navigate(`/dr-page`);
 
             }
             else{
                 onLogin(data.full_name ,"User"  )
-               navigate(`/my-profile`);
+                navigate(`/my-profile`);
             }
             closePopups();
         }
