@@ -1078,6 +1078,48 @@ input:focus {
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 1000; 
 }
+
+/* Getchecked */
+.Getchecked {
+    display: flex;
+    flex-direction: column;
+    margin-top: 55px;
+    align-items: center;
+}
+.Getchecked img{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: flex;
+    margin: 0 auto;
+}
+.Getchecked .image_placeholder{
+    background-color: var(--secondarycolor);
+    height: 300px;
+    width: 600px;
+    position: relative;
+}
+.Getchecked .image_placeholder p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+}
+.Getchecked .buttons{
+    margin-top: 20px;
+    display: flex;
+    width: 600px;
+    justify-content: space-around;
+}
+.Getchecked .buttons button{
+    background-color: var(--secondarycolor);
+    border: none;
+    padding:10px 15px;
+    border-radius: 3px;
+    color: white;
+}
 /* Footer */
 
 .footer {

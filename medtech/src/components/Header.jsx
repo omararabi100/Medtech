@@ -10,6 +10,7 @@ const Header = () => {
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState(null);
     const [name, setName] = useState(""); 
+    const [Islogged , setIsLogged] = useState(false);
 
     const [formdata, setformdata] = useState({
         
@@ -58,6 +59,7 @@ const handleLogin = (userData , type,email,id) => {
     // console.log(formdata.email);
     setName(userData);
     localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("Islogged" , true) ;
     localStorage.setItem("email", JSON.stringify(formdata.email));
     localStorage.setItem("patient_id", JSON.stringify(formdata.id));
     localStorage.setItem("dr_id", JSON.stringify(formdata.id));
@@ -69,9 +71,12 @@ const handleLogin = (userData , type,email,id) => {
         setUser(null);
         localStorage.removeItem("user");
         navigate("/");
+    localStorage.setItem("Islogged" , false) ;
+
     };
 
     useEffect(() => {
+
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             setUser(storedUser);
