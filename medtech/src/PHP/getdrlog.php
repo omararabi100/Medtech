@@ -9,7 +9,6 @@ if (isset($_POST['full_name']) && isset($_POST['id'])) {
     $id = $_POST['id'];
 
     if (!empty($full_name) && !empty($id)) {
-        // Fetch data from the database using prepared statements
         $stmt = $conn->prepare("SELECT * FROM doctors WHERE full_name = ? AND id = ?");
         $stmt->bind_param("si", $full_name, $id); 
         $stmt->execute();
@@ -30,11 +29,9 @@ if (isset($_POST['full_name']) && isset($_POST['id'])) {
             echo json_encode(array("success" => true, "data" => $row , 'type'=>'Doctor')); 
         }
         else {
-            // No match found for both full_name and id
             echo json_encode(array("error" => "Invalid full name and ID"));
         }
 
-        // Close the prepared statement
         $stmt->close();
     } else {
         echo json_encode(array("error" => "Full name and ID cannot be empty")); 

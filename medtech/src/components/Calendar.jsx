@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -15,39 +16,66 @@ const Calendar = () => {
   const [appointmentReserved, setAppointmentReserved] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [reservedDateTime, setReservedDateTime] = useState('');
+  const [eventDetails, setEventDetails] = useState(null);
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
 
   useEffect(() => {
-    const fetchDoctorInfo = async (doctorId) => {
-      try {
-        const response = await $.ajax({
-          url: 'http://localhost:8000/getDoctorInfo.php',
-          type: 'GET',
-          dataType: 'json',
-          data: { id: doctorId },
-        });
-
-        setDoctorInfo(response);
-
-        if (response && response.times) {
-          const timesArray = unserialize(response.times);
-          const takenTimes = await taken_time(doctorId);
-          const events = generateCustomEvents(timesArray, doctorId, takenTimes);
-          setCustomEvents(events);
-        } else {
-          console.error('Doctor schedule information is missing.');
-        }
-      } catch (error) {
-        console.error('Error fetching doctor info:', error);
-      }
-    };
-
-    const parsedDoctorInfo = doctorinfo ? JSON.parse(doctorinfo) : null;
-    const doctorId = parsedDoctorInfo ? parsedDoctorInfo.id : null;
-
+    const usertype = localStorage.getItem("user");
+    let doctorId = null;
+    let url = '';
+  
+    if (usertype === "Doctor") {
+      const Drname = localStorage.getItem("userData");
+      doctorId = localStorage.getItem("dr_id"); 
+      url = 'http://localhost:8000/getDoctorschedule.php';
+    } else {
+      const parsedDoctorInfo = doctorinfo ? JSON.parse(doctorinfo) : null;
+      doctorId = parsedDoctorInfo ? parsedDoctorInfo.id : null; 
+      url = 'http://localhost:8000/getDoctorInfo.php';
+    }
+  
+    console.log(doctorId);
+  
     if (doctorId) {
       fetchDoctorInfo(doctorId);
     }
   }, [doctorinfo]);
+  
+  const fetchDoctorInfo = async (doctorId) => {
+    try {
+      let url = ''; 
+      const usertype = localStorage.getItem("user");
+      if (usertype === "Doctor") {
+        url = 'http://localhost:8000/getDoctorschedule.php'; 
+        doctorId = doctorId.replace(/"/g, ''); 
+      } else {
+        url = 'http://localhost:8000/getDoctorInfo.php'; 
+      }
+      console.log('doctorId:', doctorId);
+    console.log('parsed doctorId:', doctorId);
+      const response = await $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data: { id: parseInt(doctorId) },
+      });
+  
+      setDoctorInfo(response);
+  
+      if (response && response.times) {
+        const timesArray = unserialize(response.times);
+        const takenTimes = await taken_time(doctorId);
+        const events = generateCustomEvents(timesArray, doctorId, takenTimes);
+        setCustomEvents(events);
+      } else {
+        console.error('Doctor schedule information is missing.');
+      }
+    } catch (error) {
+      console.error('Error fetching doctor info:', error);
+    }
+  };
+  
+  
 
   const generateCustomEvents = (timesArray, doctorId, takenTimes) => {
     let events = [];
@@ -114,7 +142,22 @@ const Calendar = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const location = useLocation(); 
   const handleEventClick = (clickInfo) => {
+    const selectedDateTime = {
+      start: clickInfo.event.start,
+      end: clickInfo.event.end,
+    };
+    setSelectedDateTime(selectedDateTime);
+
+    const usertype = localStorage.getItem("user"); 
+    if (usertype === "Doctor" && clickInfo.event.backgroundColor === 'yellow') {
+      navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
+    
+    
+    }
+    else{
     if (clickInfo.event === selectedEvent) {
       setSelectedEvent(null);
       if (clickInfo.event.backgroundColor === 'red') {
@@ -135,6 +178,7 @@ const Calendar = () => {
         clickInfo.event.setProp('backgroundColor', 'red');
         setAppointmentReserved(true);
         setReservedDateTime(moment(clickInfo.event.start).format('YYYY-MM-DD HH:mm:ss'));
+      }
       }
     }
   };
@@ -182,15 +226,17 @@ window.location.href = '/my-profile';
 
 return (
 <div className='Calendar'>
-  {doctorInfo && (
-    <div>
-      <h2>Doctor Information</h2>
-      <p>Name: {doctorInfo.full_name}</p>
-      <button onClick={() => window.location.href = `tel:${doctorInfo.phone}`}>Call Now</button>
-      {/* Conditionally render the Reserve button */}
-      {!popupVisible && selectedEvent && <button onClick={handlereserve}>Reserve</button>}
-    </div>
-  )}
+{doctorInfo && (
+      <div>
+        <h2>Doctor Information</h2>
+        <p>Name: {doctorInfo.full_name}</p>
+        <button onClick={() => window.location.href = `tel:${doctorInfo.phone}`}>Call Now</button>
+        {localStorage.getItem("user") !== "Doctor" && !popupVisible && selectedEvent && (
+          <button onClick={handlereserve}>Reserve</button>
+        )}
+      </div>
+    )}
+
 
   {/* Popup message */}
   {popupVisible && (

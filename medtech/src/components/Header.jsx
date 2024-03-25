@@ -60,9 +60,7 @@ const handleLogin = (userData , type,email,id) => {
     localStorage.setItem("userData", JSON.stringify(userData));
     localStorage.setItem("email", JSON.stringify(formdata.email));
     localStorage.setItem("patient_id", JSON.stringify(formdata.id));
-    console.log(localStorage);
-    // console.log("userData");
-    // console.log(userData);
+    localStorage.setItem("dr_id", JSON.stringify(formdata.id));
 
 };
 
@@ -70,7 +68,7 @@ const handleLogin = (userData , type,email,id) => {
     const handleLogout = () => {
         setUser(null);
         localStorage.removeItem("user");
-        navigate("/"); // Navigate to the home page after logout
+        navigate("/");
     };
 
     useEffect(() => {
@@ -100,7 +98,10 @@ const handleLogin = (userData , type,email,id) => {
                         {user && (
                             <ul>
                                 {user=== "Doctor" && (
+                                    <>
                                 <li><Link to="/dr-page">Doctor Page</Link></li>
+                                <li><Link to="/calendar">Calendar</Link></li>
+                                    </>
                                 )}
                                 {user === "Admin" && (
                                 <li><Link to="/admin-page">Admin Page</Link></li>

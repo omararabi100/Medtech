@@ -7,9 +7,6 @@ include_once("config.php");
 
 if (isset($_GET['id'])) {
     $doctorId = $_GET['id'];
-$dateAvailable = $doctorInfo['date_available'];
-$daysArray = explode(",", $dateAvailable);
-$startingDate = date("Y-m-d", strtotime($doctorInfo['starting_date']));
 
     $sql = "SELECT * FROM doctors WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -19,16 +16,19 @@ $startingDate = date("Y-m-d", strtotime($doctorInfo['starting_date']));
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+        $dateAvailable = $row['date_available']; // Retrieve date_available from $row
+        $daysArray = explode(",", $dateAvailable);
+        $startingDate = date("Y-m-d", strtotime($row['starting_date'])); // Retrieve starting_date from $row
         header('Content-Type: application/json');
         echo json_encode($row);
     } else {
-        http_response_code(404);
+        http_response_code(404); // Not Found status code
         echo json_encode(array("error" => "No data found for the given identifier"));
     }
 
     $stmt->close();
 } else {
-    http_response_code(400); 
+    http_response_code(400); // Bad Request status code
     echo json_encode(array("error" => "Doctor ID not provided"));
 }
 

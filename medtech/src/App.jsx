@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
-import Header from './components/Header'
-import Home from "./components/Home"
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import './App.css';
+import Header from './components/Header';
+import Home from './components/Home';
 import RiskPredectionTool from './components/RiskPredictionTool';
 import GetChecked from './components/GetChecked';
 import CallNow from './components/CallNow';
@@ -13,50 +14,35 @@ import Admin from './components/Admin';
 import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
-import FAQs from './components/FAQs';
-import Article from './components/Article';
-import SideBar from './components/Sidebar';
 import Drpage from './components/Drpage';
 import MyProfile from './components/MyProfile';
 import Calendar from "./components/Calendar"
+import Patientinfo from "./components/patientinfo";
 
 function App() {
-    const [translateXValue, setTranslateXValue] = useState(-100.5)
-    const [overlay, setOverlay] = useState('none')
-    const showHide = () => {
-        if (translateXValue === 0) {
-            setTranslateXValue(-100.5)
-            setOverlay('none')
-        } else {
-            setTranslateXValue(0)
-            setOverlay('block')
-        }
-    }
-    return (
-        <div className='main-container'>
-            <Header showHide={showHide}/>
-            <SideBar showHide={showHide} translateXValue={translateXValue}/>
-            <Routes>
-                <Route path="" element={<Home />} />
-                <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
-                <Route path="get-checked" element={<GetChecked />} />
-                <Route path="call-now" element={<CallNow />} />
-                <Route path="about-us" element={<AboutUs />} />
-                <Route path="contact-us" element={<ContactUs />} />
-                <Route path="score_predicted" element={<Score_predicted />} />
-                <Route path="admin-page" element={<Admin />} />
-                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-                <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="faqs" element={<FAQs />} />
-                <Route path="/article/:type" element={<Article />} />
-                <Route path="dr-page" element={<Drpage />} />
-                <Route path="my-profile" element={<MyProfile />} />
-                <Route path="/call-now/calendar" element={<Calendar />} />
-            </Routes>
-            <Footer />
-            <div className="overlay" style={{display: overlay, transition: 'transform 0.5s ease'}} onClick={showHide}></div>
-        </div>
-    )
+  return (
+    <div className='main-container'>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
+        <Route path="get-checked" element={<GetChecked />} />
+        <Route path="call-now" element={<CallNow />} />
+        <Route path="about-us" element={<AboutUs />} />
+        <Route path="contact-us" element={<ContactUs />} />
+        <Route path="score_predicted" element={<Score_predicted />} />
+        <Route path="admin-page" element={<Admin />} />
+        <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="dr-page" element={<Drpage />} />
+        <Route path="my-profile" element={<MyProfile />} />
+        <Route path="/call-now/calendar" element={<Calendar />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/patient-info" element={<Patientinfo />} />
+        </Routes>
+    <Footer />
+    </div>
+    );
 }
 
-export default App
+export default App;

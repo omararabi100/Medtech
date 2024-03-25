@@ -2,12 +2,9 @@
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: http://localhost:5173");
 
-// Include your database connection file
 include_once("config.php");
 
-// Check if form is submitted via POST request
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Extract data from POST request
     $full_name = $_POST['full_name'] ?? '';
     $phone_nb = $_POST['phone_nb'] ?? '';
     $starting_date = $_POST['starting_date'] ?? '';

@@ -4,12 +4,10 @@ include_once("config.php");
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header('Content-Type: application/json');
 
-// Get POST data
 $email = $_POST['email'];
 $updatedHistory = $_POST['history'];
 $updatedAllergies = $_POST['allergies'];
 
-// Prepare and execute SQL query to update user data
 $sql_update = "UPDATE users SET history = ?, allergies = ? WHERE email = ?";
 $stmt_update = $conn->prepare($sql_update);
 $stmt_update->bind_param("sss", $updatedHistory, $updatedAllergies, $email);
