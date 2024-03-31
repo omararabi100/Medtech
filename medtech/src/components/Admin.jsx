@@ -126,6 +126,7 @@ const Admin = () => {
             setErrorMessage("All fields should be filled");
             return;
         }
+        // Check if the full name already exists
         const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
         if (fullNameExists) {
             setErrorMessage("Name already exists");
@@ -188,7 +189,9 @@ const Admin = () => {
             phone_nb: doctorToEdit.phone_nb,
             starting_date: doctorToEdit.starting_date
         });
+        console.log("setFormData"+setFormData);
         
+        // Show the AddForm component
         setShowAddForm(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setEditMode(true);
@@ -252,18 +255,15 @@ const Admin = () => {
         event.preventDefault();
         console.log("Form Data:", formData);
         let formDataToSend = new FormData();
-        const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
-        if (fullNameExists) {
-            setErrorMessage("Name already exists");
-            return; 
-        }
+    
         formDataToSend.append('changetime', changetime.toString());
     
             for (const key in formData) {
                 formDataToSend.append(key, formData[key]);
             }
-        formDataToSend.append('image', formData.image);
-
+        
+    
+        console.log("FormData to send:", formDataToSend);
     
         $.ajax({
             url: "http://localhost:8000/editDoctor.php",
@@ -296,7 +296,6 @@ const Admin = () => {
         });
     };
     
-
     return (
         <div className="admin-container">
             <div>

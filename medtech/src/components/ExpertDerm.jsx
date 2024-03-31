@@ -4,15 +4,21 @@ const ExpertDerm = ({ name, image, isappointment, doctor, navigateToCalendar }) 
   const appointment = (doctor) => {
     console.log('Selected Doctor:', doctor);
     console.log('Make appointment for doctor with ID:', doctor.id);
-    
+    const doctorInfo = {
+      id: doctor.id,
+      full_name: doctor.full_name,
+      date_available: doctor.date_available,
+      times: doctor.times
+    };
     // Update local storage
     // localStorage.setItem('doctorinfo', JSON.stringify(doctor));
-    localStorage.setItem('doctorinfo', JSON.stringify(doctor));
+    localStorage.setItem('doctorinfo', JSON.stringify(doctorInfo));
   console.log('Updated localStorage:', localStorage.getItem('doctorinfo'));
     // Update state or perform other actions as needed
     navigateToCalendar(doctor.id);
   };
   
+  const { id, full_name, times, date_available } = doctor;
 
   return (
     <div className="Expert-container">

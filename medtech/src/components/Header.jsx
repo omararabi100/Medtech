@@ -92,27 +92,27 @@ const handleLogin = (userData , type,email,id) => {
                     <ul>
                     {user !== "Admin" && user !== "Doctor" && (
                             <>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/risk-prediction-tool">Risk Prediction Tool</Link></li>
-                                <li><Link to="/get-checked">Get Checked</Link></li>
-                                <li><Link to="/call-now">Call Now</Link></li>
-                                <li><Link to="/about-us">About Us</Link></li>
-                                <li><Link to="/contact-us">Contact</Link></li>
+                                <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
+                                <li><Link to="/risk-prediction-tool" className={location.pathname === '/risk-prediction-tool' ? 'active' : ''}>Risk Prediction Tool</Link></li>
+                                <li><Link to="/get-checked" className={location.pathname === '/get-checked' ? 'active' : ''}>Get Checked</Link></li>
+                                <li><Link to="/call-now" className={location.pathname === '/call-now' ? 'active' : ''}>Call Now</Link></li>
+                                <li><Link to="/about-us" className={location.pathname === '/about-us' ? 'active' : ''}>About Us</Link></li>
+                                <li><Link to="/contact-us" className={location.pathname === '/contact-us' ? 'active' : ''}>Contact</Link></li>
                             </>
                         )}
                         {user && (
                             <ul>
                                 {user=== "Doctor" && (
                                     <>
-                                <li><Link to="/dr-page">Doctor Page</Link></li>
-                                <li><Link to="/calendar">Calendar</Link></li>
+                                    <li><Link to="/dr-page" className={location.pathname === '/dr-page' ? 'active' : ''}>Doctor Page</Link></li>
+                                    <li><Link to="/calendar" className={location.pathname === '/calendar' ? 'active' : ''}>Calendar</Link></li>
                                     </>
                                 )}
                                 {user === "Admin" && (
-                                <li><Link to="/admin-page">Admin Page</Link></li>
+                                <li><Link to="/admin-page" className={location.pathname === '/admin-page' ? 'active' : ''}>Admin Page</Link></li>
                                 )}
                                 {(user !== "Doctor" && user!== "Admin") && (
-                                <li><Link to="/my-profile">My Profile</Link></li>
+                                <li><Link to="/my-profile" className={location.pathname === '/my-profile' ? 'active' : ''}>My Profile</Link></li>
                                 )}
                             </ul>
                             )}

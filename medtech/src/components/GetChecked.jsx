@@ -37,7 +37,31 @@ const GetChecked = () => {
                 setShowError(true); 
             } 
             console.log(IsLogged);
-
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/uploadimage.php",
+                data: formdata, // Pass formdata directly
+                success(data) {
+                    if (data.error) {
+                        setErrors({
+                            ...errors,
+                            errorMessage: data.error,
+                        });
+                    } else {
+                        console.log(data.full_name);
+                        console.log(data);
+                        onSign(data.full_name);
+                        closePopups();
+                    }
+                },
+                error: function(error) {
+                    console.error("Error:", error);
+                    setErrors({
+                        ...errors,
+                        errorMessage: "Email already exists",
+                    });
+                },
+            });
             // fetch('addimage.php', {
             //     method: 'POST',
             //     body: JSON.stringify({ image: imageUrl }),

@@ -8,8 +8,7 @@ function CallNow() {
     const [doctors, setDoctors] = useState([]);
     const [isappointmnet, setisappointmnet] = useState(null);
     const navigate = useNavigate();
-    // localStorage.setItem("doctor", JSON.stringify(doctors));
-  const doctorinfo = localStorage.getItem('doctorinfo');
+    const doctorinfo = localStorage.getItem('doctorinfo');
 
     const navigateToCalendar = (doctorinfo) => {
         navigate(`calendar`);
