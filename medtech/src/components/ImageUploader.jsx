@@ -4,12 +4,20 @@ const ImageUploader = ({ handleImageChange, formData , editMode }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     useEffect(() => {
         if (editMode) {
-            const imageFormat = formData.image.endsWith('.jpg') || formData.image.endsWith('.jpeg') ? 'jpeg' : 'png';
+            if(formData.image.startsWith('./public')){
+                setSelectedImage(formData.image);
+            }
+            else{
+const imageFormat =formData.image.startsWith('./public')
+            ? formData.image: formData.image.endsWith('.jpg') || formData.image.endsWith('.jpeg') ? 'jpeg' : 'png';
             setSelectedImage(`data:image/${imageFormat};base64,${formData.image}`);
+
+            }
+            
         }
-    }, [formData.image]);
+    }, []);
     const handleChange = (event) => {
-        const file = event.target.files[0];
+        const file = event.target.files[0]; 
         console.log("Selected file:", file);
 
         if (file) {

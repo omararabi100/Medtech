@@ -25,6 +25,8 @@ const Admin = () => {
     const [phoneFilter, setPhoneFilter] = useState("");
     const [daysFilter, setDaysFilter] = useState([]);
     const [showDaysFilter, setShowDaysFilter] = useState(false); 
+    const [changetime , setchangetime] = useState(false);
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -81,22 +83,25 @@ const Admin = () => {
     
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
+        console.log("Checkbox Change Event:", name, checked);
+        console.log("Previous Date Available:", formData.date_available); // Log previous state
+        
         setFormData(prevState => {
             if (checked) {
                 return {
                     ...prevState,
-                    date_available: [...prevState.date_available, name]
-
+                    date_available: [...prevState.date_available, name.trim()]
                 };
             } else {
                 return {
                     ...prevState,
-                    date_available: prevState.date_available.filter(day => day !== name)
+                    date_available: prevState.date_available.filter(day => day.trim() !== name.trim())
                 };
             }
+        }, () => {
+            console.log("Updated Date Available:", formData.date_available); // Log updated state
         });
     };
-
     const handleCheckboxChangeedit = (e) => {
         const { name, checked } = e.target;
         setEditedDoctor(prevState => {
@@ -121,7 +126,6 @@ const Admin = () => {
             setErrorMessage("All fields should be filled");
             return;
         }
-        // Check if the full name already exists
         const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
         if (fullNameExists) {
             setErrorMessage("Name already exists");
@@ -161,6 +165,7 @@ const Admin = () => {
     const [editMode, setEditMode] = useState(false);
 
     const editDoctor = (doctorId) => {
+        setchangetime(false);
         const doctorToEdit = data.find(doctor => doctor.id === doctorId);
         console.log("Doctor to edit:", doctorToEdit); 
         console.log("Edited doctor:", editedDoctor); 
@@ -183,9 +188,7 @@ const Admin = () => {
             phone_nb: doctorToEdit.phone_nb,
             starting_date: doctorToEdit.starting_date
         });
-        console.log("setFormData"+setFormData);
         
-        // Show the AddForm component
         setShowAddForm(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setEditMode(true);
@@ -220,7 +223,6 @@ const Admin = () => {
         setShowAddForm(false);
 
     };
-   
     const handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value.toLowerCase().trim());
     };
@@ -246,10 +248,53 @@ const Admin = () => {
         doctor.phone_nb.includes(phoneFilter) &&
         (daysFilter.length === 0 || daysFilter.some((day) => doctor.date_available.includes(day)))
     );
+    const updateDoctor = (event) => {
+        event.preventDefault();
+        console.log("Form Data:", formData);
+        let formDataToSend = new FormData();
+        const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
+        if (fullNameExists) {
+            setErrorMessage("Name already exists");
+            return; 
+        }
+        formDataToSend.append('changetime', changetime.toString());
+    
+            for (const key in formData) {
+                formDataToSend.append(key, formData[key]);
+            }
+        formDataToSend.append('image', formData.image);
 
-    // const filteredDoctors = data.filter(doctor =>
-    //     doctor.full_name.toLowerCase().startsWith(searchQuery)
-    // );
+    
+        $.ajax({
+            url: "http://localhost:8000/editDoctor.php",
+            type: "POST",
+            data: formDataToSend,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                console.log("Doctor updated successfully", response);
+                setFormData({
+                    full_name: "",
+                    image: "",
+                    date_available: [],
+                    time: [],
+                    phone_nb: "",
+                    
+                    starting_date: new Date()
+                });
+
+                fetchData();
+                setErrorMessage("");
+                setEditMode(false) ; 
+                setShowAddForm(false);
+
+            },
+            error: (error) => {
+                console.error("Error updating doctor:", error);
+                setErrorMessage("Error updating doctor: " + error.message);
+            }
+        });
+    };
     
 
     return (
@@ -257,7 +302,7 @@ const Admin = () => {
             <div>
                 <div>
 
-                 {!showAddForm && (
+                {!showAddForm && (
                     
                         <button onClick={toggleAddForm}>Add Doctor</button>
                     )}
@@ -281,8 +326,12 @@ const Admin = () => {
                                 fetchData = {fetchData}
                                 addDoctor={addDoctor}
                                 setEditMode={setEditMode}
+                                setFormData = {setFormData}
                                 setShowAddForm = {setShowAddForm}
-                                // updateDoctor={updateDoctor}
+                                filteredDoctors = {filteredDoctors}
+                                setchangetime = {setchangetime}
+                                changetime = {changetime}
+                                updateDoctor = {updateDoctor}
                                 errorMessage={errorMessage}
                                 setErrorMessage={setErrorMessage}
                             />
