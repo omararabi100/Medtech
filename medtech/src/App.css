@@ -677,7 +677,30 @@ input:focus {
     width: 392px !important;
     height: 433px !important;
 }
+.contact-us-container .error{
+    margin-top: 10px;
+    color: red;
+}
+.contact-us-success-container {
+    text-align: center;
+    margin-top: 180px;
+    margin-bottom: 180px;
+}
+.contact-us-success-container button{
+   
+    margin-top: 30px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--darkblue);
+    height: 50px;
+    width:150px;
+    font-size: 1.5rem;
+}
 
+.contact-us-success-container a{
+    text-decoration: none;
+    color: white;
+}
 /* Terms and Condition, Privacy Policy, FAQs, Article */
 
 .terms-and-conditions-container,
