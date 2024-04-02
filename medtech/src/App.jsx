@@ -18,6 +18,7 @@ import Drpage from './components/Drpage';
 import MyProfile from './components/MyProfile';
 import Calendar from "./components/Calendar"
 import Patientinfo from "./components/patientinfo";
+import ContactUsSuccess from './components/ContactUsSuccess';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="call-now" element={<CallNow />} />
         <Route path="about-us" element={<AboutUs />} />
         <Route path="contact-us" element={<ContactUs />} />
+        <Route path="contact-us/success" element={<ContactUsSuccess />} />
         <Route path="score_predicted" element={<Score_predicted />} />
         <Route path="admin-page" element={<Admin />} />
         <Route path="terms-and-conditions" element={<TermsAndConditions />} />
