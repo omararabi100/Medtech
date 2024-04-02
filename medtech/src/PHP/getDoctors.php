@@ -14,8 +14,8 @@ if ($result->num_rows > 0) {
         $times = unserialize($row["times"]);
         
         $formattedDateAvailable = implode(", ", str_split($row["date_available"]));
- $dateAvailableArray = explode(",", $row["date_available"]);
- $dateFormatted = implode(", ", $dateAvailableArray);
+        $dateAvailableArray = explode(",", $row["date_available"]);
+        $dateFormatted = implode(", ", $dateAvailableArray);
         
         $doctor = array(
             "id" => $row["id"],

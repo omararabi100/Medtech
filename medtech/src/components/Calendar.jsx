@@ -27,7 +27,7 @@ const Calendar = () => {
   
     if (usertype === "Doctor") {
       const Drname = localStorage.getItem("userData");
-      doctorId = localStorage.getItem("dr_id"); 
+      doctorId = localStorage.getItem("dr_id_pure"); 
       url = 'http://localhost:8000/getDoctorschedule.php';
     } else {
       const parsedDoctorInfo = doctorinfo ? JSON.parse(doctorinfo) : null;
@@ -109,7 +109,8 @@ const Calendar = () => {
               const nextEndTime = moment.min(currentStartTime.clone().add(30, 'minutes'), endTime);
               const slotStart = startOfWeek.clone().add(currentStartTime.hours(), 'hours').add(currentStartTime.minutes(), 'minutes');
               const slotEnd = startOfWeek.clone().add(nextEndTime.hours(), 'hours').add(nextEndTime.minutes(), 'minutes');
-                const isTaken = takenTimes.some((takenTime) => {
+  
+              const isTaken = takenTimes.some((takenTime) => {
                 return moment(takenTime.start).isSame(slotStart) && moment(takenTime.end).isSame(slotEnd);
               });
   
@@ -161,8 +162,15 @@ const Calendar = () => {
     setSelectedDateTime(selectedDateTime);
 
     const usertype = localStorage.getItem("user"); 
-    if (usertype === "Doctor" && clickInfo.event.backgroundColor === 'yellow') {
-      navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
+    if (usertype === "Doctor" ) {
+      if(clickInfo.event.backgroundColor === 'yellow'){
+        navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
+      }
+      else{
+      setSelectedEvent(null);
+
+      }
+
     }
     else{
     if (clickInfo.event === selectedEvent) {
@@ -179,7 +187,6 @@ const Calendar = () => {
       if (selectedEvent) {
         selectedEvent.setProp('title', 'Available');
         selectedEvent.setProp('backgroundColor', 'lightgray');
-
       }
       if (clickInfo.event.backgroundColor === 'lightgray') {
         setSelectedEvent(clickInfo.event);
@@ -199,8 +206,7 @@ const Calendar = () => {
     }
 
     if (selectedEvent.backgroundColor === 'lightgray') {
-      setPopupVisible(false);
-    setAppointmentReserved(false);
+      console.error('Error: Cannot reserve appointment. Please select an available time slot.');
       return;
     }
 
@@ -248,6 +254,8 @@ return (
       </div>
     )}
 
+
+  {/* Popup message */}
   {popupVisible && (
     <div className="popup">
       <div className="popup-content">
@@ -281,4 +289,4 @@ return (
 );
 };
 
-export default Calendar;
+export default Calendar; 

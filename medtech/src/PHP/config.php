@@ -129,7 +129,7 @@ $doctors = [
         "full_name" => "Jack Griffins",
         "image" => "./public/Jack.png",
         "times" => [
-            ["day" => "Friday", "slots" => [["starting_time" => "10:00", "ending_time" => "13:00"], ["starting_time" => "15:00", "ending_time" => "17:00"]]]
+            ["day" => "Friday", "slots" => [["starting_time" => "10:00", "ending_time" => "12:00"], ["starting_time" => "13:00", "ending_time" => "17:00"]]]
         ],
         "date_available" => "Friday",
         "phone_nb" => "76056804",
@@ -156,6 +156,7 @@ $doctors = [
         "starting_date" => date("Y-m-d H:i:s")
     ]
 ];
+
 
 foreach ($doctors as $doctor) {
     $full_name = $doctor['full_name'];
@@ -187,6 +188,34 @@ foreach ($doctors as $doctor) {
 // if ($conn->query($sql_drop_old_table) === FALSE) {
 //     echo "Error dropping old table: " . $conn->error;
 // }
+
+
+
+
+// Delete associated records from the diagnosis table
+// $sql_delete_diagnosis = "DELETE FROM diagnosis WHERE dr_id IN (SELECT id FROM doctors)";
+
+// if ($conn->query($sql_delete_diagnosis) === TRUE) {
+//     echo "Associated records from the diagnosis table have been deleted successfully!";
+// } else {
+//     echo "Error deleting associated records from the diagnosis table: " . $conn->error;
+//     // Add additional error handling or debugging steps if necessary
+// }
+
+// // Now, delete records from the doctors table only if deletion from the diagnosis table was successful
+// if ($conn->query($sql_delete_diagnosis) === TRUE) {
+//     // Now, delete records from the doctors table
+//     $sql_delete_doctors = "DELETE FROM doctors";
+
+//     if ($conn->query($sql_delete_doctors) === TRUE) {
+//         echo "All records from the doctors table have been deleted successfully!";
+//     } else {
+//         echo "Error deleting records from doctors table: " . $conn->error;
+//     }
+// } else {
+//     echo "Skipping deletion of records from the doctors table due to errors in deleting associated records from the diagnosis table.";
+// }
+
 
 
 $sql = "CREATE TABLE IF NOT EXISTS appointment (

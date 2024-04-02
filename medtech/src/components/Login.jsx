@@ -83,7 +83,7 @@ const Login = ({ openSignup, onLogin, closePopups, isDrOpen, setIsDrOpen, formda
                 navigate(`/admin-page`);
 
             } else if (data.type ==='Doctor') {
-                onLogin(data.data.full_name , "Doctor");
+                onLogin(data.data.full_name , "Doctor" ,null, data.data.id);
                 navigate(`/dr-page`);
 
             }

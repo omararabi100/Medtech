@@ -1,108 +1,89 @@
-import React, { useState } from "react";
-import Login from './Login';
+import React, { useState, useEffect } from "react";
 
 const GetChecked = () => {
-
-    const [imageUrl, setImageUrl] = useState(null);
+    const [image, setImage] = useState(null);
     const [showError, setShowError] = useState(false);
     const [showLoginMessage, setShowLoginMessage] = useState(false);
-
     const IsLogged = localStorage.getItem("Islogged");
-    const patient_id = localStorage.getItem("patient_id");
+    let email = localStorage.getItem("email");
+    const [selectedImage, setSelectedImage] = useState(null);
+    email = email.replace(/"/g, '');
 
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
+    const handleChange = (event) => {
+        const file = event.target.files[0]; 
+    
         if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
-            setShowError(false); 
+            setSelectedImage(URL.createObjectURL(file));
+            setImage(file); 
         }
     };
+    
 
     const handleClearImage = () => {
-        setImageUrl(null);
+        setImage(null);
     };
 
     const handleUploadClick = () => {
-
-        console.log(IsLogged);
-        
         if (IsLogged !== "true") {
-            setShowLoginMessage(true); 
+            setShowLoginMessage(true);
         } else {
-            if (!imageUrl) {
-                setShowError(true); 
-            } 
-            console.log(IsLogged);
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8000/uploadimage.php",
-                data: formdata, // Pass formdata directly
-                success(data) {
-                    if (data.error) {
-                        setErrors({
-                            ...errors,
-                            errorMessage: data.error,
-                        });
-                    } else {
-                        console.log(data.full_name);
-                        console.log(data);
-                        onSign(data.full_name);
-                        closePopups();
-                    }
-                },
-                error: function(error) {
-                    console.error("Error:", error);
-                    setErrors({
-                        ...errors,
-                        errorMessage: "Email already exists",
-                    });
-                },
+            if (!image) {
+                setShowError(true);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("email", email);
+            formData.append("image", image);
+
+            fetch("http://localhost:8000/uploadimage.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Upload success");
+                } else {
+                    throw new Error("Upload failed");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
             });
-            // fetch('addimage.php', {
-            //     method: 'POST',
-            //     body: JSON.stringify({ image: imageUrl }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then(response => {
-            //     // Handle response
-            // })
-            // .catch(error => {
-            //     console.error('Error:', error);
-            // });
         }
     };
 
+    useEffect(() => {
+        // Cleanup logic if needed
+        return () => {
+            // Cleanup code
+        };
+    }, []);
+
     return (
         <div className="Getchecked">
-            
             <div className="image_placeholder" onClick={() => IsLogged ? document.getElementById('imageInput').click() : null}>
-                {imageUrl ? (
-                    <img src={imageUrl} alt="Uploaded"  />
+                {selectedImage ? (
+                    <img src={selectedImage} alt="Uploaded" />
                 ) : (
                     <p>Click to upload an image</p>
                 )}
             </div>
-            
-            <input type="file" accept="image/*" id="imageInput" style={{ display: "none" }} onChange={handleImageChange} />
+            <input
+                id="imageInput"
+                type="file"
+                name="image"
+                accept="image/png, image/jpeg"
+                onChange={handleChange}
+                style={{ display: 'none' }}
+            />
             <div className="buttons">
-                {imageUrl && ( 
+                {image && ( 
                     <button onClick={handleClearImage}>
                         Clear
                     </button>
                 )}
-                {IsLogged ? (
-                    <label htmlFor="imageInput">
-                        <button onClick={handleUploadClick}>Upload</button>
-                    </label>
-                ) : (
-                    <span style={{ color: 'red', marginRight: '10px' }}>Please login to upload</span>
-                )}
+                <button onClick={handleUploadClick}>Upload</button>
                 {showError && (
                     <p style={{ color: 'red' }}>An image must be uploaded</p>
                 )}
@@ -111,7 +92,7 @@ const GetChecked = () => {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default GetChecked;

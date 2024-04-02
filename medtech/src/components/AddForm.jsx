@@ -46,6 +46,7 @@ const handleTimeSlotChange = (dayIndex, slotIndex, fieldName, value) => {
         roundedMinutes = 0;
     }
     
+    // Format the time
     const formattedTime = `${roundedHours.toString().padStart(2, "0")}:${roundedMinutes.toString().padStart(2, "0")}`;
     
     newTimeSlots[dayIndex].slots[slotIndex] = {
@@ -67,16 +68,11 @@ const handleTimeSlotChange = (dayIndex, slotIndex, fieldName, value) => {
     handleInputChange({ target: { name: 'time', value: JSON.stringify(newFormData.time) } });
 };
 
+
 const addTimeSlot = (dayIndex) => {
     const newTimeSlots = [...timeSlots];
     const daySlots = newTimeSlots[dayIndex]?.slots || [];
     daySlots.push({ starting_time: '', ending_time: '' });
-
-    if (daySlots.length === 0) {
-        daySlots.push({ starting_time: '08:00', ending_time: '17:00' });
-    } else {
-        daySlots.push({ starting_time: '', ending_time: '' });
-    }
     newTimeSlots[dayIndex] = { day: formData.date_available[dayIndex].trim(), slots: daySlots };
     
     setTimeSlots(newTimeSlots);
@@ -91,27 +87,6 @@ const addTimeSlot = (dayIndex) => {
     }));
     setFormData(newFormData);
 };
-const removeTimeSlot = (dayIndex, slotIndex) => {
-    // setchangetime(true);
-    const newTimeSlots = [...timeSlots];
-    newTimeSlots[dayIndex].slots[slotIndex] = {
-        starting_time: "",
-        ending_time: ""
-    };
-    setTimeSlots(newTimeSlots);
-    newTimeSlots[dayIndex].slots.splice(slotIndex, 1);
-    setTimeSlots(newTimeSlots);
-    const newFormData = { ...formData };
-    newFormData.time = newTimeSlots.map(daySlot => ({
-        day: daySlot.day.trim(),
-        slots: daySlot.slots.map(slot => ({
-            starting_time: slot.starting_time,
-            ending_time: slot.ending_time
-        }))
-    }));
-    console.log(newFormData);
-    setFormData(newFormData);
-};
 
     const cleanDates = formData.date_available.map(date => date.trim().toLowerCase().replace(/\s+/g, ''));
 
@@ -122,6 +97,7 @@ const removeTimeSlot = (dayIndex, slotIndex) => {
                 
                 <ImageUploader handleImageChange={handleInputChange} formData={formData} editMode = {editMode} />
                 <label htmlFor="">Full name
+                                
                     <input type="text" name="full_name" value={formData.full_name} onChange={handleInputChange} />
                     
                     </label>
@@ -134,10 +110,10 @@ const removeTimeSlot = (dayIndex, slotIndex) => {
                 <div>
                 {formData.date_available.map((day, dayIndex) => (
                     <div key={dayIndex}>
-                        <div className="Addform-div">
-                            <label>{day}</label>
-                            <button type="button" onClick={() => addTimeSlot(dayIndex)}>Add Time Slot</button>
-                        </div>
+        <div className="Addform-div">
+            <label>{day}</label>
+            <button type="button" onClick={() => addTimeSlot(dayIndex)}>Add Time Slot</button>
+        </div>
                     {timeSlots[dayIndex] && timeSlots[dayIndex].slots.map((slot, slotIndex) => (
                         <div key={slotIndex}>
                             <label>Start Time:
@@ -146,15 +122,13 @@ const removeTimeSlot = (dayIndex, slotIndex) => {
                             <label>End Time:
                                 <input type="time" name="time" value={slot.ending_time} onChange={(e) => handleTimeSlotChange(dayIndex, slotIndex, 'ending_time', e.target.value)} />
                             </label>
-                            {/* <button type="button" onClick={() => removeTimeSlot(dayIndex, slotIndex)}>Remove Time Slot</button> */}
-
                         </div>
                     ))}
                 </div>
             ))}
                 </div>
                     {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => {
-                        const cleanDay = day.trim().toLowerCase().replace(/\s+/g, ''); 
+                        const cleanDay = day.trim().toLowerCase().replace(/\s+/g, '');
                         const isChecked = cleanDates.includes(cleanDay);
 
                         return (

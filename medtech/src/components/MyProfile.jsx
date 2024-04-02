@@ -5,7 +5,7 @@ const MyProfile = () => {
     const [userData, setUserData] = useState(null);
     const [updatedHistory, setUpdatedHistory] = useState("");
     const [updatedAllergies, setUpdatedAllergies] = useState("");
-    const [message,setmessage] = useState("");
+    const [message, setMessage] = useState("");
     const storedEmail = localStorage.email; 
     const email = storedEmail ? storedEmail.replace(/"/g, "") : ""; 
 
@@ -13,7 +13,7 @@ const MyProfile = () => {
         if (email) {
             fetchUserData();
         }
-    }, [email]); // Fetch data whenever email changes
+    }, [email]); 
 
     const fetchUserData = () => {
         $.ajax({
@@ -40,13 +40,10 @@ const MyProfile = () => {
                 email: email,
                 history: updatedHistory,
                 allergies: updatedAllergies
-
             },
             success: function(response) {
-                setmessage ("updated successfully");
-
+                setMessage("Updated successfully");
                 console.log("User data updated successfully:", response);
-                // Optionally, you can update the local state or display a success message
             },
             error: function(error) {
                 console.error("Error updating user data:", error);
@@ -57,6 +54,10 @@ const MyProfile = () => {
     if (!userData) {
         return <div>Loading...</div>;
     }
+
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().slice(0, 10);
+    const currentTimeString = currentDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
 
     return (
         <div className="My-Profile">
@@ -87,38 +88,35 @@ const MyProfile = () => {
             ))}
             <h2>Check out and add your data</h2>
             <div>
-            <h3>History</h3>
-            <br />
-
-    {userData.history ? (
-        <div>
-            {/* <p>{userData.history}</p> */}
-            <textarea
-                value={updatedHistory}
-                onChange={(e) => setUpdatedHistory(e.target.value)}
-            />
-            <button onClick={handleUpdateUserData}>Update History</button>
-        </div>
-    ) : (
-        <div>
-            <p>No past history added</p>
-            <textarea
-                value={updatedHistory}
-                onChange={(e) => setUpdatedHistory(e.target.value)}
-            />
-            <button onClick={handleUpdateUserData}>Add History</button>
-        </div>
-    )}
+                <h3>History</h3>
+                <br />
+                {userData.history ? (
+                    <div>
+                        <textarea
+                            value={updatedHistory}
+                            onChange={(e) => setUpdatedHistory(e.target.value)}
+                        />
+                        <button onClick={handleUpdateUserData}>Update History</button>
+                    </div>
+                ) : (
+                    <div>
+                        <p>No past history added</p>
+                        <textarea
+                            value={updatedHistory}
+                            onChange={(e) => setUpdatedHistory(e.target.value)}
+                        />
+                        <button onClick={handleUpdateUserData}>Add History</button>
+                    </div>
+                )}
             </div>
             <div>
                 <h3>Allergies</h3>
                 <br />
                 {userData.allergies ? (
                     <div>
-                        {/* <p>{userData.allergies}</p> */}
                         <textarea
                             value={updatedAllergies}
-                            onChange={(e) => setUpdatedallergies(e.target.value)}
+                            onChange={(e) => setUpdatedAllergies(e.target.value)}
                         />
                         <button onClick={handleUpdateUserData}>Update allergies</button>
                     </div>
@@ -132,11 +130,23 @@ const MyProfile = () => {
                         <button onClick={handleUpdateUserData}>Add allergie</button>
                     </div>
                 )}
-                {/* <textarea value={updatedAllergies} onChange={(e) => setUpdatedAllergies(e.target.value)} />
-                <button onClick={handleUpdateUserData}>Update Allergies</button> */}
             </div>
-                <span>{message}</span>
-                <br />
+            <h2>Appointments</h2>
+            {userData.appointments && userData.appointments.map((appointment, index) => (
+                <div key={index}>
+                    <p>Date: {appointment.date}</p>
+                    <p>Time: {appointment.start_time} - {appointment.end_time}</p>
+                    <p>Dr name: {appointment.doctor_name}</p>
+
+                    {(appointment.date === currentDateString && 
+                        currentTimeString >= appointment.start_time &&
+                        currentTimeString <= appointment.end_time) && (
+                        <button onClick={() => handleCallNow(appointment)}>Call Now</button>
+                    )}
+                </div>
+            ))}
+            <span>{message}</span>
+            <br />
             <button>
                 <a href="call-now">Make an appointment</a>
             </button>

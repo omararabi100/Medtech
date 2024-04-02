@@ -27,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
         <Route path="get-checked" element={<GetChecked />} />
+        
         <Route path="call-now" element={<CallNow />} />
         <Route path="about-us" element={<AboutUs />} />
         <Route path="contact-us" element={<ContactUs />} />
@@ -39,6 +40,10 @@ function App() {
         <Route path="/call-now/calendar" element={<Calendar />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/patient-info" element={<Patientinfo />} />
+        <Route path="/patient-info/:patient_id"
+        element={<Patientinfo />}
+        />
+
         </Routes>
     <Footer />
     </div>

@@ -72,7 +72,7 @@ const TableDoctor = ({
                                     <div className="containers">
                                         {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => (
                                             // <label key={day}>
-                                                 <label key={day} style={{ marginRight: '10px' }}>
+                                                <label key={day} style={{ marginRight: '10px' }}>
                                                 <input
                                                     type="checkbox"
                                                     name={""+day}

@@ -1,47 +1,75 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import $ from "jquery"; 
 
 const Drpage = () => {
-    const [users, setUsers] = useState([]);
+    const [patients, setPatients] = useState([]);
 
     useEffect(() => {
-        fetchUsers();
+        fetchPatients();
     }, []);
 
-    const fetchUsers = () => {
+    const fetchPatients = () => {
         $.ajax({
             type: "GET",
             url: "http://localhost:8000/getUsers.php", 
             success: function(data) {
-                setUsers(data.users); 
+                setPatients(data.users); 
             },
             error: function(error) {
-                console.error("Error fetching users:", error);
+                console.error("Error fetching patients:", error);
             },
         });
     };
 
+    const calculateAge = (dateOfBirth) => {
+        const today = new Date();
+        const birthDate = new Date(dateOfBirth);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const month = today.getMonth() - birthDate.getMonth();
+        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
+    // Log received patient data
+    console.log('Patient Data:', patients);
+
+    // Log received images
+    console.log('Images:', patients.map(patient => patient.diagnosis && patient.diagnosis.map(diagnosis => diagnosis.image)));
+
     return (
         <div className="">
-            <h1>User List</h1>
+            <h1>Patient List</h1>
             <table>
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Gender</th>
+                        <th>Age</th>
                         <th>Phone</th>
                         <th>History</th>
                         <th>Allergies</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user, index) => (
+                    {patients.map((patient, index) => (
                         <tr key={index}>
-                            <td>{user.full_name}</td>
-                            <td>{user.email}</td>
-                            <td>{user.phone_nb}</td>
-                            <td>{user.diagnosis && user.diagnosis.history}</td>
-                            <td>{user.diagnosis && user.diagnosis.allergies}</td>
+                            <td>
+                                <Link to={`/patient-info/${patient.id}`}>
+                                    {patient.id}
+                                </Link>
+                            </td>
+                            <td>{patient.full_name}</td>
+                            <td>{patient.email}</td>
+                            <td>{patient.gender}</td>
+                            <td>{calculateAge(patient.dateofbirth)}</td>
+                            <td>{patient.phone_nb}</td>
+                            <td>{patient.diagnosis && patient.diagnosis.history ? patient.diagnosis.history : "None"}</td>
+                            <td>{patient.diagnosis && patient.diagnosis.allergies ? patient.diagnosis.allergies : "None"}</td>
                         </tr>
                     ))}
                 </tbody>
