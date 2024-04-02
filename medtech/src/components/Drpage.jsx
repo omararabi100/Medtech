@@ -4,6 +4,7 @@ import $ from "jquery";
 
 const Drpage = () => {
     const [patients, setPatients] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         fetchPatients();
@@ -33,15 +34,23 @@ const Drpage = () => {
         return age;
     };
 
-    // Log received patient data
-    console.log('Patient Data:', patients);
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
 
-    // Log received images
-    console.log('Images:', patients.map(patient => patient.diagnosis && patient.diagnosis.map(diagnosis => diagnosis.image)));
+    const filteredPatients = patients.filter(patient =>
+        patient.full_name.toLowerCase().includes(searchQuery)
+    );
 
     return (
         <div className="">
             <h1>Patient List</h1>
+            <input
+                type="text"
+                placeholder="Search by name"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+            />
             <table>
                 <thead>
                     <tr>
@@ -56,7 +65,7 @@ const Drpage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {patients.map((patient, index) => (
+                    {filteredPatients.map((patient, index) => (
                         <tr key={index}>
                             <td>
                                 <Link to={`/patient-info/${patient.id}`}>

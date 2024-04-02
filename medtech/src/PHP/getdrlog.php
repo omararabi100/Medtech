@@ -9,27 +9,26 @@ if (isset($_POST['full_name']) && isset($_POST['id'])) {
     $id = $_POST['id'];
 
     if (!empty($full_name) && !empty($id)) {
-        $stmt = $conn->prepare("SELECT * FROM doctors WHERE full_name = ? AND id = ?");
-        $stmt->bind_param("si", $full_name, $id); 
+        $stmt = $conn->prepare("SELECT * FROM doctors WHERE full_name = ?");
+        $stmt->bind_param("s", $full_name); 
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $stmtname = $conn->prepare("SELECT * FROM doctors WHERE full_name = ? ");
-        $stmtname->bind_param("s", $full_name); 
-        $stmtname->execute();
-
-        $resultname = $stmtname->get_result();
-
-        if ($resultname->num_rows < 1){
-            echo json_encode(array("error" => "Invalid full name")); 
-
-        }
-        elseif ($result->num_rows == 1) {
+        if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
-            echo json_encode(array("success" => true, "data" => $row , 'type'=>'Doctor')); 
-        }
-        else {
-            echo json_encode(array("error" => "Invalid full name and ID"));
+            $doctor_id = $row['id']; 
+            $first_digit_phone = substr($row['phone_nb'], 0, 1); 
+
+            // Generate the password with doctor ID and first digit of phone number
+            $password = str_pad($doctor_id . $first_digit_phone, 4, "0", STR_PAD_RIGHT);
+            
+            if ($id == $password) {
+                echo json_encode(array("success" => true, "data" => $row , 'type'=>'Doctor')); 
+            } else {
+                echo json_encode(array("error" => "Invalid password")); 
+            }
+        } else {
+            echo json_encode(array("error" => "Invalid full name")); 
         }
 
         $stmt->close();

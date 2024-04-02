@@ -7,9 +7,6 @@ include_once("config.php");
 
 if (isset($_GET['id'])) {
     $doctorId = $_GET['id'];
-$dateAvailable = $doctorInfo['date_available'];
-$daysArray = explode(",", $dateAvailable);
-$startingDate = date("Y-m-d", strtotime($doctorInfo['starting_date']));
 
     $sql = "SELECT * FROM doctors WHERE id = ?";
     $stmt = $conn->prepare($sql);

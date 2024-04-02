@@ -16,19 +16,19 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $dateAvailable = $row['date_available']; // Retrieve date_available from $row
+        $dateAvailable = $row['date_available']; 
         $daysArray = explode(",", $dateAvailable);
-        $startingDate = date("Y-m-d", strtotime($row['starting_date'])); // Retrieve starting_date from $row
+        $startingDate = date("Y-m-d", strtotime($row['starting_date'])); 
         header('Content-Type: application/json');
         echo json_encode($row);
     } else {
-        http_response_code(404); // Not Found status code
+        http_response_code(404);
         echo json_encode(array("error" => "No data found for the given identifier"));
     }
 
     $stmt->close();
 } else {
-    http_response_code(400); // Bad Request status code
+    http_response_code(400); 
     echo json_encode(array("error" => "Doctor ID not provided"));
 }
 

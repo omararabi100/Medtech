@@ -19,8 +19,6 @@ const TableDoctor = ({
                     <th>ID</th>
                     <th>Full Name</th>
                     <th>Image</th>
-                    {/* <th>Starting Time</th>
-                    <th>Ending Time</th> */}
                     <th>Date Available</th>
                     <th> Time</th>
                     <th>Phone Number</th>
@@ -71,7 +69,6 @@ const TableDoctor = ({
                                 {editedDoctor && editedDoctor.id === doctor.id ? (
                                     <div className="containers">
                                         {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => (
-                                            // <label key={day}>
                                                 <label key={day} style={{ marginRight: '10px' }}>
                                                 <input
                                                     type="checkbox"
@@ -100,31 +97,8 @@ const TableDoctor = ({
                                     setErrorMessage( "Time slots are empty. Please fill them.")
                                     
                                 )}
-                                {/* {doctor.times &&
-                                    doctor.times.map((timeObj) => (
-                                        <div key={timeObj.day}>
-                                            <div>{timeObj.day}:</div>
-                                            <ul>
-                                                {timeObj.slots.map((slot, index) => (
-                                                    <li key={index}>
-                                                        {slot.starting_time} - {slot.ending_time}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ))} */}
                             </td>
-                            {/* <td>
-                                {doctor.starting_times.map((startingTime, index) => (
-                                    <div key={index}>{startingTime}</div>
-                                ))}
-                            </td>
-                            <td>
-                                {doctor.ending_times.map((endingTime, index) => (
-                                    <div key={index}>{endingTime}</div>
-                                ))}
-                            </td> */}
-                           
+
                             <td>
                                 {editedDoctor && editedDoctor.id === doctor.id ? (
                                     <input

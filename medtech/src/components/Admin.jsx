@@ -40,11 +40,9 @@ const Admin = () => {
             type: "GET",
             dataType: "json",
             success: (response) => {
-                console.log("Fetched data:", response);
                 setData(response);
             },
             error: (xhr, status, error) => {
-                console.error("Error fetching data:", status, error);
             }
         });
     };
@@ -139,7 +137,6 @@ const Admin = () => {
                 }]
             });
         }
-        console.log("Form Data:", formData);
         if (Object.values(formData).some(value => value === "")) {
             setErrorMessage("All fields should be filled");
             return;
@@ -243,7 +240,7 @@ const Admin = () => {
 
     };
     const handleSearchInputChange = (e) => {
-        setSearchQuery(e.target.value.toLowerCase().trim());
+        setSearchQuery(e.target.value.toLowerCase());
     };
 
     const handlePhoneFilterChange = (e) => {
@@ -269,7 +266,6 @@ const Admin = () => {
     );
     const updateDoctor = (event) => {
         event.preventDefault();
-        console.log("Form Data:", formData);
         let formDataToSend = new FormData();
         const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
         if (fullNameExists) {
@@ -291,7 +287,6 @@ const Admin = () => {
             contentType: false,
             processData: false,
             success: (response) => {
-                console.log("Doctor updated successfully", response);
                 setFormData({
                     full_name: "",
                     image: "",
@@ -309,7 +304,6 @@ const Admin = () => {
 
             },
             error: (error) => {
-                console.error("Error updating doctor:", error);
                 setErrorMessage("Error updating doctor: " + error.message);
             }
         });

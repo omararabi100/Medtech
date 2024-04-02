@@ -8,10 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && isset($_POST['email'])) {
         $email = $_POST['email'];
 
-        // Read image data
         $imageData = file_get_contents($_FILES['image']['tmp_name']);
 
-        // Encode image data as base64
         $base64Image = base64_encode($imageData);
 
         $sql = "SELECT id FROM users WHERE email = ?";
@@ -21,11 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->get_result();
         
         if ($result->num_rows > 0) {
-            // Fetch user ID
             $row = $result->fetch_assoc();
             $userId = $row['id'];
 
-            // Get the current date
             $currentDate = date("Y-m-d H:i:s");
 
             $sql = "INSERT INTO diagnosis (patient_id, image, date) VALUES (?, ?, ?)";

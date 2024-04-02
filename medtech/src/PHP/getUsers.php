@@ -8,30 +8,15 @@ $sql_users = "SELECT u.*, d.full_name AS doctor_name FROM users u
 
 $result_users = $conn->query($sql_users);
 
-if ($result_users->num_rows > 0) {
+if ($result_users) {
     $users = array();
-    while($row = $result_users->fetch_assoc()) {
-        $sql_diagnoses = "SELECT d.*, dr.full_name AS doctor_name 
-                            FROM diagnosis d
-                            JOIN doctors dr ON d.dr_id = dr.id
-                            WHERE d.patient_id = " . $row['id'];
-        
-        $result_diagnoses = $conn->query($sql_diagnoses);
-        $diagnoses = array();
-        if ($result_diagnoses->num_rows > 0) {
-            while($diagnosis = $result_diagnoses->fetch_assoc()) {
-                $diagnoses[] = $diagnosis;
-            }
-        }
-        
-        $row['diagnoses'] = $diagnoses;
+    while ($row = $result_users->fetch_assoc()) {
         $users[] = $row;
     }
 } else {
     $users = [];
 }
 
-$conn->close();
 
 $response = array(
     "users" => $users

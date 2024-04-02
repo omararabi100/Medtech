@@ -10,7 +10,6 @@ const AddForm = ({ formData, handleInputChange, handleCheckboxChange, addDoctor,
 
 useEffect(() => {
     if (editMode) {
-        console.log("formData" , formData);
         let days = [];
         if (typeof formData.date_available === 'string') {
             days = formData.date_available.split(',').map(day => day.trim());
@@ -22,7 +21,6 @@ useEffect(() => {
             day,
             slots: slots.map(({ starting_time, ending_time }) => ({ starting_time, ending_time })),
         }));
-        console.log(initialTimeSlots);
         setTimeSlots(initialTimeSlots);
     }
 }, [editMode, formData.date_available ]);
