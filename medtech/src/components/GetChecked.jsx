@@ -4,6 +4,8 @@ const GetChecked = () => {
     const [image, setImage] = useState(null);
     const [showError, setShowError] = useState(false);
     const [showLoginMessage, setShowLoginMessage] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
     const IsLogged = localStorage.getItem("Islogged");
     let email = localStorage.getItem("email");
     const [selectedImage, setSelectedImage] = useState(null);
@@ -17,7 +19,6 @@ const GetChecked = () => {
             setImage(file); 
         }
     };
-    
 
     const handleClearImage = () => {
         setImage(null);
@@ -42,6 +43,8 @@ const GetChecked = () => {
             })
             .then(response => {
                 if (response.ok) {
+                    setShowSuccessMessage(true);
+                    setSuccessMessage("Image uploaded successfully");
                     console.log("Upload success");
                 } else {
                     throw new Error("Upload failed");
@@ -49,16 +52,22 @@ const GetChecked = () => {
             })
             .catch(error => {
                 console.error("Error:", error);
+                setShowSuccessMessage(true);
+                setSuccessMessage("Failed to upload image");
             });
         }
     };
 
     useEffect(() => {
-        // Cleanup logic if needed
-        return () => {
-            // Cleanup code
-        };
-    }, []);
+        if (showSuccessMessage) {
+            const timer = setTimeout(() => {
+                setShowSuccessMessage(false);
+                setSuccessMessage("");
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showSuccessMessage]);
 
     return (
         <div className="Getchecked">
@@ -89,6 +98,9 @@ const GetChecked = () => {
                 )}
                 {showLoginMessage && (
                     <p style={{ color: 'red' }}>Please login to upload</p>
+                )}
+                {showSuccessMessage && (
+                    <span style={{ color: 'green' }}>{successMessage}</span>
                 )}
             </div>
         </div>

@@ -8,6 +8,9 @@ import $ from 'jquery';
 import { unserialize } from 'serialize-php';
 import moment from 'moment';
 const Calendar = () => {
+  const IsLogged = localStorage.getItem("Islogged");
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
+
   const patient_email = localStorage.getItem('email');
   const [doctorInfo, setDoctorInfo] = useState(null);
   // const doctorinfo = localStorage.getItem('doctorinfo');
@@ -21,6 +24,9 @@ const Calendar = () => {
 
   let doctorinfo = localStorage.getItem("doctorinfo");
   useEffect(() => {
+    if (IsLogged !== "true") {
+      setShowLoginMessage(true);
+  } 
     const usertype = localStorage.getItem("user");
     let doctorId = null;
     let url = '';
@@ -57,10 +63,6 @@ const Calendar = () => {
       } else {
         url = 'http://localhost:8000/getDoctorInfo.php';
       }
-  
-      console.log('doctorId:', doctorId);
-      console.log('doctor info:', doctorinfo);
-  
       const response = await $.ajax({
         url: url,
         type: 'GET',
@@ -68,12 +70,12 @@ const Calendar = () => {
         data: { id: doctorId },
       });
   
-      console.log('Response:', response); // Log the response
+      console.log('Response:', response); 
   
       setDoctorInfo(response);
   
       if (response && response.times) {
-        const timesArray = unserialize(response.times); // Unserialize the times data
+        const timesArray = unserialize(response.times); 
         const takenTimes = await taken_time(doctorId);
         const events = generateCustomEvents(timesArray, doctorId, takenTimes);
         setCustomEvents(events);
@@ -204,7 +206,7 @@ const Calendar = () => {
     if (!selectedEvent) {
       return;
     }
-
+    
     if (selectedEvent.backgroundColor === 'lightgray') {
       console.error('Error: Cannot reserve appointment. Please select an available time slot.');
       return;
@@ -215,25 +217,25 @@ const Calendar = () => {
       dr_id: doctorInfo.id,
       date: moment(selectedEvent.start).format('YYYY-MM-DD'),
       start_time: moment(selectedEvent.start).format('HH:mm:ss'),
-end_time: moment(selectedEvent.end).format('HH:mm:ss')
+      end_time: moment(selectedEvent.end).format('HH:mm:ss')
 };
-$.ajax({
-  url: 'http://localhost:8000/appointment.php',
-  type: 'POST',
-  dataType: 'json',
-  data: appointmentData,
-  success: function(response) {
-    console.log('Appointment reserved successfully:', response);
-    setPopupVisible(true);
-    setAppointmentReserved(true);
-    setReservedDateTime(moment(appointmentData.date + ' ' + appointmentData.start_time).format('YYYY-MM-DD HH:mm:ss'));
-    setPopupVisible(true);
+    $.ajax({
+      url: 'http://localhost:8000/appointment.php',
+      type: 'POST',
+      dataType: 'json',
+      data: appointmentData,
+      success: function(response) {
+        console.log('Appointment reserved successfully:', response);
+        setPopupVisible(true);
+        setAppointmentReserved(true);
+        setReservedDateTime(moment(appointmentData.date + ' ' + appointmentData.start_time).format('YYYY-MM-DD HH:mm:ss'));
+        setPopupVisible(true);
 
-  },
-  error: function(error) {
-    console.error('Error reserving appointment:', error);
-  }
-});
+      },
+      error: function(error) {
+        console.error('Error reserving appointment:', error);
+      }
+    });
 };
 
 const handleClosePopup = () => {
@@ -248,8 +250,11 @@ return (
         <h2>Doctor Information</h2>
         <p>Name: {doctorInfo.full_name}</p>
         <button onClick={() => window.location.href = `tel:${doctorInfo.phone}`}>Call Now</button>
-        {localStorage.getItem("user") !== "Doctor" && !popupVisible && selectedEvent && (
+        { showLoginMessage == false && localStorage.getItem("user") !== "Doctor" && !popupVisible && selectedEvent && (
           <button onClick={handlereserve}>Reserve</button>
+        )}
+        {showLoginMessage && (
+            <p style={{ color: 'red' }}>Please login to reserve an appointment</p>
         )}
       </div>
     )}
