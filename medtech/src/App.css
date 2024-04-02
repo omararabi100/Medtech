@@ -53,8 +53,14 @@ input:focus {
     color: var(--secondarycolor);
     font-family: 'Inter', sans-serif;
     font-size: 16px;
-    font-weight: 400;
     text-wrap: nowrap;
+}
+.active{
+    font-weight: bold;
+    color: var(--maincolor) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 7px !important;
+    text-decoration-color: var(--beige) !important;
 }
 .nav-bar h2{
     color: var(--maincolor);

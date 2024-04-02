@@ -58,11 +58,14 @@ const handleLogin = (userData , type,email,id) => {
     }
     // console.log(formdata.email);
     setName(userData);
+    console.log(formdata );
+    console.log(id);
     localStorage.setItem("userData", JSON.stringify(userData));
     localStorage.setItem("Islogged" , true) ;
     localStorage.setItem("email", JSON.stringify(formdata.email));
     localStorage.setItem("patient_id", JSON.stringify(formdata.id));
     localStorage.setItem("dr_id", JSON.stringify(formdata.id));
+    localStorage.setItem("dr_id_pure", JSON.stringify(id));
 
 };
 
