@@ -18,8 +18,8 @@
             $mail->Host = 'smtp.gmail.com';    
             $mail->SMTPAuth = true;
 
-            $mail->Username = 'omararabi100@gmail.com';
-            $mail->Password = 'pbxfhbclczdvhlot';
+            $mail->Username = '';
+            $mail->Password = '';
 
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
