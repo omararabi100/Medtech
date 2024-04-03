@@ -19,11 +19,25 @@ import MyProfile from './components/MyProfile';
 import Calendar from "./components/Calendar"
 import Patientinfo from "./components/patientinfo";
 import ContactUsSuccess from './components/ContactUsSuccess';
+import Article from "./components/Article";
+import SideBar from './components/Sidebar';
 
 function App() {
+    const [translateXValue, setTranslateXValue] = useState(-100.5)
+    const [overlay, setOverlay] = useState('none')
+    const showHide = () => {
+        if (translateXValue === 0) {
+            setTranslateXValue(-100.5)
+            setOverlay('none')
+        } else {
+            setTranslateXValue(0)
+            setOverlay('block')
+        }
+    }
   return (
     <div className='main-container'>
-      <Header />
+      <Header showHide={showHide}/>
+      <SideBar showHide={showHide} translateXValue={translateXValue}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
@@ -45,9 +59,10 @@ function App() {
         <Route path="/patient-info/:patient_id"
         element={<Patientinfo />}
         />
-
+        <Route path="/article/:type" element={<Article />} />
         </Routes>
     <Footer />
+    <div className="overlay" style={{display: overlay, transition: 'transform 0.5s ease'}} onClick={showHide}></div>
     </div>
     );
 }

@@ -1580,9 +1580,6 @@ input:focus {
     /* .admin-container table thead tr th:nth-child(8) , .admin-container table tbody tr td:nth-child(8)  {
         display: none;
     } */
-    .nav-bar h2 {
-        display:none;
-    }
     .nav-bar ul{
         padding: 10px;
     }
@@ -1599,6 +1596,12 @@ input:focus {
         display: none;
     }
 }
+
+@media screen and (max-width: 1052px) and (min-width: 964px) {
+    .nav-bar h2 {
+      display: none;
+    }
+  }
 
 @media screen and (max-width: 963px) {
     .admin-container table thead tr th:nth-child(1) , .admin-container table tbody tr td:nth-child(1)  {
