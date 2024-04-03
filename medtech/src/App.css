@@ -1229,34 +1229,39 @@ input:focus {
 /* myprofile */
 .My-Profile h1{
     text-align: center;
-    margin: 15px 0;
+    margin: 35px 0;
     text-decoration: underline;
     text-underline-offset: 12px;
     text-decoration-color: var(--beige);
 }
-/* Styles for the container */
 .My-Profile .profile-info {
     display: flex;
-    flex-direction: column;
-    margin: 20px 0;
+    margin: 50px 0;
     padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
+    border-top: 2px solid #cccccc18;
+    border-bottom: 2px solid #cccccc18;
     background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+    flex-wrap: wrap;   
 }
-
+.My-Profile .profile-info div{
+    display: flex;
+    flex-direction: column;
+}
 .My-Profile .profile-info p {
     margin: 5px 0;
 }
-
-.My-Profile .profile-info p:first-of-type {
+.My-Profile .profile-info >:nth-child(3){
+    display: flex;
+    align-items: center;
+}
+.My-Profile .past{
+    display: flex;
+    justify-content: center;
+}
+.My-Profile .profile-info div:nth-child(1) p:first-of-type {
     font-size: 24px;
     font-weight: bold;
-}
-
-.My-Profile .profile-info p:nth-of-type(2) {
-    color: #666;
 }
 
 @media (max-width: 768px) {
@@ -1264,19 +1269,48 @@ input:focus {
         padding: 10px;
     }
 }
-
+.My-Profile .diagnosis{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.My-Profile .diagnosis div {
+    margin: 20px;
+}
 .My-Profile .diagnosis_div{
     display: flex;
     flex-direction: column;
 }
 .My-Profile .past {
-    display: flex;
+    display: flex !important;
     width: 100%;
+    flex-direction: row !important;
+    flex-wrap: wrap;
 }
 .My-Profile .past div{
     display: flex;
     flex-direction: column;
     margin: 20px;
+}
+.My-Profile button {
+    display: flex;
+    justify-content: center;
+}
+.My-Profile .button-call{
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.My-Profile .button-call button{
+    background-color: var(--secondarycolor);
+    padding: 13px 20px;
+    border-radius: 2px;
+    border: none;
+}
+.My-Profile .button-call button a{
+    text-decoration: none;
+    color: white;
 }
 /* Footer */
 

@@ -48,12 +48,12 @@ if ($result_user->num_rows > 0) {
     LEFT JOIN doctors d ON di.dr_id = d.id
     WHERE di.patient_id = ?";
                         
-    $stmt_diagnosis = $conn->prepare($sql_diagnosis);
-    $stmt_diagnosis->bind_param("i", $userData['id']); 
-    $stmt_diagnosis->execute();
-    $result_diagnosis = $stmt_diagnosis->get_result();
+$stmt_diagnosis = $conn->prepare($sql_diagnosis);
+$stmt_diagnosis->bind_param("i", $userData['id']); 
+$stmt_diagnosis->execute();
+$result_diagnosis = $stmt_diagnosis->get_result();
 
-    $diagnosisData = array();
+$diagnosisData = array();
 while ($row_diagnosis = $result_diagnosis->fetch_assoc()) {
     $diagnosisData[] = array(
         'image' => $row_diagnosis['image'],
@@ -62,6 +62,7 @@ while ($row_diagnosis = $result_diagnosis->fetch_assoc()) {
         'doctor_name' => $row_diagnosis['doctor_name'], 
     );
 }
+
 
     $userData['appointments'] = $appointmentsData;
     $userData['diagnosis'] = $diagnosisData;
