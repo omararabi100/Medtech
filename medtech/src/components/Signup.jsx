@@ -148,29 +148,38 @@ const Signup = ({ openLogin , onSign, closePopups  }) => {
                     value={formdata.phone_nb}
                 />
                 <input
-                type="radio"
-                name="gender"
-                value="female"
-                onChange={handleGenderChange}
-                checked={formdata.gender === "female"}
-                />
-                <label htmlFor="female">Female</label>
-
-                <input
-                type="radio"
-                name="gender"
-                value="male"
-                onChange={handleGenderChange}
-                checked={formdata.gender === "male"}
-                />
-                <label htmlFor="male">Male</label>
-                <input
                     type="date"
                     placeholder="Date of Birth"
                     name="dateofbirth"
                     onChange={handleChange}
                     value={formdata.dateofbirth}
                     />
+                <div className="radio-div">
+                    <label htmlFor="">Gender:</label>
+                <div class="radio-container">
+                <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    id="female"
+                    onChange={handleGenderChange}
+                    checked={formdata.gender === "female"}
+                />
+                <label for="female">Female</label>
+                </div>
+
+                <div class="radio-container">
+                <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    id="male"
+                    onChange={handleGenderChange}
+                    checked={formdata.gender === "male"}
+                />
+                <label for="male">Male</label>
+                </div>
+                </div>
                 {errors.errorMessage && <div style={{ color: "red" }}>{errors.errorMessage}</div>}
                 <button type="submit">Sign Up</button>
             </form>

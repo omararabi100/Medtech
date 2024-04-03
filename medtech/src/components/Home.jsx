@@ -13,7 +13,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     const navigateToCalendar = (doctorId) => {
-      navigate(`/calendar/${doctorId}`);
+    navigate(`/calendar/${doctorId}`);
     };
     // Fetch doctors data from the backend API
     useEffect(() => {

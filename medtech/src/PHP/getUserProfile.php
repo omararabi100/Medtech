@@ -43,8 +43,28 @@ if ($result_user->num_rows > 0) {
             'doctor_name' => $row_appointment['doctor_name'], 
         );
     }
-    
+    $sql_diagnosis = "SELECT di.*, d.full_name AS doctor_name
+    FROM diagnosis di 
+    LEFT JOIN doctors d ON di.dr_id = d.id
+    WHERE di.patient_id = ?";
+                        
+    $stmt_diagnosis = $conn->prepare($sql_diagnosis);
+    $stmt_diagnosis->bind_param("i", $userData['id']); 
+    $stmt_diagnosis->execute();
+    $result_diagnosis = $stmt_diagnosis->get_result();
+
+    $diagnosisData = array();
+while ($row_diagnosis = $result_diagnosis->fetch_assoc()) {
+    $diagnosisData[] = array(
+        'image' => $row_diagnosis['image'],
+        'date' => $row_diagnosis['date'],
+        'diagnosis' => $row_diagnosis['diagnosis'],
+        'doctor_name' => $row_diagnosis['doctor_name'], 
+    );
+}
+
     $userData['appointments'] = $appointmentsData;
+    $userData['diagnosis'] = $diagnosisData;
 
     echo json_encode($userData);
 } else {

@@ -44,6 +44,8 @@ const MyProfile = () => {
             success: function(response) {
                 setMessage("Updated successfully");
                 console.log("User data updated successfully:", response);
+                setTimeout(() => setMessage(""), 20000); // Clear message after 20 seconds
+                fetchUserData(); // Reload data after successful update
             },
             error: function(error) {
                 console.error("Error updating user data:", error);
@@ -62,41 +64,40 @@ const MyProfile = () => {
     return (
         <div className="My-Profile">
             <h1>My Profile</h1>
-            {/* Display user information */}
-            <p>Name: {userData.full_name}</p>
+            <div className="profile-info">
+            <p>{userData.full_name}</p>
             <p>Email: {userData.email}</p>
             <p>Phone: {userData.phone_nb}</p>
             <p>Gender: {userData.gender}</p>
             <p>Date of Birth: {userData.dateofbirth}</p>
-            <h2>Registration Information</h2>
-            {userData.registered_dr ? (
+            </div>
+
+            {/* <h2>Registration Information</h2> */}
+            {/* {userData.registered_dr ? (
                 <div>
                     <p>Registered Doctor: {userData.registered_dr}</p>
                     <p>Registration Time: {userData.registered_time}</p>
                 </div>
             ) : (
                 <span>No registrations found</span>
-            )}
+            )} */}
             <h2>Past History</h2>
-            {userData.diagnosis && userData.diagnosis.map((diagnosis, index) => (
-                <div key={index}>
-                    <p>Diagnosis: {diagnosis.diagnosis}</p>
-                    <p>Date: {diagnosis.date}</p>
-                    {diagnosis.doctor_name && <p>Doctor: {diagnosis.doctor_name}</p>}
-                    {diagnosis.image && <img src={`data:image/png;base64,${diagnosis.image}`} alt="Diagnosis" />}
-                </div>
-            ))}
-            <h2>Check out and add your data</h2>
-            <div>
+            <div className="past">
+                <div>
                 <h3>History</h3>
-                <br />
                 {userData.history ? (
-                    <div>
+                    <div >
+                        <ul>
+                            {userData.history.split(',').map((item, index) => (
+                                <li key={index}>{item.trim()}</li>
+                            ))}
+                        </ul>
                         <textarea
                             value={updatedHistory}
                             onChange={(e) => setUpdatedHistory(e.target.value)}
                         />
                         <button onClick={handleUpdateUserData}>Update History</button>
+                        {updatedHistory && <span>{message}</span>}
                     </div>
                 ) : (
                     <div>
@@ -106,30 +107,39 @@ const MyProfile = () => {
                             onChange={(e) => setUpdatedHistory(e.target.value)}
                         />
                         <button onClick={handleUpdateUserData}>Add History</button>
+                        {updatedHistory && <span>{message}</span>}
                     </div>
                 )}
+
             </div>
             <div>
                 <h3>Allergies</h3>
-                <br />
                 {userData.allergies ? (
                     <div>
+                        <ul>
+                            {userData.allergies.split(',').map((item, index) => (
+                                <li key={index}>{item.trim()}</li>
+                            ))}
+                        </ul>
                         <textarea
                             value={updatedAllergies}
                             onChange={(e) => setUpdatedAllergies(e.target.value)}
                         />
                         <button onClick={handleUpdateUserData}>Update allergies</button>
+                        {updatedAllergies && <span>{message}</span>}
                     </div>
                 ) : (
                     <div>
                         <p>No past allergies added</p>
                         <textarea
                             value={updatedAllergies}
-                            onChange={(e) => setUpdatedHistory(e.target.value)}
+                            onChange={(e) => setUpdatedAllergies(e.target.value)}
                         />
                         <button onClick={handleUpdateUserData}>Add allergie</button>
+                        {updatedAllergies && <span>{message}</span>}
                     </div>
                 )}
+            </div>
             </div>
             <h2>Appointments</h2>
             {userData.appointments && userData.appointments.map((appointment, index) => (
@@ -145,6 +155,17 @@ const MyProfile = () => {
                     )}
                 </div>
             ))}
+            <h2>Diagnosis</h2>
+            {userData.diagnosis && userData.diagnosis.map((diagnosis, index) => (
+                <div key={index} className="diagnosis_div">
+                    <p>Diagnosis: {diagnosis.diagnosis}</p>
+                    <p>Date: {diagnosis.date}</p>
+                    {diagnosis.doctor_name && <p>Doctor: {diagnosis.doctor_name}</p>}
+                    {diagnosis.image && <img style={{ width: '100px' }} src={`data:image/png;base64,${diagnosis.image}`} alt="Diagnosis" />}
+                    <span>{message}</span>
+                </div>
+            ))}
+
             <span>{message}</span>
             <br />
             <button>
