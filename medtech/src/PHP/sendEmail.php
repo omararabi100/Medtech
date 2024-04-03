@@ -18,13 +18,13 @@
             $mail->Host = 'smtp.gmail.com';    
             $mail->SMTPAuth = true;
 
-            $mail->Username = '';
-            $mail->Password = '';
+            $mail->Username = ''; // email
+            $mail->Password = ''; // app password
 
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
 
-            $mail->setFrom('omararabi100@gmail.com');
+            $mail->setFrom(''); // email
             $mail->addAddress('medtech364@gmail.com');
 
             $mail->Subject = "Contact form submission from $fname $lname";
