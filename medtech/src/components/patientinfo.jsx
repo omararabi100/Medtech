@@ -123,21 +123,24 @@ const PatientInfo = () => {
     }
 
     return (
-        <>
+        <div className='Patient-div'>
+
             <h1>Patient Information</h1>
             {selectedDateTime.start !== null && selectedDateTime.end !== null && (
-                <>
+                <div>
                     <p>Start Time: {startTime}</p>
                     <p>End Time: {endTime}</p>
-                </>
+                </div>
             )}
             {patientData && (
                 <>
-                    <p>Patient ID: {patientData.patient_info.patient_id}</p>
-                    <p>Patient Name: {patientData.patient_info.full_name}</p>
-                    <p>Patient Gender: {patientData.patient_info.gender}</p>
-                    <p>Patient Age: {calculateAge(patientData.patient_info.dateofbirth)}</p>
-
+                <div className='patient-primary-data'>
+                    <p> ID: {patientData.patient_info.patient_id}</p>
+                    <p> Name: {patientData.patient_info.full_name}</p>
+                    <p> Gender: {patientData.patient_info.gender}</p>
+                    <p> Age: {calculateAge(patientData.patient_info.dateofbirth)}</p>
+                    </div>
+                    <div>
                     {patientData.patient_info.history ? (
                         <p>History: {patientData.patient_info.history}</p>
                     ) : (
@@ -146,9 +149,10 @@ const PatientInfo = () => {
 
                     {patientData.patient_info.allergies ? (
                         <p>Allergies: {patientData.patient_info.allergies}</p>
-                    ) : (
-                        <p>Allergies: No allergies </p>
-                    )}
+                        ) : (
+                            <p>Allergies: No allergies </p>
+                            )}
+                    </div>
                     <h2>Diagnosis</h2>
                     {patientData.diagnosis && patientData.diagnosis.map((diagnosis, index) => (
                         <div key={index}>
@@ -202,7 +206,7 @@ const PatientInfo = () => {
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };
 

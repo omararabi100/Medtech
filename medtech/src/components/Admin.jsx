@@ -351,12 +351,14 @@ const Admin = () => {
                     </div>
                     )}
                 <input
+                    className="search-bar"
                     type="text"
                     placeholder="Search by name"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                 />
                 <input
+                    className="search-bar"
                     type="text"
                     placeholder="Filter by phone number"
                     value={phoneFilter}

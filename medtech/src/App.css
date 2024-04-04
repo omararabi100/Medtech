@@ -20,6 +20,12 @@ input:focus {
     outline: none;
     border-color: var(--secondarycolor);
 }
+.search-bar{
+    padding: 7px 10px;
+    margin: 15px;
+    border: 1px solid rgb(219, 215, 215);
+    width: 250px;
+}
 /*--- Nav Bar ---*/
 
 .nav-content {
@@ -82,8 +88,9 @@ input:focus {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.2px;
-    padding: 8px;
+    padding: 6px 10px;
     border: none;
+    border-radius: 5px;
 }
 .nav-bar .login-btn{
     color: #CBAF87;
@@ -411,13 +418,12 @@ input:focus {
     border-radius: 10px;
     border: 0.469px solid rgba(255, 255, 255, 0.50);
     background: #FFF;
-    background-color: #b3bac2;
     box-shadow: -3px 2px 19.4px 5px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(14.25px);
     margin-bottom: 40px;
 }
 .Service-container > p {
-    color: white;
+    color: var(--darkblue);
     font-family: Poppins;
     font-size: 21px;
     font-style: normal;
@@ -438,11 +444,10 @@ input:focus {
     border: none;
 }
 .image-title-title {
-    /* color: #363062; */
-    color: white;
+    color: #363062;
     font-family: 'Poppins','sans-serif';
     font-size: 22px;
-    font-weight: 900;
+    font-weight: 600;
 }
 .Upload-img-btn {
     display: flex;
@@ -455,8 +460,7 @@ input:focus {
     align-items: center;
     flex-shrink: 0;
     font-family: 'Poppins' , 'sans-serif';
-    box-shadow: -3px 2px 19.4px 5px rgba(101, 101, 101, 0.15);
-
+    /* box-shadow: -3px 2px 19.4px 5px rgba(101, 101, 101, 0.15); */
 }
 /* Experts-Dermatologists */
 .Expert-Dermatologists {
@@ -1119,7 +1123,54 @@ input:focus {
     display: block;
     margin: 0;
 }
+/* Dr-page */
+.Dr-page{
 
+}
+.Dr-page table {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+    border-spacing: 0; 
+    margin: 10px;
+}
+.Dr-page thead tr {
+    background-color: var(--maincolor); 
+}
+
+.Dr-page th {
+    padding: 12px 15px;
+    text-align: left;
+    color: #ffffff; 
+}
+
+.Dr-page td {
+    padding: 12px 15px;
+    text-align: left;
+    text-wrap: wrap;
+    width: 103px;
+}
+
+.Dr-page tbody {
+    max-height: calc(100vh - 200px); 
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.Dr-page tbody::-webkit-scrollbar {
+    width: 0;
+}
+
+.Dr-page tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.Dr-page tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
 
 
 /* Calendar */ 
@@ -1224,19 +1275,24 @@ input:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
-
+}
+/* Patient-div */
+.Patient-div .patient-primary-data{
+    display: flex;
+    justify-content: space-around;
+}
+.Patient-div
 /* myprofile */
-.My-Profile h1{
+.My-Profile h1 , .Patient-div h1{
     text-align: center;
     margin: 35px 0;
     text-decoration: underline;
     text-underline-offset: 12px;
     text-decoration-color: var(--beige);
 }
-.My-Profile .profile-info {
+.My-Profile .profile-info , .patient-info h1 {
     display: flex;
-    margin: 50px 0;
+    margin: 30px 0;
     padding: 20px;
     border-top: 2px solid #cccccc18;
     border-bottom: 2px solid #cccccc18;
@@ -1259,15 +1315,35 @@ input:focus {
     display: flex;
     justify-content: center;
 }
-.My-Profile .profile-info div:nth-child(1) p:first-of-type {
+.My-Profile .profile-info >div:nth-child(1) p:first-of-type {
     font-size: 24px;
     font-weight: bold;
+}
+.My-Profile .past div{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.My-Profile .past div:nth-child(2){
+    align-items:flex-end;
+}
+.My-Profile .past button{
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: var(--secondarycolor);
+    color: white;
+    width: fit-content;
+    border: none;
 }
 
 @media (max-width: 768px) {
     .My-Profile .profile-info {
         padding: 10px;
     }
+}
+.My-Profile h2:nth-child(4){
+    margin-left: 30px;
 }
 .My-Profile .diagnosis{
     display: flex;
@@ -1286,11 +1362,6 @@ input:focus {
     width: 100%;
     flex-direction: row !important;
     flex-wrap: wrap;
-}
-.My-Profile .past div{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
 }
 .My-Profile button {
     display: flex;
