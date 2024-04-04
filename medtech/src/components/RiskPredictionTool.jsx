@@ -83,7 +83,6 @@ const RiskPredictionTool = () => {
         </div>
         <button type="submit">Check</button>
       </form>
-      <Footer />
 
     </div>
   );
