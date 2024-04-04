@@ -267,11 +267,14 @@ const Admin = () => {
     const updateDoctor = (event) => {
         event.preventDefault();
         let formDataToSend = new FormData();
-        const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
-        if (fullNameExists) {
-            setErrorMessage("Name already exists");
-            return; 
-        }
+        const fullNameExists = data
+    .filter(doctor => doctor.id !== formData.id) 
+    .some(doctor => doctor.full_name === formData.full_name);
+    if (fullNameExists) {
+        setErrorMessage("Name already exists");
+        return; 
+    }
+
         formDataToSend.append('changetime', changetime.toString());
     
             for (const key in formData) {

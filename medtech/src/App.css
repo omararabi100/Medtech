@@ -1239,7 +1239,51 @@ input:focus {
     border-radius: 3px;
     color: white;
 }
-/* patient info */
+
+/* Patient-div */
+.Patient-div .patient-primary-data{
+    display: flex;
+    justify-content: space-around;
+}
+.Patient-div div:nth-child(3) {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+.Patient-div .diagnosis {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.Patient-div .diagnosis>div{
+    display: flex;
+    flex-direction: column;
+}
+.Patient-div .diagnosis_div_container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.Patient-div .add_diagnosis {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.Patient-div .add_diagnosis button {
+    width: fit-content;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: var(--beige);
+    color: white;
+    border-radius: 2px;
+}
+.Patient-div .add_diagnosis textarea{
+    width: 80%;
+}
 .modal {
     position: fixed;
     top: 0;
@@ -1276,14 +1320,9 @@ input:focus {
     text-decoration: none;
     cursor: pointer;
 }
-/* Patient-div */
-.Patient-div .patient-primary-data{
-    display: flex;
-    justify-content: space-around;
-}
-.Patient-div
+
 /* myprofile */
-.My-Profile h1 , .Patient-div h1{
+.My-Profile h1 , .Patient-div h1 , .Patient-div h2{
     text-align: center;
     margin: 35px 0;
     text-decoration: underline;
@@ -1350,10 +1389,10 @@ input:focus {
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.My-Profile .diagnosis div {
+.My-Profile .diagnosis div , .Patient-div .diagnosis div {
     margin: 20px;
 }
-.My-Profile .diagnosis_div{
+.My-Profile .diagnosis_div , .Patient-div .diagnosis_div{
     display: flex;
     flex-direction: column;
 }
