@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import Login from "./Login";
 import Signup from "./Signup";
 
-const Header = () => {
+const Header = ({showHide}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isSignupOpen, setIsSignupOpen] = useState(false);
     const [isDrOpen, setIsDrOpen] = useState(false);
@@ -90,6 +90,7 @@ const handleLogin = (userData , type,email,id) => {
     return (
         <div className="Header-container">
             <div className="nav-bar">
+                <img src="https://cdn-icons-png.flaticon.com/512/2099/2099192.png" className='logo-list' onClick={showHide} />
                 <h2>Med<span>Tech</span></h2>
                 <div className="nav-content">
                     <ul>
@@ -130,7 +131,7 @@ const handleLogin = (userData , type,email,id) => {
                             <button className="logout-btn" onClick={handleLogout}>Logout</button>
                         </div>
                     ) : (
-                        <div>
+                        <div className="login-signup-container">
                             <button className="login-btn" onClick={toggleLogin}>LogIn</button>
                             <button className="signup-btn" onClick={toggleSignup}>SignUp</button>
                         </div>
