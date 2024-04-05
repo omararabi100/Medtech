@@ -34,12 +34,12 @@ const ScorePredictedPage = () => {
     return (
         <div className="risk-prediction-result">
             <h2>Result</h2>
-            <p>Compare your score to the graph below <br/> <br />
-            Your Score: <b>{percentage}</b> </p>
+            <p>Know more about your score <br/> <br />
+            Your Score: <b>{percentage} /15</b> </p>
             <div className="results-div">
                 {resultComponents}
             </div>
-            <Footer />
+            <p>P.S: these results are based on a study done by NIH</p>
         </div>
     );
 };

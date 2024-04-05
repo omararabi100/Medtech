@@ -4,7 +4,7 @@ export default function result_container(props) {
 
     return (
         <div className="result_container">
-            <div className="score">{props.score}</div>
+            <div className="score">{props.score} <span>/15</span></div>
             <p>What you should do…</p>
             <ul>
                 <li>{props.step1}</li>
