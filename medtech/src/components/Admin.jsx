@@ -121,6 +121,7 @@ const Admin = () => {
         event.preventDefault();
         console.log("formData.time.day" , formData.day)
         console.log("formData.time.length" , formData.time.length)
+
         if (formData.time.length === 0) {
             const day = formData.date_available.find(day => formData.time.every(time => time.day !== day));
     
@@ -137,6 +138,7 @@ const Admin = () => {
                 }]
             });
         }
+        
         if (Object.values(formData).some(value => value === "")) {
             setErrorMessage("All fields should be filled");
             return;

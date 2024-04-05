@@ -35,10 +35,10 @@ function App() {
         }
     }
   return (
-    <div className='main-container'>
-      <Header showHide={showHide}/>
-      <SideBar showHide={showHide} translateXValue={translateXValue}/>
-      <Routes>
+        <div className='main-container'>
+        <Header showHide={showHide}/>
+        <SideBar showHide={showHide} translateXValue={translateXValue}/>
+        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
         <Route path="get-checked" element={<GetChecked />} />

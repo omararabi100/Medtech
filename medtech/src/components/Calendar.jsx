@@ -159,6 +159,7 @@ const Calendar = () => {
       return [];
     }
   };
+
   const navigate = useNavigate();
   const location = useLocation(); 
   const handleEventClick = (clickInfo) => {
