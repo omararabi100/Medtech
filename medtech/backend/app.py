@@ -10,10 +10,6 @@ from flask_cors import CORS
 import joblib
 import base64
 
-# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
-# Allow requests from any origin
-# CORS(app, resources={r"/execute-python-code": {"origins": "*"}})
-
 app = Flask(__name__)
 # CORS(app) 
 CORS(app, resources={r"*": {"origins": "http://localhost:5173"}})
@@ -34,9 +30,7 @@ def remove_hair(image):
         # Threshold the blackhat image
         ret, thresh = cv2.threshold(blackhat, 8, 255, cv2.THRESH_BINARY)
 
-        # InPaint the original image based on the Threshold mask
-        dst_gray = cv2.inpaint(image, thresh, 1, cv2.INPAINT_NS)  # Use INPAINT_NS for potentially faster processing
-
+        dst_gray = cv2.inpaint(image, thresh, 1, cv2.INPAINT_NS) 
         return dst_gray
     except Exception as e:
         print(f"Error in removing hair: {str(e)}")
@@ -45,17 +39,14 @@ def remove_hair(image):
 
 def vignette(image):
     try:
-        # Convert the image to grayscale for analysis
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        # Compute a simple circular vignette mask based on the image size
         height, width = image.shape[:2]
         center_x, center_y = width // 2, height // 2
         kernel_x = cv2.getGaussianKernel(width, 150)
         kernel_y = cv2.getGaussianKernel(height, 150)
         kernel = kernel_y * kernel_x.T
         mask = 255 * kernel / np.linalg.norm(kernel)
-        # mask = np.zeros_like(gray, dtype=np.float32)
         corrected_img = np.zeros_like(image, dtype=np.float32)
         np.seterr(divide='ignore', invalid='ignore')
         np.seterr(divide='warn', invalid='warn') 
@@ -64,14 +55,11 @@ def vignette(image):
                 distance = np.sqrt((x - center_x) ** 2 + (y - center_y) ** 2)
                 mask[y, x] = min(1, distance / (width // 2))
 
-        # Apply the vignette removal by lightening the corners and edges
         corrected_img = np.zeros_like(image, dtype=np.float32)
         for i in range(3):
-            # Avoid division by zero by handling the case when mask is 1
             mask_inverse = np.where(mask == 1, 0, 1 - mask)
             corrected_img[:, :, i] = image[:, :, i] / mask_inverse
 
-        # Set the edges to white
         corrected_img[mask == 0] = 255
 
         return np.clip(corrected_img, 0, 255).astype(np.uint8)
@@ -175,6 +163,9 @@ def process_image():
     try:
         if 'image' not in request.files:
             return jsonify({'error': 'No image uploaded'}), 400
+        gender = request.form.get('gender')
+        age = request.form.get('age')
+        gender_numeric = 2 if gender.lower() == 'female' else 1
 
         image_file = request.files['image']
         image_data = image_file.read()
@@ -195,8 +186,8 @@ def process_image():
         red_value, green_value, blue_value = rgb_value(vignette_corrected_img)
 
         data = pd.DataFrame({
-            'age': 71,
-            'sex': 1,
+            'age': age,
+            'sex': gender_numeric,
             'localization': 10,
             'Contrast': [contrast],
             'Energy': [energy],
@@ -211,7 +202,7 @@ def process_image():
         })
         model = joblib.load('../../knn_classifier.pkl')
         predicted_class = model.predict(data)
-        labels = {1: 'Benign lesions of the keratosis', 2: 'Dermatofibroma' , 3:'Melanoma' , 4:'Melanocytic nevi' , 5:'Vascular lesions' , 6:'Basal cell carcinoma' , 7: 'Actinic keratoses and intraepithelial carcinoma' , 8:'Normal'}
+        labels = {1: 'Benign lesions of the keratosis', 2: 'Dermatofibroma' , 3:'Melanoma' , 4:'Melanocytic nevi' , 5:'Vascular lesions' , 6:'Basal cell carcinoma' , 7: 'Actinic keratoses and intraepithelial carcinoma' , 8:'Normal skin'}
         predicted_label = labels.get(predicted_class[0], 'Unknown')
         return jsonify({'success': True, 'message': 'Image processed successfully', 'predicted_class': predicted_label}), 200
     except RuntimeWarning as rw:

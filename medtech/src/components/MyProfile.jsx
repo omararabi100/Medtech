@@ -54,7 +54,9 @@ const MyProfile = () => {
     };
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return <div className="loader">
+            <div class="custom-loader"></div>
+        </div>;
     }
 
     const currentDate = new Date();
