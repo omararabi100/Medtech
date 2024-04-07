@@ -123,9 +123,24 @@ const AddForm = ({ formData, handleInputChange, handleCheckboxChange, addDoctor,
                 <label>Starting Date:
                     <input type="date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} min={currentDate} />
                 </label>
-                <div>
+                {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => {
+                    const cleanDay = day.trim().toLowerCase().replace(/\s+/g, '');
+                    const isChecked = cleanDates.includes(cleanDay);
+
+                    return (
+                        <label key={day}>
+                            <input
+                                type="checkbox"
+                                name={day.trim()}
+                                checked={isChecked}
+                                onChange={handleCheckboxChange}
+                            />
+                            {day}
+                        </label>
+                    );
+                })}
                     {formData.date_available.map((day, dayIndex) => (
-                        <div key={dayIndex}>
+                        <div className="box" key={dayIndex}>
                             <div className="Addform-div">
                                 <label>{day}</label>
                                 <button type="button" onClick={() => addTimeSlot(dayIndex)}>Add Time Slot</button>
@@ -184,23 +199,6 @@ const AddForm = ({ formData, handleInputChange, handleCheckboxChange, addDoctor,
                             ))}
                         </div>
                     ))}
-                </div>
-                {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => {
-                    const cleanDay = day.trim().toLowerCase().replace(/\s+/g, '');
-                    const isChecked = cleanDates.includes(cleanDay);
-
-                    return (
-                        <label key={day}>
-                            <input
-                                type="checkbox"
-                                name={day.trim()}
-                                checked={isChecked}
-                                onChange={handleCheckboxChange}
-                            />
-                            {day}
-                        </label>
-                    );
-                })}
             </div>
             {editMode ? (
                 <button type="button" onClick={updateDoctor}>Update</button>

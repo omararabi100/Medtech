@@ -347,64 +347,66 @@ const Admin = () => {
     return (
         <div className="admin-container">
             <div>
-                <div>
-
-                {!showAddForm && (
-                    
-                        <button onClick={toggleAddForm}>Add Doctor</button>
-                    )}
-                    {showAddForm && (
-
-                        <div className="add-form-popup">
+                <div className="table-title-class">
+                <div className="table-title-class-child">
+                    <input
+                        className="search-bar"
+                    type="text"
+                    placeholder="Search by name"
+                    value={searchQuery}
+                        onChange={handleSearchInputChange}
+                    />
+                    <input
+                        className="search-bar"
+                    type="text"
+                    placeholder="Filter by phone number"
+                    value={phoneFilter}
+                        onChange={handlePhoneFilterChange}
+                    />
+                    <div className="admin-container-add-filter-button">
+                        {!showAddForm && (
+                            <button onClick={toggleAddForm}>Add Doctor</button>
+                        )}
+                        <button onClick={toggleDaysFilter}>
+                            {showDaysFilter ? "Hide Days Filter" : "Filter by Day"}
+                        </button>
+                    </div>
+                </div>
+                {showAddForm && (
+                <div className="add-form-popup">
+                    <div className="h2-close-cancel-div">
+                    <h2>{editMode ? "Edit Doctor" : "Add Doctor"}</h2>
                         {editMode ? (
                             <button type="button" onClick={handleCancel}>Cancel</button>
                             ) :
                                 <button onClick={toggleAddForm}>Close</button>
                             }
-                        <h2>{editMode ? "Edit Doctor" : "Add Doctor"}</h2>
-                            <AddForm
-                                formData={formData}
-                                handleInputChange={handleInputChange}
-                                handleCheckboxChange={handleCheckboxChange}
-                                handleImageChange={handleImageChange}
-                                editMode={editMode}
-                                editedDoctor={editedDoctor}
-                                setEditedDoctor={setEditedDoctor}
-                                fetchData = {fetchData}
-                                addDoctor={addDoctor}
-                                setEditMode={setEditMode}
-                                setFormData = {setFormData}
-                                setShowAddForm = {setShowAddForm}
-                                filteredDoctors = {filteredDoctors}
-                                setchangetime = {setchangetime}
-                                changetime = {changetime}
-                                updateDoctor = {updateDoctor}
-                                errorMessage={errorMessage}
-                                setErrorMessage={setErrorMessage}
-                                setremovetime={setremovetime}
-                            />
                     </div>
-                    )}
-                <input
-                    className="search-bar"
-                    type="text"
-                    placeholder="Search by name"
-                    value={searchQuery}
-                    onChange={handleSearchInputChange}
-                />
-                <input
-                    className="search-bar"
-                    type="text"
-                    placeholder="Filter by phone number"
-                    value={phoneFilter}
-                    onChange={handlePhoneFilterChange}
-                />
-                <button onClick={toggleDaysFilter}>
-                        {showDaysFilter ? "Hide Days Filter" : "Filter by Day"}
-                    </button>
-                    {showDaysFilter && (
-                <div >
-                    {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => (
+                        <AddForm
+                            formData={formData}
+                            handleInputChange={handleInputChange}
+                            handleCheckboxChange={handleCheckboxChange}
+                            handleImageChange={handleImageChange}
+                            editMode={editMode}
+                            editedDoctor={editedDoctor}
+                            setEditedDoctor={setEditedDoctor}
+                            fetchData = {fetchData}
+                            addDoctor={addDoctor}
+                            setEditMode={setEditMode}
+                            setFormData = {setFormData}
+                            setShowAddForm = {setShowAddForm}
+                            filteredDoctors = {filteredDoctors}
+                            setchangetime = {setchangetime}
+                            changetime = {changetime}
+                            updateDoctor = {updateDoctor}
+                            errorMessage={errorMessage}
+                            setErrorMessage={setErrorMessage}
+                        />
+                </div>
+                )}
+                {showDaysFilter && (
+                    <div className="days-list">
+                        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => (
                                 <label key={day} style={{ marginRight: '10px' }}>
                             <input
                                 type="checkbox"
@@ -416,12 +418,9 @@ const Admin = () => {
                         </label>
                     ))}
                 </div>
-                    )}
-
-
+                )}
 
                 </div>
-
                 <TableDoctor
                     data={filteredDoctors}
                     filteredDoctors = {filteredDoctors}

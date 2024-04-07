@@ -104,10 +104,7 @@ input:focus {
     border-radius: 5px;
     color: white;
 }
-.login-signup-container, .user-info {
-    display: flex;
-    flex-direction: row;
-}
+
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -189,10 +186,11 @@ input:focus {
     margin-left: 5px; 
 }  
 .popup-content button{
+    display: flex;
     background-color: var(--darkblue);
     color: white;
     padding: 10px 5px;
-    margin: 20px 20px;
+    margin: 20px auto;
     border: none;
     border-radius: 7px;
 }
@@ -538,7 +536,7 @@ input:focus {
     background-color: #E7DEC8;
     z-index: -1;
     top: 60px;
-    border-radius: 15px 15px 0 0;
+    border-radius: 15px 15px 15px 15px;
 }
 /* --- risk prediction --- */
 .risk-prediction-form{
@@ -1078,7 +1076,7 @@ input:focus {
     text-align: center;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
-    width: 222px;
+    width: 200px;
     height: 46px;
     border-radius: 10px;
     margin-top: 20px;
@@ -1269,7 +1267,7 @@ input:focus {
 .Getchecked {
     display: flex;
     flex-direction: column;
-    margin-top: 55px;
+    margin-top: 40px;
     align-items: center;
 }
 .Getchecked img{
@@ -1681,11 +1679,6 @@ input:focus {
         align-items: center;
     }
 
-    .callnow-doctor-list {
-        justify-content: center;
-        justify-content: space-between;
-    }
-
     .doctor-julian {
         width: 240px;
     }
@@ -1945,5 +1938,156 @@ input:focus {
     }
     .terms-and-conditions-container, .privacy-policy-container {
         margin: 50px 5%;
+    }
+}
+
+
+/* Omar's Part */
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+.admin-container-add-filter-button button{
+    margin-right: 10px;
+    background-color: var(--maincolor);
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+.admin-container-add-filter-button {
+    margin: 15px;
+}
+.table-title-class {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.table-title-class-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.table-title-class div {
+    display: flex;
+}
+.days-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border: 2.5px solid var(--maincolor);
+    padding: 5px;
+    border-radius: 20px / 50px;
+}
+label > input {
+    margin-right: 5px;
+}
+.nav-content div div {
+    display: flex;
+    align-items: center;
+    margin: 0px 20px 0px 20px;
+}
+.add-form-popup {
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.h2-close-cancel-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.h2-close-cancel-div button {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+label {
+    height: fit-content;
+    width: fit-content;
+}
+.Addform-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box {
+    padding: 5px;
+    border: 2.5px solid var(--maincolor);
+    margin: 10px;
+    border-radius: 20px / 50px;
+    align-items: center;
+    flex-direction: column;
+}
+.nav-content ul li {
+    margin-right: 20px;
+}
+td .edit_btn {
+    margin: 5px;
+}
+textarea {
+    resize: none;
+}
+.fc .fc-button .fc-icon {
+    color: white;
+}
+.doctor_info_div {
+    padding: 15px;
+}
+.fc-toolbar-ltr {
+    padding: 15px;
+}
+.Instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #eaeaea;
+}
+.Instructions ol {
+    list-style: none;
+    counter-reset: steps;
+}
+.Instructions ol li {
+    counter-increment: steps;
+    margin-top: 10px;
+}
+.Instructions ol li::before {
+    content: counter(steps);
+    margin-right: 0.5rem;
+    background: var(--maincolor);
+    color: white;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    line-height: 1.2em;
+}
+.Instructions ol ol li::before {
+    background: darkorchid;
+}
+
+@media screen and (max-width: 450px) {
+    .admin-container {
+        width: 350px;
+        overflow-x: scroll;
+    }
+    .table-title-class-child {
+        flex-direction: column;
+    }
+    table {
+        font-size: 10px;
+        width: min-content;
     }
 }

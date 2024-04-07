@@ -246,7 +246,7 @@ return (
       <div>
         <h2>Doctor Information</h2>
         <p>Name: {doctorInfo.full_name}</p>
-        <button onClick={() => window.location.href = `tel:${doctorInfo.phone}`}>Call Now</button>
+        {/* <button onClick={() => window.location.href = `tel:${doctorInfo.phone}`}>Call Now</button> */}
         { showLoginMessage == false && localStorage.getItem("user") !== "Doctor" && !popupVisible && selectedEvent && (
           <button onClick={handlereserve}>Reserve</button>
         )}
