@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import Login from "./Login";
 import Signup from "./Signup";
 
-const Header = ({showHide}) => {
+const Header = ({showHide, showLoginPopup}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isSignupOpen, setIsSignupOpen] = useState(false);
     const [isDrOpen, setIsDrOpen] = useState(false);
@@ -18,7 +18,14 @@ const Header = ({showHide}) => {
     // const [contactInfo, setContactInfo] = useState({});
 
     const navigate = useNavigate(); // Initialize useNavigate
-
+    const initialRender = useRef(true);
+    useEffect(()=>{
+        if (initialRender.current) {
+            initialRender.current = false;
+            return;
+        }
+        toggleLogin();
+    },[showLoginPopup]);
     const toggleLogin = () => {
         setIsLoginOpen(!isLoginOpen);
         if (isSignupOpen) setIsSignupOpen(false);

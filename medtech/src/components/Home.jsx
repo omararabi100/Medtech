@@ -68,6 +68,7 @@ const Home = () => {
                         title="Check Your Skin"
                         context="Upload your images for a personalized dermatological assessment"
                         btncontext="Upload Image"
+                        location="get-checked"
                         width="280px"
                     />
                     <MedicalService 
@@ -76,6 +77,7 @@ const Home = () => {
                         context="Get the chance to communicate with a doctor 
                         through an online call"
                         btncontext="Schedule a Call"
+                        location="calendar"
                         width=""
                     />
                     <MedicalService 
@@ -83,6 +85,7 @@ const Home = () => {
                         title="Get to Know Your Skin Better"
                         context="Empower yourself with knowledge and take the first step towards preventing skin cancer"
                         btncontext="Start Assesment"
+                        location="risk-prediction-tool"
                         width=""
                     />
                     <svg xmlns="http://www.w3.org/2000/svg" width="256" height="466" viewBox="0 0 256 466" fill="none">

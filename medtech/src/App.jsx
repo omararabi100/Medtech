@@ -26,6 +26,12 @@ import FAQs from './components/FAQs';
 function App() {
     const [translateXValue, setTranslateXValue] = useState(-100.5)
     const [overlay, setOverlay] = useState('none')
+    const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+    const toggleLoginPopup = () => {
+        setShowLoginPopup(!showLoginPopup);
+    };
+
     const showHide = () => {
         if (translateXValue === 0) {
             setTranslateXValue(-100.5)
@@ -37,13 +43,12 @@ function App() {
     }
   return (
         <div className='main-container'>
-        <Header showHide={showHide}/>
+        <Header showHide={showHide} showLoginPopup={showLoginPopup} />
         <SideBar showHide={showHide} translateXValue={translateXValue}/>
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
-        <Route path="get-checked" element={<GetChecked />} />
-        
+        <Route path="get-checked" element={<GetChecked toggleLoginPopup={toggleLoginPopup} />} />
         <Route path="call-now" element={<CallNow />} />
         <Route path="about-us" element={<AboutUs />} />
         <Route path="contact-us" element={<ContactUs />} />

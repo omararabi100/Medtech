@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
 
-const GetChecked = () => {
+const GetChecked = ({ toggleLoginPopup }) => {
     const [image, setImage] = useState(null);
     const [showError, setShowError] = useState(false);
     const [showLoginMessage, setShowLoginMessage] = useState(false);
@@ -41,6 +41,7 @@ const GetChecked = () => {
 
     const handleUploadClick = () => {
         if (IsLogged !== "true") {
+            toggleLoginPopup();
             setShowLoginMessage(true);
         } else {
             if (!image) {

@@ -28,7 +28,7 @@ const MyProfile = () => {
             },
         });
     };
-      
+
     const handleStarHover = (starIndex) => {
         setRating(starIndex + 1);
     };
@@ -62,7 +62,7 @@ const MyProfile = () => {
                 setUserData(data);
                 setUpdatedHistory(data.history || "");
                 setUpdatedAllergies(data.allergies || "");
-                
+
             },
             error: function (error) {
                 console.error("Error fetching user data:", error);
@@ -117,88 +117,88 @@ const MyProfile = () => {
                 </div>
                 <div>
 
-            <h2>Appointments</h2>
-            {userData.appointments && userData.appointments.map((appointment, index) => (
-                <div key={index}>
-                    <p>Date: {appointment.date}</p>
-                    <p>Time: {appointment.start_time} - {appointment.end_time}</p>
-                    <p>Dr name: {appointment.doctor_name}</p>
-                    
-                    {/* {console.log("Appointment time:", appointment.start_time, "-", appointment.end_time)} */}
-                    {/* {console.log("Current time:", currentTimeString)} */}
-                    {console.log(appointment)}
+                    <h2>Appointments</h2>
+                    {userData.appointments && userData.appointments.map((appointment, index) => (
+                        <div key={index}>
+                            <p>Date: {appointment.date}</p>
+                            <p>Time: {appointment.start_time} - {appointment.end_time}</p>
+                            <p>Dr name: {appointment.doctor_name}</p>
 
-                    {(appointment.date === currentDateString && 
-                        compareTimes(currentTimeString, appointment.start_time) >= 0 &&
-                        compareTimes(currentTimeString, appointment.end_time) <= 0) && (
-                            <CallButton doctorId={appointment.dr_id} />
-                            )}
+                            {/* {console.log("Appointment time:", appointment.start_time, "-", appointment.end_time)} */}
+                            {/* {console.log("Current time:", currentTimeString)} */}
+                            {console.log(appointment)}
 
-                    
+                            {(appointment.date === currentDateString &&
+                                compareTimes(currentTimeString, appointment.start_time) >= 0 &&
+                                compareTimes(currentTimeString, appointment.end_time) <= 0) && (
+                                    <CallButton doctorId={appointment.dr_id} />
+                                )}
+
+
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
-            <div>
-                <h2>Past History</h2>
-                <div className="past">
-                    <div>
-                    <h3>History</h3>
-                    {userData.history ? (
-                        <div >
-                            <ul>
-                                {userData.history.split(',').map((item, index) => (
-                                    <li key={index}>{item.trim()}</li>
-                                ))}
-                            </ul>
-                            <textarea
-                                value={updatedHistory}
-                                onChange={(e) => setUpdatedHistory(e.target.value)}
-                            />
-                            <button onClick={handleUpdateUserData}>Update History</button>
-                            {updatedHistory && <span>{message}</span>}
-                        </div>
-                    ) : (
-                        <div>
-                            <p>No past history added</p>
-                            <textarea
-                                value={updatedHistory}
-                                onChange={(e) => setUpdatedHistory(e.target.value)}
-                            />
-                            <button onClick={handleUpdateUserData}>Add History</button>
-                            {updatedHistory && <span>{message}</span>}
-                        </div>
-                    )}
-                    </div>
                 <div>
-                    <h3>Allergies</h3>
-                    {userData.allergies ? (
+                    <h2>Past History</h2>
+                    <div className="past">
                         <div>
-                            <ul>
-                                {userData.allergies.split(',').map((item, index) => (
-                                    <li key={index}>{item.trim()}</li>
-                                ))}
-                            </ul>
-                            <textarea
-                                value={updatedAllergies}
-                                onChange={(e) => setUpdatedAllergies(e.target.value)}
-                            />
-                            <button onClick={handleUpdateUserData}>Update allergies</button>
-                            {updatedAllergies && <span>{message}</span>}
+                            <h3>History</h3>
+                            {userData.history ? (
+                                <div >
+                                    <ul>
+                                        {userData.history.split(',').map((item, index) => (
+                                            <li key={index}>{item.trim()}</li>
+                                        ))}
+                                    </ul>
+                                    <textarea
+                                        value={updatedHistory}
+                                        onChange={(e) => setUpdatedHistory(e.target.value)}
+                                    />
+                                    <button onClick={handleUpdateUserData}>Update History</button>
+                                    {updatedHistory && <span>{message}</span>}
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>No past history added</p>
+                                    <textarea
+                                        value={updatedHistory}
+                                        onChange={(e) => setUpdatedHistory(e.target.value)}
+                                    />
+                                    <button onClick={handleUpdateUserData}>Add History</button>
+                                    {updatedHistory && <span>{message}</span>}
+                                </div>
+                            )}
                         </div>
-                    ) : (
                         <div>
-                            <p>No past allergies added</p>
-                            <textarea
-                                value={updatedAllergies}
-                                onChange={(e) => setUpdatedAllergies(e.target.value)}
-                            />
-                            <button onClick={handleUpdateUserData}>Add allergie</button>
-                            {updatedAllergies && <span>{message}</span>}
+                            <h3>Allergies</h3>
+                            {userData.allergies ? (
+                                <div>
+                                    <ul>
+                                        {userData.allergies.split(',').map((item, index) => (
+                                            <li key={index}>{item.trim()}</li>
+                                        ))}
+                                    </ul>
+                                    <textarea
+                                        value={updatedAllergies}
+                                        onChange={(e) => setUpdatedAllergies(e.target.value)}
+                                    />
+                                    <button onClick={handleUpdateUserData}>Update allergies</button>
+                                    {updatedAllergies && <span>{message}</span>}
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>No past allergies added</p>
+                                    <textarea
+                                        value={updatedAllergies}
+                                        onChange={(e) => setUpdatedAllergies(e.target.value)}
+                                    />
+                                    <button onClick={handleUpdateUserData}>Add allergie</button>
+                                    {updatedAllergies && <span>{message}</span>}
+                                </div>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
-                </div>
-            </div>
             </div>
 
             <div className="button-call">
@@ -209,14 +209,20 @@ const MyProfile = () => {
             <h2>Diagnosis</h2>
             <div className="diagnosis">
 
-                {userData.diagnosis && userData.diagnosis.map((diagnosis, index) => (
-                    <div key={index} className="diagnosis_div">
-                        <p>Diagnosis: {diagnosis.diagnosis}</p>
-                        <p>Date: {diagnosis.date}</p>
-                        {diagnosis.doctor_name && <p>Doctor: {diagnosis.doctor_name}</p>}
-                        {diagnosis.image && <img style={{ width: '100px' }} src={`data:image/png;base64,${diagnosis.image}`} alt="Diagnosis" />}
-                    </div>
-                ))}
+
+                {userData.diagnosis && userData.diagnosis.length > 0 ? (
+                    userData.diagnosis.map((diagnosis, index) => (
+                        <div key={index} className="diagnosis_div">
+                            <p>Diagnosis: {diagnosis.diagnosis}</p>
+                            <p>Date: {diagnosis.date}</p>
+                            {diagnosis.doctor_name && <p>Doctor: {diagnosis.doctor_name}</p>}
+                            {diagnosis.image && <img style={{ width: '100px' }} src={`data:image/png;base64,${diagnosis.image}`} alt="Diagnosis" />}
+                        </div>
+                    ))
+                ) : (
+                    <div>No diagnosis yet</div>
+                )}
+
             </div>
             <h2>Rate  your experience with us!</h2>
             <div className="rating-container">

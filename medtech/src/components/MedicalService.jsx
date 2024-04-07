@@ -1,5 +1,6 @@
 import React from "react";
 import { images } from "../../image";
+import { Link } from 'react-router-dom';
 
 const MedicalService = (props) => {
     return (
@@ -9,7 +10,12 @@ const MedicalService = (props) => {
                 <h3 className="image-title-title">{props.title}</h3>
             </div>
             <p>{props.context}</p>
-            <button className="Upload-img-btn">{props.btncontext}</button>
+            <Link to={props.location} style={{ textDecoration: 'none' }}><button className="Upload-img-btn" onClick={() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth" // This will animate the scroll behavior
+                });
+            }}>{props.btncontext}</button></Link>
         </div>
     )
 }
