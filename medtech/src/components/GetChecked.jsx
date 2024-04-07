@@ -12,8 +12,8 @@ const GetChecked = () => {
     let email = localStorage.getItem("email");
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    email && (email = email.replace(/"/g, ''));
 
-    email = email.replace(/"/g, '');
     console.log(localStorage);
 
     const handleChange = (event) => {
