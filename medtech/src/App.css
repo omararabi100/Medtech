@@ -97,7 +97,10 @@ input:focus {
     border-radius: 5px;
     color: white;
 }
-
+.login-signup-container, .user-info {
+    display: flex;
+    flex-direction: row;
+}
 .popup-overlay {
     position: fixed;
     top: 0;

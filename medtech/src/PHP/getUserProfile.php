@@ -24,6 +24,7 @@ if ($result_user->num_rows > 0) {
         'dateofbirth' => $row_user['dateofbirth'],
         'history' => $row_user['history'], 
         'allergies' => $row_user['allergies'], 
+        'rating' => $row_user['rating'],
     );
 
     $sql_appointment = "SELECT a.*, d.full_name AS doctor_name FROM appointment a

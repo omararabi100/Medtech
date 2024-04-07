@@ -172,8 +172,7 @@ foreach ($doctors as $doctor) {
     $doctor_exists = $row_check_doctor['count'] > 0;
     
     // if (!$doctor_exists) {
-    //     $sql_insert_doctor = "INSERT INTO doctors (full_name, image, times, date_available, phone_nb, starting_date) VALUES ('$full_name', '$image', '$times', '$date_available', '$phone_nb', '$starting_date')";
-        
+    //     $sql_insert_doctor = "INSERT INTO doctors (full_name, image, times, date_available, phone_nb, starting_date) VALUES ('$full_name', '$image', '$times', '$date_available', '$phone_nb', '$starting_date')"; 
     //     if ($conn->query($sql_insert_doctor) === TRUE) {
     //         echo "Doctor $full_name inserted successfully<br>";
     //     } else {

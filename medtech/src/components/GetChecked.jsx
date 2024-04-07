@@ -8,8 +8,10 @@ const GetChecked = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const IsLogged = localStorage.getItem("Islogged");
     let email = localStorage.getItem("email");
+    
+    
     const [selectedImage, setSelectedImage] = useState(null);
-    email = email.replace(/"/g, '');
+    email && (email = email.replace(/"/g, ''));
 
     const handleChange = (event) => {
         const file = event.target.files[0]; 

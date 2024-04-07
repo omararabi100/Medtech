@@ -122,21 +122,17 @@ const handleLogin = (userData , type,email,id) => {
                             )}
 
                         </ul>
-                    {user ? (
-                        <div>
-                            <div>
-
-                            <p>Hello, {storedname}!</p>
-                            </div>
-                            <button className="logout-btn" onClick={handleLogout}>Logout</button>
-                        </div>
-                    ) : (
-                        <div className="login-signup-container">
-                            <button className="login-btn" onClick={toggleLogin}>LogIn</button>
-                            <button className="signup-btn" onClick={toggleSignup}>SignUp</button>
-                        </div>
-                    )}
                 </div>
+                {user ? (
+                    <div className="user-info">
+                        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                    </div>
+                ) : (
+                    <div className="login-signup-container">
+                        <button className="login-btn" onClick={toggleLogin}>LogIn</button>
+                        <button className="signup-btn" onClick={toggleSignup}>SignUp</button>
+                    </div>
+                )}
             </div>
             {(isLoginOpen || isSignupOpen ) && (
                 <div className="popup-overlay" onClick={closePopups}>
