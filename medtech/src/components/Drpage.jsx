@@ -43,9 +43,10 @@ const Drpage = () => {
     );
 
     return (
-        <div className="">
+        <div className="Dr-page">
             <h1>Patient List</h1>
             <input
+                className="search-bar"
                 type="text"
                 placeholder="Search by name"
                 value={searchQuery}

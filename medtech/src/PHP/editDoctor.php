@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $full_name = $_POST['full_name'] ?? '';
     $phone_nb = $_POST['phone_nb'] ?? '';
     $date_available = $_POST['date_available'] ?? '';
-    $time = $_POST['time'] ?? '';
     $starting_date_str = $_POST['starting_date'] ?? '';
     $starting_date = date('Y-m-d', strtotime($starting_date_str));
     $changetime = $_POST['changetime'] ?? '';
@@ -23,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($changetime === 'false') {
+        // Update existing doctor details (without time slots)
         $sql = empty($imageData) 
             ? "UPDATE doctors SET full_name=?, date_available=?, phone_nb=?, starting_date=? WHERE id=?" 
             : "UPDATE doctors SET full_name=?, image=?, date_available=?, phone_nb=?, starting_date=? WHERE id=?";
@@ -33,8 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->bind_param("sssssi", $full_name, $imageData, $date_available, $phone_nb, $starting_date, $id);
         }
     } else {
-        $timeArray = is_array($time) ? $time : json_decode($time, true);
-        $serializedTimes = serialize($timeArray);
+        // Update doctor details including time slots
+        $time = $_POST['time'] ?? ''; // Get the time slots data
+        $timeArray = is_array($time) ? $time : json_decode($time, true); // Parse the time slots data
+        $serializedTimes = serialize($timeArray); // Serialize the time slots data
         $imageData = '';
 
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -42,10 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         if (empty($imageData)) {
+            // Update without changing the image
             $sql = "UPDATE doctors SET full_name=?, date_available=?, phone_nb=?, times=?, starting_date=? WHERE id=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssssi", $full_name, $date_available, $phone_nb, $serializedTimes, $starting_date, $id);
         } else {
+            // Update with changing the image
             $sql = "UPDATE doctors SET full_name=?, image=?, date_available=?, phone_nb=?, times=?, starting_date=? WHERE id=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssssssi", $full_name, $imageData, $date_available, $phone_nb, $serializedTimes, $starting_date, $id);

@@ -21,6 +21,7 @@ import Patientinfo from "./components/patientinfo";
 import ContactUsSuccess from './components/ContactUsSuccess';
 import Article from "./components/Article";
 import SideBar from './components/Sidebar';
+import FAQs from './components/FAQs';
 
 function App() {
     const [translateXValue, setTranslateXValue] = useState(-100.5)
@@ -35,10 +36,10 @@ function App() {
         }
     }
   return (
-    <div className='main-container'>
-      <Header showHide={showHide}/>
-      <SideBar showHide={showHide} translateXValue={translateXValue}/>
-      <Routes>
+        <div className='main-container'>
+        <Header showHide={showHide}/>
+        <SideBar showHide={showHide} translateXValue={translateXValue}/>
+        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="risk-prediction-tool" element={<RiskPredectionTool />} />
         <Route path="get-checked" element={<GetChecked />} />
@@ -50,6 +51,7 @@ function App() {
         <Route path="score_predicted" element={<Score_predicted />} />
         <Route path="admin-page" element={<Admin />} />
         <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="faqs" element={<FAQs />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="dr-page" element={<Drpage />} />
         <Route path="my-profile" element={<MyProfile />} />

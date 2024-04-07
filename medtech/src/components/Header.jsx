@@ -56,10 +56,7 @@ const handleLogin = (userData , type,email,id) => {
         setUser("User");
         localStorage.setItem("user", "User",email );
     }
-    // console.log(formdata.email);
     setName(userData);
-    console.log(formdata );
-    console.log(id);
     localStorage.setItem("userData", JSON.stringify(userData));
     localStorage.setItem("Islogged" , true) ;
     localStorage.setItem("email", JSON.stringify(formdata.email));

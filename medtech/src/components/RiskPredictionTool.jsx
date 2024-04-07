@@ -23,9 +23,9 @@ const RiskPredictionTool = () => {
     const Gender = selectedValues["gender"] === "Female" ? 0.0016 : selectedValues["gender"] === "Male" ? 0.0274 : 0;
     const Age = selectedValues["age"] === "60+ years" ? 5 : selectedValues["age"] === "40-59 years" ? 2.3 : selectedValues["age"] === "39 years or less" ? 0.301 : 0;
     const Origin = selectedValues["origin"] === "Northen European or UK" ? 0.033 : selectedValues["origin"] === "Other" ? 0.01 : 0;
-    const tan = selectedValues["tan"] === "Yes, I burn easily" ? 10 : selectedValues["tan"] === "No,I could get a tan" ? 30 : 0;
+    const tan = selectedValues["tan"] === "Yes, I burn easily" ? 10 : selectedValues["tan"] === "No,I could get a tan" ? 20 : 0;
     const burn = selectedValues["burn"] === "More than 5" ? 20 : selectedValues["burn"] === "2 to 5" ? 5 : selectedValues["burn"] === "Less than 2" ? 0.5 : 0;
-    const sun = selectedValues["sun"] === "None sun" ? 0.5 : selectedValues["sun"] === "1 to 10" ? 10 : selectedValues["sun"] === "More than 10" ? 20 : 0;
+    const sun = selectedValues["sun"] === "None sun" ? 0.5 : selectedValues["sun"] === "1 to 10" ? 3 : selectedValues["sun"] === "More than 10" ? 7 : 0;
     const moles = selectedValues["moles"] === "Many" ? 10 : selectedValues["moles"] === "Some" ? 5 : selectedValues["moles"] === "Few or none" ? 1 : 0;
     const fhistory = selectedValues["history"] === "Yes, there is" ? 5 : selectedValues["history"] === "No one" ? 0.8 : 0;
     const cutout = selectedValues["cutout"] === "None cutout" ? 0.5 : selectedValues["cutout"] === "1 to 10 cutouts" ? 5 : selectedValues["cutout"] === "More than 10 cutouts" ? 20 : 0;
@@ -83,7 +83,6 @@ const RiskPredictionTool = () => {
         </div>
         <button type="submit">Check</button>
       </form>
-      <Footer />
 
     </div>
   );

@@ -7,7 +7,7 @@ include_once("config.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && isset($_POST['email'])) {
         $email = $_POST['email'];
-
+        $diagnosis = $_POST['predicted_class'];
         $imageData = file_get_contents($_FILES['image']['tmp_name']);
 
         $base64Image = base64_encode($imageData);
@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $currentDate = date("Y-m-d H:i:s");
 
-            $sql = "INSERT INTO diagnosis (patient_id, image, date) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO diagnosis (patient_id,diagnosis, image, date  ) VALUES (?, ?, ? , ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iss", $userId, $base64Image, $currentDate);
+            $stmt->bind_param("isss", $userId,$diagnosis, $base64Image, $currentDate );
             
             if ($stmt->execute()) {
                 echo json_encode(["success" => true, "message" => "Image uploaded successfully"]);

@@ -20,6 +20,12 @@ input:focus {
     outline: none;
     border-color: var(--secondarycolor);
 }
+.search-bar{
+    padding: 7px 10px;
+    margin: 15px;
+    border: 1px solid rgb(219, 215, 215);
+    width: 250px;
+}
 /*--- Nav Bar ---*/
 
 .nav-content {
@@ -82,8 +88,9 @@ input:focus {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.2px;
-    padding: 8px;
+    padding: 6px 10px;
     border: none;
+    border-radius: 5px;
 }
 .nav-bar .login-btn{
     color: #CBAF87;
@@ -414,13 +421,12 @@ input:focus {
     border-radius: 10px;
     border: 0.469px solid rgba(255, 255, 255, 0.50);
     background: #FFF;
-    background-color: #b3bac2;
     box-shadow: -3px 2px 19.4px 5px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(14.25px);
     margin-bottom: 40px;
 }
 .Service-container > p {
-    color: white;
+    color: var(--darkblue);
     font-family: Poppins;
     font-size: 21px;
     font-style: normal;
@@ -441,11 +447,10 @@ input:focus {
     border: none;
 }
 .image-title-title {
-    /* color: #363062; */
-    color: white;
+    color: #363062;
     font-family: 'Poppins','sans-serif';
     font-size: 22px;
-    font-weight: 900;
+    font-weight: 600;
 }
 .Upload-img-btn {
     display: flex;
@@ -458,8 +463,7 @@ input:focus {
     align-items: center;
     flex-shrink: 0;
     font-family: 'Poppins' , 'sans-serif';
-    box-shadow: -3px 2px 19.4px 5px rgba(101, 101, 101, 0.15);
-
+    /* box-shadow: -3px 2px 19.4px 5px rgba(101, 101, 101, 0.15); */
 }
 /* Experts-Dermatologists */
 .Expert-Dermatologists {
@@ -1114,6 +1118,70 @@ input:focus {
 .Addform-div button{
     margin: 0 !important;
 }
+.remove-time{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    gap: 2px;
+    margin: 0 !important;
+
+}
+.remove-time .svgIcon path {
+    fill: white;
+}
+
+.remove-time:hover {
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+    gap: 0;
+  }
+  
+  .remove-time .bin-top {
+    transform-origin: bottom right;
+  }
+  .remove-time:hover .bin-top {
+    transition-duration: 0.5s;
+    transform: rotate(160deg);
+  }
+
+
+.remove-time .svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+}
+
+.remove-time .svgIcon path {
+    fill: white;
+}
+
+.remove-time:hover {
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69) !important;
+    align-items: center;
+    gap: 0;
+}
+
+.remove-time .bin-top {
+    transform-origin: bottom right;
+}
+.remove-time:hover .bin-top {
+    transition-duration: 0.5s;
+    transform: rotate(160deg);
+}
+
 .Addform-div label{
     font-size: 16px;
     display: inline-block;
@@ -1122,7 +1190,54 @@ input:focus {
     display: block;
     margin: 0;
 }
+/* Dr-page */
+.Dr-page{
 
+}
+.Dr-page table {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+    border-spacing: 0; 
+    margin: 10px;
+}
+.Dr-page thead tr {
+    background-color: var(--maincolor); 
+}
+
+.Dr-page th {
+    padding: 12px 15px;
+    text-align: left;
+    color: #ffffff; 
+}
+
+.Dr-page td {
+    padding: 12px 15px;
+    text-align: left;
+    text-wrap: wrap;
+    width: 103px;
+}
+
+.Dr-page tbody {
+    max-height: calc(100vh - 200px); 
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.Dr-page tbody::-webkit-scrollbar {
+    width: 0;
+}
+
+.Dr-page tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.Dr-page tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
 
 
 /* Calendar */ 
@@ -1191,7 +1306,51 @@ input:focus {
     border-radius: 3px;
     color: white;
 }
-/* patient info */
+
+/* Patient-div */
+.Patient-div .patient-primary-data{
+    display: flex;
+    justify-content: space-around;
+}
+.Patient-div div:nth-child(3) {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+.Patient-div .diagnosis {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.Patient-div .diagnosis>div{
+    display: flex;
+    flex-direction: column;
+}
+.Patient-div .diagnosis_div_container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.Patient-div .add_diagnosis {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.Patient-div .add_diagnosis button {
+    width: fit-content;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: var(--beige);
+    color: white;
+    border-radius: 2px;
+}
+.Patient-div .add_diagnosis textarea{
+    width: 80%;
+}
 .modal {
     position: fixed;
     top: 0;
@@ -1211,35 +1370,68 @@ input:focus {
     max-width: 90%;
     max-height: 90%;
     overflow: auto;
-  }
-  
-  .close {
+}
+
+.close {
     color: #aaa;
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
 /* myprofile */
-.My-Profile h1{
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.custom-loader {
+    width: 50px;
+    height: 50px;
+    --c: radial-gradient(farthest-side,var(--darkblue) 92%,#0000);
+    background: var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    animation: s8 1s infinite;
+    position: relative;
+}  
+.custom-loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: 3px;
+    background: repeating-conic-gradient(var(--darkblue) 0 35deg,var(--darkblue) 0 90deg);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),var(--darkblue) 0);
+    border-radius: 50%;
+}  
+@keyframes s8 {
+    100% {
+    transform: rotate(.5turn)
+    }
+}
+.My-Profile h1 , .Patient-div h1 , .Patient-div h2{
     text-align: center;
     margin: 35px 0;
     text-decoration: underline;
     text-underline-offset: 12px;
     text-decoration-color: var(--beige);
 }
-.My-Profile .profile-info {
+.My-Profile .profile-info , .patient-info h1 {
     display: flex;
-    margin: 50px 0;
+    margin: 30px 0;
     padding: 20px;
     border-top: 2px solid #cccccc18;
     border-bottom: 2px solid #cccccc18;
@@ -1262,9 +1454,26 @@ input:focus {
     display: flex;
     justify-content: center;
 }
-.My-Profile .profile-info div:nth-child(1) p:first-of-type {
+.My-Profile .profile-info >div:nth-child(1) p:first-of-type {
     font-size: 24px;
     font-weight: bold;
+}
+.My-Profile .past div{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.My-Profile .past div:nth-child(2){
+    align-items:flex-end;
+}
+.My-Profile .past button{
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: var(--secondarycolor);
+    color: white;
+    width: fit-content;
+    border: none;
 }
 
 @media (max-width: 768px) {
@@ -1272,15 +1481,18 @@ input:focus {
         padding: 10px;
     }
 }
+.My-Profile h2:nth-child(4){
+    margin-left: 30px;
+}
 .My-Profile .diagnosis{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.My-Profile .diagnosis div {
+.My-Profile .diagnosis div , .Patient-div .diagnosis div {
     margin: 20px;
 }
-.My-Profile .diagnosis_div{
+.My-Profile .diagnosis_div , .Patient-div .diagnosis_div{
     display: flex;
     flex-direction: column;
 }
@@ -1289,11 +1501,6 @@ input:focus {
     width: 100%;
     flex-direction: row !important;
     flex-wrap: wrap;
-}
-.My-Profile .past div{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
 }
 .My-Profile button {
     display: flex;
@@ -1315,6 +1522,63 @@ input:focus {
     text-decoration: none;
     color: white;
 }
+/* About Us Page */
+
+.About-us-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .About-us-container h1 {
+    margin-top: 20px;
+    font-size: 36px;
+  }
+  
+  .about-us-line {
+    background-color: var(--beige);
+    width: 100px;
+    height: 2px;
+    margin: 0 auto;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+  }
+  
+  .About-us-container img {
+    max-width: 50%; 
+    flex: 1; 
+  }
+  
+  .About-us-container p {
+    text-align: justify;
+    line-height: 1.5;
+    margin-top: 20px;
+    font-size: 18px; 
+    flex: 1; 
+  }
+  
+  @media (max-width: 768px) {
+    .about-us-line {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .About-us-container img {
+      max-width: 100%; 
+    }
+  
+    .About-us-container h1 {
+      font-size: 28px;
+    }
+  
+    .About-us-container p {
+      font-size: 16px;
+    }
+  }
 /* Footer */
 
 .footer {

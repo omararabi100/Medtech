@@ -123,21 +123,24 @@ const PatientInfo = () => {
     }
 
     return (
-        <>
+        <div className='Patient-div'>
+
             <h1>Patient Information</h1>
             {selectedDateTime.start !== null && selectedDateTime.end !== null && (
-                <>
+                <div>
                     <p>Start Time: {startTime}</p>
                     <p>End Time: {endTime}</p>
-                </>
+                </div>
             )}
             {patientData && (
                 <>
-                    <p>Patient ID: {patientData.patient_info.patient_id}</p>
-                    <p>Patient Name: {patientData.patient_info.full_name}</p>
-                    <p>Patient Gender: {patientData.patient_info.gender}</p>
-                    <p>Patient Age: {calculateAge(patientData.patient_info.dateofbirth)}</p>
-
+                <div className='patient-primary-data'>
+                    <p> ID: {patientData.patient_info.patient_id}</p>
+                    <p> Name: {patientData.patient_info.full_name}</p>
+                    <p> Gender: {patientData.patient_info.gender}</p>
+                    <p> Age: {calculateAge(patientData.patient_info.dateofbirth)}</p>
+                    </div>
+                    <div>
                     {patientData.patient_info.history ? (
                         <p>History: {patientData.patient_info.history}</p>
                     ) : (
@@ -146,12 +149,15 @@ const PatientInfo = () => {
 
                     {patientData.patient_info.allergies ? (
                         <p>Allergies: {patientData.patient_info.allergies}</p>
-                    ) : (
-                        <p>Allergies: No allergies </p>
-                    )}
+                        ) : (
+                            <p>Allergies: No allergies </p>
+                            )}
+                    </div>
                     <h2>Diagnosis</h2>
-                    {patientData.diagnosis && patientData.diagnosis.map((diagnosis, index) => (
-                        <div key={index}>
+                    {/* {patientData.diagnosis && patientData.diagnosis.map((diagnosis, index) => (
+                        <div key={index} className='diagnosis'>
+                            <div>
+
                             <p>Diagnosis: {diagnosis.diagnosis}</p>
                             <p>Date: {diagnosis.date}</p>
                             {diagnosis.dr_id ?(
@@ -160,8 +166,6 @@ const PatientInfo = () => {
                             ) :
                             <></>
                             }
-                            
-                            
                             {diagnosis.image && (
                                 <img
                                 src={
@@ -172,22 +176,48 @@ const PatientInfo = () => {
                                 onClick={() => openModal(diagnosis.image)}
                                 />
                             )}
-                            <hr />
+                            </div>
+
                         </div>
-                    ))}
+                    ))} */}
+                    <div className='diagnosis_div_container'>
+
+                    {patientData.diagnosis && patientData.diagnosis.map((diagnosis, index) => (
+                    <div key={index} className="diagnosis_div">
+                        <p>Diagnosis: {diagnosis.diagnosis}</p>
+                        <p>Date: {diagnosis.date}</p>
+                        {diagnosis.doctor_name && <p>Doctor: {diagnosis.doctor_name}</p>}
+                        {diagnosis.image && (
+                                <img
+                                src={
+                                `data:image/${diagnosis.image.endsWith('.jpg') || diagnosis.image.endsWith('.jpeg') ? 'jpeg' : 'png'};base64,${diagnosis.image}`
+                                }
+                                alt="diagnosis"
+                                style={{ width: '100px', height: '100px', cursor: 'pointer' }}
+                                onClick={() => openModal(diagnosis.image)}
+                                />
+                            )}                    </div>
+                ))}
+                    </div>
+                    <h2>Add a diagnosis</h2>
                     {diagnosisError && <p style={{ color: 'red' }}>{diagnosisError}</p>}
+                    <div className='add_diagnosis'>
+
                     <textarea
                         name="diagnosis"
                         value={diagnosisText}
                         onChange={handleDiagnosisChange}
                         cols="35"
                         rows="4"
-                    ></textarea>
+                        ></textarea>
                     <button onClick={handleUpdateDiagnosis}>Update</button>
+                        </div>
+                    
                     <br />
                     {diagnosisUpdated && (
                         <span>Diagnosis updated successfully</span>
                     )}
+
                     {modalOpen && (
                         <div className="modal" onClick={closeModal}>
                             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -202,7 +232,7 @@ const PatientInfo = () => {
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };
 

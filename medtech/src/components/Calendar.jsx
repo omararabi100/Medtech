@@ -97,11 +97,10 @@ const Calendar = () => {
       timesArray.forEach((dayInfo) => {
         const { day, slots } = dayInfo;
         const dayOfWeek = moment().day(day);
-        console.log('Day:', day);
-
-        if (dayOfWeek <= endDate) {
+  
+        if (dayOfWeek <= endDate && dayOfWeek >= currentDate.day()) { // Check if the day is within the current week and after the current day
           const startOfWeek = moment(startDate).day(day).startOf('day');
-          console.log("slots" , slots)
+  
           slots.forEach((slot) => {
             const startTime = moment(slot.starting_time, 'HH:mm');
             const endTime = moment(slot.ending_time, 'HH:mm');
@@ -117,6 +116,12 @@ const Calendar = () => {
               });
   
               const backgroundColor = isTaken ? 'yellow' : 'lightgray';
+              let selectable = true; // Default to true
+  
+              // If the slot is in the current day
+              if (slotStart.isSame(currentDate, 'day')) {
+                selectable = false; // Make the slot unselectable
+              }
   
               events.push({
                 title: isTaken ? 'Taken' : 'Available',
@@ -124,7 +129,7 @@ const Calendar = () => {
                 end: slotEnd.format(),
                 backgroundColor: backgroundColor,
                 borderColor: 'transparent',
-                selectable: !isTaken
+                selectable: selectable && !isTaken
               });
   
               currentStartTime.add(30, 'minutes');
@@ -136,6 +141,7 @@ const Calendar = () => {
   
     return events;
   };
+  
   
 
   const taken_time = async (doctorId, date, start_time, end_time) => {
@@ -162,45 +168,36 @@ const Calendar = () => {
       end: clickInfo.event.end,
     };
     setSelectedDateTime(selectedDateTime);
-
+  
     const usertype = localStorage.getItem("user"); 
-    if (usertype === "Doctor" ) {
+    if (usertype === "Doctor") {
       if(clickInfo.event.backgroundColor === 'yellow'){
         navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
-      }
-      else{
-      setSelectedEvent(null);
-
-      }
-
-    }
-    else{
-    if (clickInfo.event === selectedEvent) {
-      setSelectedEvent(null);
-      if (clickInfo.event.backgroundColor === 'red') {
-        clickInfo.event.setProp('title', 'Available');
-        clickInfo.event.setProp('backgroundColor', 'lightgray');
-
       } else {
-        clickInfo.event.setProp('title', 'Reserve');
-        clickInfo.event.setProp('backgroundColor', 'lightgray');
+        setSelectedEvent(null);
       }
     } else {
-      if (selectedEvent) {
-        selectedEvent.setProp('title', 'Available');
-        selectedEvent.setProp('backgroundColor', 'lightgray');
-      }
-      if (clickInfo.event.backgroundColor === 'lightgray') {
-        setSelectedEvent(clickInfo.event);
-        clickInfo.event.setProp('title', 'Reserve');
-        clickInfo.event.setProp('backgroundColor', 'red');
-        setAppointmentReserved(true);
-        setReservedDateTime(moment(clickInfo.event.start).format('YYYY-MM-DD HH:mm:ss'));
-      }
-      
+      if (moment(clickInfo.event.start).isSameOrAfter(moment(), 'day')) { // Check if the slot is after or on the current day
+        // Slot is for a future date
+        if (clickInfo.event.backgroundColor === 'lightgray') {
+          setSelectedEvent(clickInfo.event);
+          clickInfo.event.setProp('title', 'Reserve');
+          clickInfo.event.setProp('backgroundColor', 'red');
+          setAppointmentReserved(true);
+          setReservedDateTime(moment(clickInfo.event.start).format('YYYY-MM-DD HH:mm:ss'));
+        } else {
+          setSelectedEvent(null);
+          clickInfo.event.setProp('title', 'Available');
+          clickInfo.event.setProp('backgroundColor', 'lightgray');
+        }
+      } else {
+        // Slot is for the current day
+        // You may display a message or take any other action here
+        console.log('You cannot reserve a time slot for the current day.');
       }
     }
   };
+  
 
   const handlereserve = () => {
     if (!selectedEvent) {

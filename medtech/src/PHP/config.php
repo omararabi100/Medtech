@@ -241,7 +241,6 @@ $sql = "CREATE TABLE IF NOT EXISTS diagnosis  (
     patient_id INT,
     dr_id INT,
     diagnosis VARCHAR(255),
-
     date DATE,
     image LONGBLOB,
     FOREIGN KEY (patient_id) REFERENCES users(id),

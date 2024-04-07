@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import $ from "jquery";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,7 +26,7 @@ const Admin = () => {
     const [daysFilter, setDaysFilter] = useState([]);
     const [showDaysFilter, setShowDaysFilter] = useState(false); 
     const [changetime , setchangetime] = useState(false);
-
+    const [removetime , setremovetime] = useState(false);
     useEffect(() => {
         fetchData();
     }, []);
@@ -121,6 +121,7 @@ const Admin = () => {
         event.preventDefault();
         console.log("formData.time.day" , formData.day)
         console.log("formData.time.length" , formData.time.length)
+
         if (formData.time.length === 0) {
             const day = formData.date_available.find(day => formData.time.every(time => time.day !== day));
     
@@ -137,6 +138,7 @@ const Admin = () => {
                 }]
             });
         }
+        
         if (Object.values(formData).some(value => value === "")) {
             setErrorMessage("All fields should be filled");
             return;
@@ -182,6 +184,8 @@ const Admin = () => {
 
     const editDoctor = (doctorId) => {
         setchangetime(false);
+        setremovetime(false);
+
         const doctorToEdit = data.find(doctor => doctor.id === doctorId);
         console.log("Doctor to edit:", doctorToEdit); 
         console.log("Edited doctor:", editedDoctor); 
@@ -220,6 +224,8 @@ const Admin = () => {
 
         setShowAddForm(false);
         setEditMode(false);
+        setremovetime(false);
+
 
     };
     const handleImageChange = (e) => {
@@ -237,6 +243,8 @@ const Admin = () => {
         setEditedDoctor(null);
         setEditMode(false);
         setShowAddForm(false);
+        setremovetime(false);
+
 
     };
     const handleSearchInputChange = (e) => {
@@ -259,26 +267,52 @@ const Admin = () => {
     const toggleDaysFilter = () => {
         setShowDaysFilter(!showDaysFilter);
     };
-    const filteredDoctors = data.filter((doctor) =>
-        doctor.full_name.toLowerCase().startsWith(searchQuery) &&
-        doctor.phone_nb.includes(phoneFilter) &&
-        (daysFilter.length === 0 || daysFilter.some((day) => doctor.date_available.includes(day)))
-    );
+    // const filteredDoctors = data.filter((doctor) =>
+    //     doctor.full_name.toLowerCase().startsWith(searchQuery) &&
+    //     doctor.phone_nb.includes(phoneFilter) &&
+    //     (daysFilter.length === 0 || daysFilter.some((day) => doctor.date_available.includes(day)))
+    // );
+    const filteredDoctors = useMemo(() => {
+        return data.filter((doctor) =>
+            doctor.full_name.toLowerCase().startsWith(searchQuery) &&
+            doctor.phone_nb.includes(phoneFilter) &&
+            (daysFilter.length === 0 || daysFilter.some((day) => doctor.date_available.includes(day)))
+        );
+    }, [data, searchQuery, phoneFilter, daysFilter]);
     const updateDoctor = (event) => {
         event.preventDefault();
         let formDataToSend = new FormData();
-        const fullNameExists = data.some(doctor => doctor.full_name === formData.full_name);
+        const fullNameExists = data
+            .filter(doctor => doctor.id !== formData.id)
+            .some(doctor => doctor.full_name === formData.full_name);
+        
         if (fullNameExists) {
             setErrorMessage("Name already exists");
             return; 
         }
-        formDataToSend.append('changetime', changetime.toString());
     
+        if (removetime) {
+            // Update the time state before sending it to the server
+            const updatedTimeSlots = formData.time.map(daySlot => ({
+                day: daySlot.day.trim(),
+                slots: daySlot.slots.map(slot => ({
+                    starting_time: slot.starting_time,
+                    ending_time: slot.ending_time
+                }))
+            }));
+            const timeData = JSON.stringify(updatedTimeSlots);
             for (const key in formData) {
                 formDataToSend.append(key, formData[key]);
             }
-        formDataToSend.append('image', formData.image);
-
+            formDataToSend.append('image', formData.image);
+            formDataToSend.append('time', timeData);
+        } else {
+            for (const key in formData) {
+                formDataToSend.append(key, formData[key]);
+            }
+            formDataToSend.append('image', formData.image);
+            formDataToSend.append('changetime', changetime.toString());
+        }
     
         $.ajax({
             url: "http://localhost:8000/editDoctor.php",
@@ -293,21 +327,21 @@ const Admin = () => {
                     date_available: [],
                     time: [],
                     phone_nb: "",
-                    
                     starting_date: new Date()
                 });
-
+    
                 fetchData();
                 setErrorMessage("");
-                setEditMode(false) ; 
+                setEditMode(false);
                 setShowAddForm(false);
-
+                setremovetime(false); 
             },
             error: (error) => {
                 setErrorMessage("Error updating doctor: " + error.message);
             }
         });
     };
+    
     
 
     return (
@@ -347,16 +381,19 @@ const Admin = () => {
                                 updateDoctor = {updateDoctor}
                                 errorMessage={errorMessage}
                                 setErrorMessage={setErrorMessage}
+                                setremovetime={setremovetime}
                             />
                     </div>
                     )}
                 <input
+                    className="search-bar"
                     type="text"
                     placeholder="Search by name"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                 />
                 <input
+                    className="search-bar"
                     type="text"
                     placeholder="Filter by phone number"
                     value={phoneFilter}

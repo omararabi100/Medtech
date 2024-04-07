@@ -39,6 +39,7 @@ if ($result_user->num_rows > 0) {
     while ($row_appointment = $result_appointment->fetch_assoc()) {
         $appointmentsData[] = array(
             'date' => $row_appointment['date'],
+            'dr_id' => $row_appointment['dr_id'],
             'start_time' => $row_appointment['start_time'],
             'end_time' => $row_appointment['end_time'],
             'doctor_name' => $row_appointment['doctor_name'], 

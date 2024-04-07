@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
+import CallButton from "./CallButton";
 
 const MyProfile = () => {
     const [userData, setUserData] = useState(null);
@@ -92,13 +93,17 @@ const MyProfile = () => {
     };
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return <div className="loader">
+            <div className="custom-loader"></div>
+        </div>;
     }
 
     const currentDate = new Date();
     const currentDateString = currentDate.toISOString().slice(0, 10);
-    const currentTimeString = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
+    const currentHours = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
+    const currentTimeString = `${currentHours}:${currentMinutes < 10 ? '0' : ''}${currentMinutes}`;
+    // console.log(appointment.dr_id)
     return (
         <div className="My-Profile">
             <h1>My Profile</h1>
@@ -112,82 +117,88 @@ const MyProfile = () => {
                 </div>
                 <div>
 
-                    <h2>Appointments</h2>
-                    {userData.appointments && userData.appointments.map((appointment, index) => (
-                        <div key={index}>
-                            <p>Date: {appointment.date}</p>
-                            <p>Time: {appointment.start_time} - {appointment.end_time}</p>
-                            <p>Dr name: {appointment.doctor_name}</p>
+            <h2>Appointments</h2>
+            {userData.appointments && userData.appointments.map((appointment, index) => (
+                <div key={index}>
+                    <p>Date: {appointment.date}</p>
+                    <p>Time: {appointment.start_time} - {appointment.end_time}</p>
+                    <p>Dr name: {appointment.doctor_name}</p>
+                    
+                    {/* {console.log("Appointment time:", appointment.start_time, "-", appointment.end_time)} */}
+                    {/* {console.log("Current time:", currentTimeString)} */}
+                    {console.log(appointment)}
 
-                            {(appointment.date === currentDateString &&
-                                currentTimeString >= appointment.start_time &&
-                                currentTimeString <= appointment.end_time) && (
-                                    <button onClick={() => handleCallNow(appointment)}>Call Now</button>
-                                )}
-                        </div>
-                    ))}
+                    {(appointment.date === currentDateString && 
+                        compareTimes(currentTimeString, appointment.start_time) >= 0 &&
+                        compareTimes(currentTimeString, appointment.end_time) <= 0) && (
+                            <CallButton doctorId={appointment.dr_id} />
+                            )}
+
+                    
                 </div>
-                <div>
-                    <h2>Past History</h2>
-                    <div className="past">
-                        <div>
-                            <h3>History</h3>
-                            {userData.history ? (
-                                <div >
-                                    <ul>
-                                        {userData.history.split(',').map((item, index) => (
-                                            <li key={index}>{item.trim()}</li>
-                                        ))}
-                                    </ul>
-                                    <textarea
-                                        value={updatedHistory}
-                                        onChange={(e) => setUpdatedHistory(e.target.value)}
-                                    />
-                                    <button onClick={handleUpdateUserData}>Update History</button>
-                                    {updatedHistory && <span>{message}</span>}
-                                </div>
-                            ) : (
-                                <div>
-                                    <p>No past history added</p>
-                                    <textarea
-                                        value={updatedHistory}
-                                        onChange={(e) => setUpdatedHistory(e.target.value)}
-                                    />
-                                    <button onClick={handleUpdateUserData}>Add History</button>
-                                    {updatedHistory && <span>{message}</span>}
-                                </div>
-                            )}
+            ))}
+            </div>
+            <div>
+                <h2>Past History</h2>
+                <div className="past">
+                    <div>
+                    <h3>History</h3>
+                    {userData.history ? (
+                        <div >
+                            <ul>
+                                {userData.history.split(',').map((item, index) => (
+                                    <li key={index}>{item.trim()}</li>
+                                ))}
+                            </ul>
+                            <textarea
+                                value={updatedHistory}
+                                onChange={(e) => setUpdatedHistory(e.target.value)}
+                            />
+                            <button onClick={handleUpdateUserData}>Update History</button>
+                            {updatedHistory && <span>{message}</span>}
                         </div>
+                    ) : (
                         <div>
-                            <h3>Allergies</h3>
-                            {userData.allergies ? (
-                                <div>
-                                    <ul>
-                                        {userData.allergies.split(',').map((item, index) => (
-                                            <li key={index}>{item.trim()}</li>
-                                        ))}
-                                    </ul>
-                                    <textarea
-                                        value={updatedAllergies}
-                                        onChange={(e) => setUpdatedAllergies(e.target.value)}
-                                    />
-                                    <button onClick={handleUpdateUserData}>Update allergies</button>
-                                    {updatedAllergies && <span>{message}</span>}
-                                </div>
-                            ) : (
-                                <div>
-                                    <p>No past allergies added</p>
-                                    <textarea
-                                        value={updatedAllergies}
-                                        onChange={(e) => setUpdatedAllergies(e.target.value)}
-                                    />
-                                    <button onClick={handleUpdateUserData}>Add allergie</button>
-                                    {updatedAllergies && <span>{message}</span>}
-                                </div>
-                            )}
+                            <p>No past history added</p>
+                            <textarea
+                                value={updatedHistory}
+                                onChange={(e) => setUpdatedHistory(e.target.value)}
+                            />
+                            <button onClick={handleUpdateUserData}>Add History</button>
+                            {updatedHistory && <span>{message}</span>}
                         </div>
+                    )}
                     </div>
+                <div>
+                    <h3>Allergies</h3>
+                    {userData.allergies ? (
+                        <div>
+                            <ul>
+                                {userData.allergies.split(',').map((item, index) => (
+                                    <li key={index}>{item.trim()}</li>
+                                ))}
+                            </ul>
+                            <textarea
+                                value={updatedAllergies}
+                                onChange={(e) => setUpdatedAllergies(e.target.value)}
+                            />
+                            <button onClick={handleUpdateUserData}>Update allergies</button>
+                            {updatedAllergies && <span>{message}</span>}
+                        </div>
+                    ) : (
+                        <div>
+                            <p>No past allergies added</p>
+                            <textarea
+                                value={updatedAllergies}
+                                onChange={(e) => setUpdatedAllergies(e.target.value)}
+                            />
+                            <button onClick={handleUpdateUserData}>Add allergie</button>
+                            {updatedAllergies && <span>{message}</span>}
+                        </div>
+                    )}
                 </div>
+                </div>
+            </div>
             </div>
 
             <div className="button-call">
@@ -229,6 +240,18 @@ const MyProfile = () => {
             </div>
         </div>
     );
+};
+
+// Function to compare two times in 24-hour format
+const compareTimes = (time1, time2) => {
+    const [hours1, minutes1] = time1.split(":").map(Number);
+    const [hours2, minutes2] = time2.split(":").map(Number);
+
+    if (hours1 < hours2) return -1;
+    if (hours1 > hours2) return 1;
+    if (minutes1 < minutes2) return -1;
+    if (minutes1 > minutes2) return 1;
+    return 0;
 };
 
 export default MyProfile;

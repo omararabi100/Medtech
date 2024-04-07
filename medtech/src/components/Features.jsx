@@ -6,9 +6,9 @@ const Features = () => {
         <div>
             <h4>Features</h4>
             <ul>
-                <li><Link to="/">Risk Prediction</Link></li>
-                <li><Link to="/">Get Checked</Link></li>
-                <li><Link to="/">Call Doctor</Link></li>
+                <li><Link to="/risk-prediction-tool">Risk Prediction</Link></li>
+                <li><Link to="/get-checked">Get Checked</Link></li>
+                <li><Link to="/call-now">Call Doctor</Link></li>
             </ul>
         </div>
     )
