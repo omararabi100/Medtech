@@ -169,7 +169,7 @@ const MyProfile = () => {
                                 </div>
                             )}
                         </div>
-                        <div>
+                        <div className="allergies">
                             <h3>Allergies</h3>
                             {userData.allergies ? (
                                 <div>
@@ -182,7 +182,7 @@ const MyProfile = () => {
                                         value={updatedAllergies}
                                         onChange={(e) => setUpdatedAllergies(e.target.value)}
                                     />
-                                    <button onClick={handleUpdateUserData}>Update allergies</button>
+                                    <button onClick={handleUpdateUserData}>Update Allergies</button>
                                     {updatedAllergies && <span>{message}</span>}
                                 </div>
                             ) : (
@@ -192,7 +192,7 @@ const MyProfile = () => {
                                         value={updatedAllergies}
                                         onChange={(e) => setUpdatedAllergies(e.target.value)}
                                     />
-                                    <button onClick={handleUpdateUserData}>Add allergie</button>
+                                    <button onClick={handleUpdateUserData}>Add Allergies</button>
                                     {updatedAllergies && <span>{message}</span>}
                                 </div>
                             )}

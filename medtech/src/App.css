@@ -496,7 +496,7 @@ input:focus {
     width: inherit;
     overflow-x: scroll;
     padding-bottom: 20px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 .Derms-container::-webkit-scrollbar {
     display: none;
@@ -1464,6 +1464,19 @@ input:focus {
 .My-Profile .past div:nth-child(2){
     align-items:flex-end;
 }
+.My-Profile .past div h3, .My-Profile .allergies h3{
+    text-align: center;
+}
+.My-Profile .allergies h3 {
+    width:100%;
+}
+.My-Profile .past ul{
+    width: 90%;
+}
+.My-Profile .past ul li{
+    width: 90%;
+}
+
 .My-Profile .past button{
     margin-top: 15px;
     padding: 10px;
@@ -1860,7 +1873,7 @@ input:focus {
         display: none;
     }
 }
-@media screen and (min-width: 1052px){
+@media screen and (max-width: 1400px) {
     .active{
         font-weight: bold;
         color: var(--maincolor) !important;
