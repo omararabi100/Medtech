@@ -1479,8 +1479,12 @@ input:focus {
         padding: 10px;
     }
 }
-.My-Profile h2:nth-child(4){
+.My-Profile h2:nth-child(4), .rate-label{
     margin-left: 30px;
+}
+.rating-container {
+    text-align: center;
+    margin-top: 15px;
 }
 .My-Profile .diagnosis{
     display: flex;
@@ -1856,7 +1860,15 @@ input:focus {
         display: none;
     }
 }
-
+@media screen and (min-width: 1052px){
+    .active{
+        font-weight: bold;
+        color: var(--maincolor) !important;
+        text-decoration: underline !important;
+        text-underline-offset: 7px !important;
+        text-decoration-color: var(--beige) !important;
+    }
+}
 @media screen and (max-width: 1052px) and (min-width: 964px) {
     .nav-bar h2 {
       display: none;

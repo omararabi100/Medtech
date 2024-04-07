@@ -109,7 +109,7 @@ const handleLogin = (userData , type,email,id) => {
                             </>
                         )}
                         {user && (
-                            <ul>
+                            <>
                                 {user=== "Doctor" && (
                                     <>
                                     <li><Link to="/dr-page" className={location.pathname === '/dr-page' ? 'active' : ''}>Doctor Page</Link></li>
@@ -122,7 +122,7 @@ const handleLogin = (userData , type,email,id) => {
                                 {(user !== "Doctor" && user!== "Admin") && (
                                 <li><Link to="/my-profile" className={location.pathname === '/my-profile' ? 'active' : ''}>My Profile</Link></li>
                                 )}
-                            </ul>
+                            </>
                             )}
 
                         </ul>

@@ -224,7 +224,7 @@ const MyProfile = () => {
                 )}
 
             </div>
-            <h2>Rate  your experience with us!</h2>
+            <h2 className="rate-label">Rate  your experience with us!</h2>
             <div className="rating-container">
                 {[...Array(5)].map((_, index) => (
                     <svg
@@ -233,9 +233,9 @@ const MyProfile = () => {
                         onMouseLeave={handleStarLeave}
                         onClick={handleClickStar}
                         viewBox="0 0 24 24"
-                        fill={index < rating ? "#ffc107" : "#e4e5e9"}
-                        width="24px"
-                        height="24px"
+                        fill={index < rating ? "#363062" : "#999"}
+                        width="50px"
+                        height="50px"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path d="M0 0h24v24H0z" fill="none" />
