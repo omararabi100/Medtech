@@ -60,8 +60,8 @@ function App() {
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="dr-page" element={<Drpage />} />
         <Route path="my-profile" element={<MyProfile />} />
-        <Route path="/call-now/calendar" element={<Calendar />} />
-        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/call-now/calendar" element={<Calendar toggleLoginPopup={toggleLoginPopup}/>} />
+        <Route path="/calendar" element={<Calendar toggleLoginPopup={toggleLoginPopup}/>} />
         <Route path="/patient-info" element={<Patientinfo />} />
         <Route path="/patient-info/:patient_id"
         element={<Patientinfo />}

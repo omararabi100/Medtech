@@ -1079,10 +1079,12 @@ input:focus {
     width: 200px;
     height: 46px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     /* margin-left: 30px;
     margin-top: 20px; */
     cursor: pointer;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 .callnow-doctor-list {
     width: 100%;

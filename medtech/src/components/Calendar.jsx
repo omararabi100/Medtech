@@ -7,7 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import $ from 'jquery';
 import { unserialize } from 'serialize-php';
 import moment from 'moment';
-const Calendar = () => {
+const Calendar = ({toggleLoginPopup}) => {
   const IsLogged = localStorage.getItem("Islogged");
   const [showLoginMessage, setShowLoginMessage] = useState(false);
 
@@ -24,9 +24,6 @@ const Calendar = () => {
 
   let doctorinfo = localStorage.getItem("doctorinfo");
   useEffect(() => {
-    if (IsLogged !== "true") {
-      setShowLoginMessage(true);
-  } 
     const usertype = localStorage.getItem("user");
     let doctorId = null;
     let url = '';
@@ -163,38 +160,44 @@ const Calendar = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
   const handleEventClick = (clickInfo) => {
-    const selectedDateTime = {
-      start: clickInfo.event.start,
-      end: clickInfo.event.end,
-    };
-    setSelectedDateTime(selectedDateTime);
-  
-    const usertype = localStorage.getItem("user"); 
-    if (usertype === "Doctor") {
-      if(clickInfo.event.backgroundColor === 'yellow'){
-        navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
-      } else {
-        setSelectedEvent(null);
-      }
-    } else {
-      if (moment(clickInfo.event.start).isSameOrAfter(moment(), 'day')) { // Check if the slot is after or on the current day
-        // Slot is for a future date
-        if (clickInfo.event.backgroundColor === 'lightgray') {
-          setSelectedEvent(clickInfo.event);
-          clickInfo.event.setProp('title', 'Reserve');
-          clickInfo.event.setProp('backgroundColor', 'red');
-          setAppointmentReserved(true);
-          setReservedDateTime(moment(clickInfo.event.start).format('YYYY-MM-DD HH:mm:ss'));
+    if (IsLogged !== "true") {
+        toggleLoginPopup();
+        setShowLoginMessage(true);
+    }
+    else {
+        const selectedDateTime = {
+          start: clickInfo.event.start,
+          end: clickInfo.event.end,
+        };
+        setSelectedDateTime(selectedDateTime);
+      
+        const usertype = localStorage.getItem("user"); 
+        if (usertype === "Doctor") {
+          if(clickInfo.event.backgroundColor === 'yellow'){
+            navigate('/patient-info', { state: { selectedDateTime: selectedDateTime } });
+          } else {
+            setSelectedEvent(null);
+          }
         } else {
-          setSelectedEvent(null);
-          clickInfo.event.setProp('title', 'Available');
-          clickInfo.event.setProp('backgroundColor', 'lightgray');
+          if (moment(clickInfo.event.start).isSameOrAfter(moment(), 'day')) { // Check if the slot is after or on the current day
+            // Slot is for a future date
+            if (clickInfo.event.backgroundColor === 'lightgray') {
+              setSelectedEvent(clickInfo.event);
+              clickInfo.event.setProp('title', 'Reserve');
+              clickInfo.event.setProp('backgroundColor', 'red');
+              setAppointmentReserved(true);
+              setReservedDateTime(moment(clickInfo.event.start).format('YYYY-MM-DD HH:mm:ss'));
+            } else {
+              setSelectedEvent(null);
+              clickInfo.event.setProp('title', 'Available');
+              clickInfo.event.setProp('backgroundColor', 'lightgray');
+            }
+          } else {
+            // Slot is for the current day
+            // You may display a message or take any other action here
+            console.log('You cannot reserve a time slot for the current day.');
+          }
         }
-      } else {
-        // Slot is for the current day
-        // You may display a message or take any other action here
-        console.log('You cannot reserve a time slot for the current day.');
-      }
     }
   };
   
