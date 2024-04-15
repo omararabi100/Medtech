@@ -78,8 +78,8 @@ const Drpage = () => {
                             <td>{patient.gender}</td>
                             <td>{calculateAge(patient.dateofbirth)}</td>
                             <td>{patient.phone_nb}</td>
-                            <td>{patient.diagnosis && patient.diagnosis.history ? patient.diagnosis.history : "None"}</td>
-                            <td>{patient.diagnosis && patient.diagnosis.allergies ? patient.diagnosis.allergies : "None"}</td>
+                            <td>{patient.history ? patient.history : "None"}</td>
+                            <td>{patient.allergies ? patient.allergies : "None"}</td>
                         </tr>
                     ))}
                 </tbody>

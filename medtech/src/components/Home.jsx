@@ -6,6 +6,7 @@ import ExpertDerm from "./ExpertDerm";
 import Footer from "./Footer";
 import Homedetails from "./Homedetails";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [doctors, setDoctors] = useState([]);
@@ -47,7 +48,7 @@ const Home = () => {
                         <h1><b>Medical Service</b></h1>
                     </div>
                     <p>Empower yourself with knowledge and take control of your skin health. Technology meets care, transforming the traditional approach to dermatological assessments</p>
-                    <button className="get-started-btn">Get Started</button>
+                    <Link to="get-checked" className="get-started-link"><button className="get-started-btn">Get Started</button></Link>
                 </div>
                 <div>
                     
