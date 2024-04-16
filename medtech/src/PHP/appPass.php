@@ -1,0 +1,4 @@
+<?php
+    $senderEmail = "";
+    $appPassword = "";
+?>

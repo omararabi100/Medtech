@@ -4,7 +4,7 @@
     require 'PHPMailer/src/PHPMailer.php';
     require 'PHPMailer/src/SMTP.php';
     require 'PHPMailer/src/Exception.php';
-
+    include("appPass.php");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $msg = $_POST['msg'];
@@ -18,13 +18,13 @@
             $mail->Host = 'smtp.gmail.com';    
             $mail->SMTPAuth = true;
 
-            $mail->Username = ''; // email
-            $mail->Password = ''; // app password
+            $mail->Username = $senderEmail;
+            $mail->Password = $appPassword; 
 
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
 
-            $mail->setFrom(''); // email
+            $mail->setFrom($senderEmail); 
             $mail->addAddress('medtech364@gmail.com');
 
             $mail->Subject = "Contact form submission from $fname $lname";

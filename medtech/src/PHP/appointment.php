@@ -1,9 +1,14 @@
 <?php
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: http://localhost:5173");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
 
 include_once("config.php");
-
+include("appPass.php");
 $patient_email = str_replace('"', '', $_POST['patient_email']);
 $dr_id = $_POST['dr_id'];
 $date = $_POST['date'];
@@ -39,6 +44,41 @@ if ($select_doctor_result->num_rows > 0) {
             $update_user_stmt = $conn->prepare($update_user_sql);
             $update_user_stmt->bind_param("si", $registered_dr, $patient_id);
             $update_user_stmt->execute();
+            
+            try {
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';    
+                $mail->SMTPAuth = true;
+
+                $mail->Username = $senderEmail; 
+                $mail->Password = $appPassword; 
+
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+
+                $mail->setFrom($senderEmail);
+                $mail->addAddress($patient_email);
+
+                $mail->Subject = "Reminder for Appointment on $date";
+
+                $mailBody = "
+                Dear Patient,\r\n
+                This email is to remind you of your upcoming appointment scheduled with Dr. $registered_dr on $date at $start_time.\r\n
+                Please ensure you have stable internet connection before your scheduled appointment time to avoid any issues.\r\n
+                If you have any questions or need to reschedule, please contact us at medtech364@gmail.com or reply to this email.\r\n
+                We look forward to seeing you at your appointment!\r\n
+                Sincerely,\r
+                Medtech
+                ";
+
+                $mail->Body = $mailBody;
+
+                $mail->send();
+
+            } catch (Exception $e) {
+                error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            }
 
             echo json_encode(array("success" => true, "message" => "Appointment reserved successfully."));
         } else {
