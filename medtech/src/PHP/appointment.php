@@ -15,6 +15,7 @@ $date = $_POST['date'];
 $start_time = $_POST['start_time'];
 $end_time = $_POST['end_time'];
 
+
 $select_doctor_sql = "SELECT full_name FROM doctors WHERE id = ?";
 $select_doctor_stmt = $conn->prepare($select_doctor_sql);
 $select_doctor_stmt->bind_param("i", $dr_id);
